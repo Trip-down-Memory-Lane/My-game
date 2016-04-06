@@ -1,0 +1,42 @@
+package game;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class Canvas extends JPanel{
+
+    public void paintComponent(Graphics g) {
+
+        paintCanvas(g);
+    }
+
+    private void paintCanvas(Graphics g) {
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        int startX = 0;
+        int startY = 25;
+        int wallXLength = 0;
+        int wallThickness = 10;
+        int passageX = 50;
+        int maxDistance = 900;
+        int element = 0;
+        int walls = Library.randomInt(6, 10);
+
+        for (int wall = 0; wall < walls; wall++) {
+            while (startX < maxDistance) {
+                if (maxDistance - startX == 50) {
+                    g2d.fillRect(startX, startY, 50, wallThickness);
+                } else {
+                    wallXLength = Library.randomInt(50, 900 - element);
+                    g2d.fillRect(startX, startY, wallXLength, wallThickness);
+                }
+                startX += wallXLength + passageX;
+                element = startX / 100;
+            }
+            startX = 0;
+            startY += 550 / walls;
+        }
+    }
+
+}
