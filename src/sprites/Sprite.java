@@ -1,10 +1,11 @@
 package sprites;
 
-import com.sun.org.apache.regexp.internal.RE;
+import graphics.Assets;
+
 import javafx.scene.shape.Rectangle;
 
 import javax.swing.*;
-import java.awt.Image;
+import java.awt.*;
 
 public class Sprite {
 

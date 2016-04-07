@@ -1,5 +1,9 @@
 package sprites;
 
+import graphics.Assets;
+
+import java.awt.*;
+
 public class BadGuy extends Sprite {
 
     public BadGuy(int x, int y) {
@@ -12,6 +16,9 @@ public class BadGuy extends Sprite {
         getImageDimensions();
     }
 
+    public void render(Graphics g) {
+        g.drawImage(Assets.badGuy, x, y, null);
+    }
 
     public void followHero(int heroX, int heroY) {
         if (heroX > x) {
