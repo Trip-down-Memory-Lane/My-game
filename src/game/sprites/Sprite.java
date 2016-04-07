@@ -1,31 +1,26 @@
-package sprites;
+package game.sprites;
 
-import graphics.Assets;
+import graphics.ImageLoader;
 
 import javafx.scene.shape.Rectangle;
 
-import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Sprite {
 
-    protected int x;
-    protected int y;
-    protected int imageWidth;
-    protected int imageHeight;
-    protected Image image;
+    int x;
+    int y;
+    private int imageWidth;
+    private int imageHeight;
+    BufferedImage image;
 
-    public Sprite(int x, int y) {
+    Sprite(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public Image loadImage(String filePath) {
-        ImageIcon ii = new ImageIcon(filePath);
-        return image = ii.getImage();
-    }
-
-    public void getImageDimensions() {
+    void getImageDimensions() {
         imageWidth = image.getWidth(null);
         imageHeight = image.getHeight(null);
     }

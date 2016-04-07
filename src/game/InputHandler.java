@@ -1,14 +1,14 @@
 package game;
 
 import display.Board;
-import sprites.Hero;
+import game.sprites.Hero;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class InputHandler implements KeyListener {
+class InputHandler implements KeyListener {
 
-    public InputHandler(Board display) {
+    InputHandler(Board display) {
         display.getCanvas().addKeyListener(this);
     }
 

@@ -40,4 +40,12 @@ public class Board extends Canvas {
     public Canvas getCanvas() {
         return this.canvas;
     }
+
+    public int getBoardWidth() {
+        return width;
+    }
+
+    public int getBoardHeight() {
+        return height;
+    }
 }

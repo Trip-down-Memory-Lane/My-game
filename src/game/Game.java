@@ -1,72 +1,85 @@
 package game;
 
 import graphics.Assets;
+import graphics.Drawer;
 
 import display.Board;
-import graphics.Assets;
-import sprites.BadGuy;
-import sprites.Hero;
+import game.sprites.BadGuy;
+import game.sprites.Hero;
 
+import javafx.scene.shape.Rectangle;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Game implements Runnable {
 
-    private Thread thread;
-    private boolean running = false;
-    private String name;
-    private int width, height;
+    public static Hero hero;
+    public static BadGuy badGuy;
+    public static Board board;
+
     private InputHandler inputHandler;
-    private Hero hero;
-    private BadGuy badGuy;
+    private Assets assets;
     private Graphics g;
     private BufferStrategy buffer;
-    private Board board;
+    private Drawer drawer;
+    private Thread thread;
+    private boolean gameRunning = false;
+    private boolean badGuyCollision = false;
+    private String name;
+    private int BOARD_X;
+    private int BOARD_Y;
 
-
-    private final int HERO_START_X = 20;
-    private final int HERO_START_Y = 20;
-    private final int BOARD_MAX_X = 855;
-    private final int BOARD_MAX_Y = 525;
-
-    public Game(String name, int width, int height) {
+    Game(String name, int width, int height) {
         this.name = name;
-        this.width = width;
-        this.height = height;
+        this.BOARD_X = width;
+        this.BOARD_Y = height;
     }
 
     private void init() {
-        board = new Board("My Game", 900, 600);
-        this.inputHandler = new InputHandler(this.board);
-        Assets.init();
-        hero = new Hero(HERO_START_X, HERO_START_Y);
-        badGuy = new BadGuy(BOARD_MAX_X, BOARD_MAX_Y);
+        board = new Board(name, BOARD_X, BOARD_Y);
+        inputHandler = new InputHandler(board);
+        assets = new Assets();
+        hero = new Hero(20, 20);
+        badGuy = new BadGuy(850, 550);
+        drawer = new Drawer();
     }
 
     private void tick() {
-        hero.move(BOARD_MAX_X, BOARD_MAX_Y);
+        hero.move();
         badGuy.followHero(hero.getX(), hero.getY());
 
-//        checkCollision();
-//        checkGameStatus();
+        checkCollision();
     }
 
     private void render() {
         this.buffer = board.getCanvas().getBufferStrategy();
         if (this.buffer == null) {
             board.getCanvas().createBufferStrategy(2);
-            this.buffer = board.getCanvas().getBufferStrategy();
             return;
         }
-
         g = buffer.getDrawGraphics();
-        g.clearRect(0, 0, BOARD_MAX_X, BOARD_MAX_Y);
-        hero.render(g);
-        badGuy.render(g);
 
+        drawer.clearCanvas(g);
+        drawer.drawSprites(g);
+
+        if (badGuyCollision) {
+            drawer.drawGameOver(g);
+            buffer.show();
+            stop();
+        }
         buffer.show();
         g.dispose();
 
+        Toolkit.getDefaultToolkit().sync();
+
+    }
+
+    private void checkCollision() {
+        Rectangle heroHitBox = hero.getBounds();
+        Rectangle badGuyHitBox = badGuy.getBounds();
+        if (badGuyHitBox.intersects(heroHitBox.getBoundsInLocal())) {
+            badGuyCollision = true;
+        }
     }
 
     @Override
@@ -82,7 +95,7 @@ public class Game implements Runnable {
         long timer = 0;
         int ticks = 0;
 
-        while (running) {
+        while (gameRunning) {
             now = System.nanoTime();
             delta += (now - lastTime) / timePerTick;
             timer += now - lastTime;
@@ -104,97 +117,24 @@ public class Game implements Runnable {
         stop();
     }
 
-    public synchronized void start() {
-        if (running) {
+    synchronized void start() {
+        if (gameRunning) {
             return;
         }
-        running = true;
+        gameRunning = true;
         thread = new Thread(this);
         thread.start();
     }
 
     private synchronized void stop() {
-        if (!running) {
+        if (!gameRunning) {
             return;
         }
-        running = false;
-
+        gameRunning = false;
         try {
             thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
-//    @Override
-//        super.paintComponent(g);
-//        setDoubleBuffered(true);
-//        if (collide) {
-//            drawGameOver(g);
-//        } else {
-//            drawObjects(g);
-//        }
-//
-//        Toolkit.getDefaultToolkit().sync();
-//    }
-//
-//    private void drawObjects(Graphics g) {
-//        Graphics2D g2d = (Graphics2D) g;
-//        setDoubleBuffered(true);
-//
-//        g2d.drawImage(hero.getImage(), hero.getX(), hero.getY(), this);
-//        g2d.drawImage(badGuy.getImage(), badGuy.getX(), badGuy.getY(), this);
-//    }
-//
-//    private void drawGameOver(Graphics g) {
-//
-//        String message = "Game Over";
-//        Font small = new Font("Helvetica", Font.BOLD, 14);
-//        FontMetrics fm = getFontMetrics(small);
-//
-//        g.setColor(Color.white);
-//        g.setFont(small);
-//        g.drawString(message, (BOARD_MAX_X - fm.stringWidth(message)) / 2, BOARD_MAX_Y / 2);
-//    }
-//
-//    public void actionPerformed(ActionEvent e) {
-//        hero.move(BOARD_MAX_X, BOARD_MAX_Y);
-//        badGuy.followHero(hero.getX(), hero.getY());
-//
-//        checkCollision();
-//        checkGameStatus();
-//
-//        repaint();
-//    }
-//
-//    public void checkCollision() {
-//
-//        javafx.scene.shape.Rectangle heroHitBox = hero.getBounds();
-//        javafx.scene.shape.Rectangle badGuyHitBox = badGuy.getBounds();
-//        if (badGuyHitBox.intersects(heroHitBox.getBoundsInLocal())) {
-//            collide = true;
-//        }
-//
-//    }
-//
-//    public void checkGameStatus() {
-//        if (collide) {
-//            timer.stop();
-//        }
-//    }
-//
-//    private class TAdapter extends KeyAdapter {
-//
-//        @Override
-//        public void keyPressed(KeyEvent e) {
-//            hero.keyPressed(e);
-//        }
-//
-//        @Override
-//        public void keyReleased(KeyEvent e) {
-//            hero.keyReleased(e);
-//        }
-//    }
-//
-//
 }

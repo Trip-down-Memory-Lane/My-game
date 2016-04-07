@@ -4,15 +4,18 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-    private static final int CROP_WIDTH = 120;
-    private static final int CROP_HEIGHT = 130;
+    private static final int CROP_WIDTH = 48;
+    private static final int CROP_HEIGHT = 52;
 //    private static final String heroSheetPath = "resources/hero.png";
 //    private static final String badGuyPath = "resources/craft.gif";
+    public Assets() {
+        initAssets();
+    }
 
     public static BufferedImage playerUp, playerLeft, playerDown, playerRight, badGuy;
 
-    public static void init() {
-        SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/Hero.png"));
+    private static void initAssets() {
+        SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/hero1.png"));
         playerUp = heroSheet.crop(0, 2 * CROP_HEIGHT, CROP_WIDTH, CROP_HEIGHT);
         playerLeft = heroSheet.crop(0, CROP_HEIGHT, CROP_WIDTH, CROP_HEIGHT);
         playerDown = heroSheet.crop(0, 0, CROP_WIDTH, CROP_HEIGHT);
