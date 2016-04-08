@@ -4,7 +4,7 @@ import textures.Assets;
 
 public class BadGuy extends Sprite {
 
-    private static int veloity = 3;
+    private static int veloity = 20;
 
     public BadGuy(int x, int y) {
         super(x, y);
@@ -14,14 +14,13 @@ public class BadGuy extends Sprite {
     private void initBadGuy() {
         image = Assets.badGuyUp;
         getImageDimensions();
-        x = 860;
-        y = 560;
+//        offsetX = getOffsetX();
+//        offsetY = getOffsetY();
+//        x = 870 - offsetX;
+//        y = 570 -  offsetX;
+        x = 850;
+        y = 550;
     }
-
-//    public void render(Graphics g) {
-//        g.drawImage(Assets.badGuy, x, y, null);
-//        Toolkit.getDefaultToolkit().sync();
-//    }
 
     public void followHero(int heroX, int heroY) {
         if (heroX > x) {

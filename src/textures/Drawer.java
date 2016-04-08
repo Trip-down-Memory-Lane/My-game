@@ -2,7 +2,9 @@ package textures;
 
 import game.Game;
 import game.graphics.Maze;
+import javafx.scene.shape.*;
 
+import javafx.scene.shape.Rectangle;
 import java.util.List;
 
 import java.awt.FontMetrics;
@@ -38,12 +40,12 @@ public class Drawer {
     }
 
     public void drawMaze(Graphics g) {
-        List<Integer[]> walls = Game.maze.getWallsCoordinates();
-        for (Integer[] coordinates: walls) {
-            int x = coordinates[0];
-            int y = coordinates[1];
-            int width = coordinates[2];
-            int height = coordinates[3];
+        List<Rectangle> walls = Game.maze.getWallsCoordinates();
+        for (Rectangle coordinates: walls) {
+            int x = (int) coordinates.getX();
+            int y = (int) coordinates.getY();
+            int width = (int) coordinates.getWidth();
+            int height = (int) coordinates.getHeight();
             g.setColor(Color.black);
             g.fillRect(x, y, width, height);
         }

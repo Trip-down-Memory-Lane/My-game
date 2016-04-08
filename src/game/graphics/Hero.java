@@ -9,10 +9,9 @@ public class Hero extends Sprite {
     public static boolean goingDown;
     public static boolean goingRight;
 
-    private final int velocity = 6;
+    private final int velocity = 4;
 
     public Hero(int x, int y) {
-
         super(x, y);
         initHero();
     }
@@ -20,8 +19,12 @@ public class Hero extends Sprite {
     private void initHero() {
         image = Assets.playerDown;
         getImageDimensions();
-        x = 20;
-        y = 20;
+//        offsetX = getOffsetX();
+//        offsetY = getOffsetY();
+//        x -= offsetX;
+//        y -= offsetX;
+        x = 0;
+        y = 0;
     }
 
     public void move() {

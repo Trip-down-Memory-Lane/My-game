@@ -1,5 +1,6 @@
 package game.graphics;
 
+import javafx.scene.shape.Rectangle;
 import lib.Library;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.List;
 
 public class Maze {
 
-    List<Integer[]> walls;
+    List<Rectangle> walls;
     private int boardX;
     private int boardY;
     private int amountWalls;
@@ -43,12 +44,12 @@ public class Maze {
         for (int wall = 0; wall < amountWalls; wall++) {
             while (startX < wallMaxLength) {
                 if (wallMaxLength - startX == wallMinLength) {
-                    Integer[] wallSize = {startX, startY, wallMinLength, wallThickness};
-                    walls.add(wallSize);
+//                    Integer[] wallSize = {startX, startY, wallMinLength, wallThickness};
+                    walls.add(new Rectangle(startX, startY, wallMinLength, wallThickness));
                 } else {
                     wallXLength = Library.randomInt(wallMinLength, wallMaxLength - wallLengthStopper);
-                    Integer[] wallSize = {startX, startY, wallXLength, wallThickness};
-                    walls.add(wallSize);
+//                    Integer[] wallSize = {startX, startY, wallXLength, wallThickness};
+                    walls.add(new Rectangle(startX, startY, wallXLength, wallThickness));
                 }
                 startX += wallXLength + doorsX;
                 wallLengthStopper = startX / 100;
@@ -58,7 +59,7 @@ public class Maze {
         }
     }
 
-    public List<Integer[]> getWallsCoordinates() {
+    public List<Rectangle> getWallsCoordinates() {
         return walls;
     }
 }

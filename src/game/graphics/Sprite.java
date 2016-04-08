@@ -9,6 +9,8 @@ public class Sprite {
 
     int x;
     int y;
+    int offsetX;
+    int offsetY;
     private int imageWidth;
     private int imageHeight;
     BufferedImage image;
@@ -34,6 +36,16 @@ public class Sprite {
 
     public Image getImage() {
         return image;
+    }
+
+    public int getOffsetX() {
+        offsetX = image.getWidth();
+        return offsetX;
+    }
+
+    public int getOffsetY() {
+        offsetY = image.getHeight();
+        return offsetY;
     }
 
     public int getX() {

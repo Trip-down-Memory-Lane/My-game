@@ -19,6 +19,7 @@ public class Game implements Runnable {
     public static Board board;
     public static Maze maze;
 
+    private Collision collision;
     private BufferStrategy buffer;
     private InputHandler inputHandler;
     private Assets assets;
@@ -44,6 +45,7 @@ public class Game implements Runnable {
         maze = new Maze(BOARD_X, BOARD_Y);
         hero = new Hero(20, 20);
         badGuy = new BadGuy(850, 550);
+        collision = new Collision();
         drawer = new Drawer();
     }
 
@@ -51,8 +53,16 @@ public class Game implements Runnable {
         hero.move();
         badGuy.followHero(hero.getX(), hero.getY());
 
-        checkCollision();
+//        checkBadGuyCollison();
+        collision.checkCollisions();
     }
+//    private void checkBadGuyCollison() {
+//        Rectangle heroHitBox = hero.getBounds();
+//        Rectangle badGuyHitBox = badGuy.getBounds();
+//        if (badGuyHitBox.intersects(heroHitBox.getBoundsInLocal())) {
+//            badGuyCollision = true;
+//        }
+//    }
 
     private void render() {
         this.buffer = board.getCanvas().getBufferStrategy();
@@ -66,7 +76,7 @@ public class Game implements Runnable {
         drawer.drawMaze(g);
         drawer.drawSprites(g);
 
-        if (badGuyCollision) {
+        if (collision.badGuyCollision) {
             drawer.drawGameOver(g);
             buffer.show();
             stop();
@@ -77,14 +87,14 @@ public class Game implements Runnable {
         Toolkit.getDefaultToolkit().sync();
 
     }
-
-    private void checkCollision() {
-        Rectangle heroHitBox = hero.getBounds();
-        Rectangle badGuyHitBox = badGuy.getBounds();
-        if (badGuyHitBox.intersects(heroHitBox.getBoundsInLocal())) {
-            badGuyCollision = true;
-        }
-    }
+//
+//    private void checkCollision() {
+//        Rectangle heroHitBox = hero.getBounds();
+//        Rectangle badGuyHitBox = badGuy.getBounds();
+//        if (badGuyHitBox.intersects(heroHitBox.getBoundsInLocal())) {
+//            badGuyCollision = true;
+//        }
+//    }
 
     @Override
     public void run() {
