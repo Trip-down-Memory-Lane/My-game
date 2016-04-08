@@ -1,7 +1,5 @@
 package game.sprites;
 
-import graphics.ImageLoader;
-
 import javafx.scene.shape.Rectangle;
 
 import java.awt.*;
@@ -15,9 +13,14 @@ public class Sprite {
     private int imageHeight;
     BufferedImage image;
 
-    Sprite(int x, int y) {
+    public Sprite(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public void render(Graphics g) {
+        g.drawImage(image, x, y, null);
+        Toolkit.getDefaultToolkit().sync();
     }
 
     void getImageDimensions() {

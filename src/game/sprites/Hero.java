@@ -11,7 +11,6 @@ public class Hero extends Sprite {
     public static boolean goingDown;
     public static boolean goingRight;
 
-
     private final int velocity = 6;
 
     public Hero(int x, int y) {
@@ -28,35 +27,39 @@ public class Hero extends Sprite {
     }
 
     public void move() {
-        if (goingUp) {
-            y -= velocity;
-        }
         if (goingLeft) {
             x -= velocity;
-        }
-        if (goingDown) {
-            y += velocity;
+            image = Assets.playerLeft;
         }
         if (goingRight) {
             x += velocity;
-        }
-    }
-
-    public void render(Graphics g) {
-        if (goingLeft) {
-            image = Assets.playerLeft;
-        } else if (goingRight) {
             image = Assets.playerRight;
         }
         if (goingUp) {
+            y -= velocity;
             image = Assets.playerUp;
         }
         if (goingDown) {
+            y += velocity;
             image = Assets.playerDown;
         }
-        g.drawImage(image, x, y, null);
-
-        Toolkit.getDefaultToolkit().sync();
-
     }
+
+//    public void render(Graphics g) {
+////        if (goingLeft) {
+////            image = Assets.playerLeft;
+////        } else if (goingRight) {
+////            image = Assets.playerRight;
+////        }
+////        if (goingUp) {
+////            image = Assets.playerUp;
+////        }
+////        if (goingDown) {
+////            image = Assets.playerDown;
+////        }
+//        g.drawImage(image, x, y, null);
+//
+//        Toolkit.getDefaultToolkit().sync();
+//
+//    }
 }

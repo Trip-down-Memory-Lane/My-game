@@ -14,27 +14,31 @@ public class BadGuy extends Sprite {
     }
 
     private void initBadGuy() {
-        image = Assets.badGuy;
+        image = Assets.badGuyUp;
         getImageDimensions();
         x = 860;
         y = 560;
     }
 
-    public void render(Graphics g) {
-        g.drawImage(Assets.badGuy, x, y, null);
-        Toolkit.getDefaultToolkit().sync();
-    }
+//    public void render(Graphics g) {
+//        g.drawImage(Assets.badGuy, x, y, null);
+//        Toolkit.getDefaultToolkit().sync();
+//    }
 
     public void followHero(int heroX, int heroY) {
         if (heroX > x) {
             x += veloity;
+            image = Assets.badGuyRight;
         } else if (heroX < x) {
             x -= veloity;
+            image = Assets.badGuyLeft;
         }
         if (heroY > y) {
             y += veloity;
+            image = Assets.badGuyDown;
         } else if (heroY < y) {
             y -= veloity;
+            image = Assets.badGuyUp;
         }
     }
 }
