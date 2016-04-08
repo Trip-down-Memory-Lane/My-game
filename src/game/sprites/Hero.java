@@ -12,7 +12,7 @@ public class Hero extends Sprite {
     public static boolean goingRight;
 
 
-    private final int velocity = 4;
+    private final int velocity = 6;
 
     public Hero(int x, int y) {
 

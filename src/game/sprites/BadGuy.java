@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class BadGuy extends Sprite {
 
-    private static int veloity = 2;
+    private static int veloity = 3;
 
     public BadGuy(int x, int y) {
         super(x, y);
