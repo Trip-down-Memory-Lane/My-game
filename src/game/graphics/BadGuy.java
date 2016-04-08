@@ -1,8 +1,6 @@
-package game.sprites;
+package game.graphics;
 
-import graphics.Assets;
-
-import java.awt.*;
+import textures.Assets;
 
 public class BadGuy extends Sprite {
 

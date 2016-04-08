@@ -1,12 +1,12 @@
 package game;
 
-import game.sprites.Sprite;
-import graphics.Assets;
-import graphics.Drawer;
+import game.graphics.Maze;
+import textures.Assets;
+import textures.Drawer;
 
 import display.Board;
-import game.sprites.BadGuy;
-import game.sprites.Hero;
+import game.graphics.BadGuy;
+import game.graphics.Hero;
 
 import javafx.scene.shape.Rectangle;
 import java.awt.*;
@@ -17,6 +17,7 @@ public class Game implements Runnable {
     public static Hero hero;
     public static BadGuy badGuy;
     public static Board board;
+    public static Maze maze;
 
     private BufferStrategy buffer;
     private InputHandler inputHandler;
@@ -40,6 +41,7 @@ public class Game implements Runnable {
         board = new Board(name, BOARD_X, BOARD_Y);
         inputHandler = new InputHandler(board);
         assets = new Assets();
+        maze = new Maze(BOARD_X, BOARD_Y);
         hero = new Hero(20, 20);
         badGuy = new BadGuy(850, 550);
         drawer = new Drawer();
@@ -61,6 +63,7 @@ public class Game implements Runnable {
         g = buffer.getDrawGraphics();
 
         drawer.clearCanvas(g);
+        drawer.drawMaze(g);
         drawer.drawSprites(g);
 
         if (badGuyCollision) {

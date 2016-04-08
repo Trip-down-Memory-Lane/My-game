@@ -1,9 +1,8 @@
 package lib;
 
-class Library {
+public class Library {
 
-    static int randomInt(int min, int max) {
-
+    public static int randomInt(int min, int max) {
         return min + (int)(Math.random() * (max - min) + 1);
     }
 }

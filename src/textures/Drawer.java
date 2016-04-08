@@ -1,6 +1,9 @@
-package graphics;
+package textures;
 
 import game.Game;
+import game.graphics.Maze;
+
+import java.util.List;
 
 import java.awt.FontMetrics;
 import java.awt.*;
@@ -34,10 +37,15 @@ public class Drawer {
         g.drawString(message, (x - fm.stringWidth(message)) / 2, y / 2 - 50);
     }
 
-    public void drawWalls(Graphics g) {
-
+    public void drawMaze(Graphics g) {
+        List<Integer[]> walls = Game.maze.getWallsCoordinates();
+        for (Integer[] coordinates: walls) {
+            int x = coordinates[0];
+            int y = coordinates[1];
+            int width = coordinates[2];
+            int height = coordinates[3];
+            g.setColor(Color.black);
+            g.fillRect(x, y, width, height);
+        }
     }
-
-
-
 }

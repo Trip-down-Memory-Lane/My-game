@@ -1,4 +1,4 @@
-package game.sprites;
+package game.graphics;
 
 import javafx.scene.shape.Rectangle;
 
