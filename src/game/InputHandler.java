@@ -1,6 +1,7 @@
 package game;
 
 import display.Board;
+import game.Game;
 import game.sprites.Hero;
 
 import java.awt.event.KeyEvent;

@@ -1,5 +1,6 @@
 package game;
 
+import game.sprites.Sprite;
 import graphics.Assets;
 import graphics.Drawer;
 
@@ -17,10 +18,10 @@ public class Game implements Runnable {
     public static BadGuy badGuy;
     public static Board board;
 
+    private BufferStrategy buffer;
     private InputHandler inputHandler;
     private Assets assets;
     private Graphics g;
-    private BufferStrategy buffer;
     private Drawer drawer;
     private Thread thread;
     private boolean gameRunning = false;
