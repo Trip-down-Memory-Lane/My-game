@@ -26,9 +26,9 @@ public class Assets {
 
         SpriteSheet badGuySheet = new SpriteSheet((ImageLoader.loadImage("/badGuySheet.png")));
         badGuyUp = badGuySheet.crop(4, 204, 42, 48);
-        badGuyLeft = badGuySheet.crop(216, 80, 26, 46);
+        badGuyLeft = badGuySheet.crop(76, 79, 42, 48);
         badGuyDown = badGuySheet.crop(76, 16, 42, 48);
-        badGuyRight = badGuySheet.crop(207, 145, 26, 46);
+        badGuyRight = badGuySheet.crop(76, 143, 42, 48);
     }
 //    SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/heroSheet.png"));
 //        playerUp = heroSheet.crop(6, 113, 36, 42);

@@ -9,6 +9,7 @@ import java.util.List;
 public class Maze {
 
     List<Rectangle> walls;
+    List<Rectangle> outline;
     private int boardX;
     private int boardY;
     private int amountWalls;
@@ -24,25 +25,28 @@ public class Maze {
 
     public void initMaze() {
         walls = new ArrayList<>();
+        outline = new ArrayList<>();
         createMaze();
+        createOutline();
     }
 
     private void createMaze() {
-        margin = 60;
+        margin = 80;
         wallThickness = 10;
         doorsX = 100;
-        amountWalls = Library.randomInt(5, 7);
+        amountWalls = 5;
+//        amountWalls = Library.randomInt(5, 7);
 
         int wallLengthStopper = 0;
         int startX = 0;
         int startY = margin;
         int mazeHeight = boardY - 2 * margin;
         int wallXLength = 0;
-        int wallMinLength = 50;
-        int wallMaxLength = boardX - doorsX;
+        int wallMinLength = 100;
+        int wallMaxLength = 300;
 
         for (int wall = 0; wall < amountWalls; wall++) {
-            while (startX < wallMaxLength) {
+            while (startX < boardX) {
                 if (wallMaxLength - startX == wallMinLength) {
 //                    Integer[] wallSize = {startX, startY, wallMinLength, wallThickness};
                     walls.add(new Rectangle(startX, startY, wallMinLength, wallThickness));
@@ -59,7 +63,18 @@ public class Maze {
         }
     }
 
+    private void createOutline() {
+        outline.add(new Rectangle(0, 0, boardX, wallThickness));
+        outline.add(new Rectangle(890, 0, wallThickness, boardY));
+        outline.add(new Rectangle(0, 590, boardX, wallThickness));
+        outline.add(new Rectangle(0, 0, wallThickness, boardY));
+    }
+
     public List<Rectangle> getWallsCoordinates() {
         return walls;
+    }
+
+    public List<Rectangle> getOutlineCoordinates() {
+        return outline;
     }
 }

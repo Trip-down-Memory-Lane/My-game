@@ -1,7 +1,7 @@
 package game;
 
 import display.Board;
-import game.graphics.Hero;
+import game.objects.Hero;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

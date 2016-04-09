@@ -7,10 +7,10 @@ import java.awt.image.BufferedImage;
 
 public class Sprite {
 
-    public int x;
-    public int y;
-    public int offsetX;
-    public int offsetY;
+    int x;
+    int y;
+    int offsetX;
+    int offsetY;
     private int imageWidth;
     private int imageHeight;
     BufferedImage image;
@@ -43,12 +43,10 @@ public class Sprite {
     }
 
     public int getOffsetX() {
-        offsetX = image.getWidth();
         return offsetX;
     }
 
     public int getOffsetY() {
-        offsetY = image.getHeight();
         return offsetY;
     }
 
@@ -59,6 +57,7 @@ public class Sprite {
     public int getY() {
         return y;
     }
+
 }
 
 
