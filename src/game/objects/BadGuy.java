@@ -1,10 +1,10 @@
-package game.graphics;
+package game.objects;
 
 import textures.Assets;
 
 public class BadGuy extends Sprite {
 
-    private static int veloity = 20;
+    private static int veloity = 0;
 
     public BadGuy(int x, int y) {
         super(x, y);

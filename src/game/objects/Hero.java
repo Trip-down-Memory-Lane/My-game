@@ -1,4 +1,4 @@
-package game.graphics;
+package game.objects;
 
 import textures.Assets;
 
@@ -23,8 +23,8 @@ public class Hero extends Sprite {
 //        offsetY = getOffsetY();
 //        x -= offsetX;
 //        y -= offsetX;
-        x = 0;
-        y = 0;
+        x = 30;
+        y = 30;
     }
 
     public void move() {
@@ -45,6 +45,10 @@ public class Hero extends Sprite {
             image = Assets.playerDown;
         }
     }
+
+//    void render(Graphics g) {
+//
+//    }
 
 //    public void render(Graphics g) {
 ////        if (goingLeft) {

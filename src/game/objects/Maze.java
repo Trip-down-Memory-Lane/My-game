@@ -1,4 +1,4 @@
-package game.graphics;
+package game.objects;
 
 import javafx.scene.shape.Rectangle;
 import lib.Library;
@@ -28,9 +28,9 @@ public class Maze {
     }
 
     private void createMaze() {
-        margin = 25;
+        margin = 60;
         wallThickness = 10;
-        doorsX = 50;
+        doorsX = 100;
         amountWalls = Library.randomInt(5, 7);
 
         int wallLengthStopper = 0;
@@ -39,7 +39,7 @@ public class Maze {
         int mazeHeight = boardY - 2 * margin;
         int wallXLength = 0;
         int wallMinLength = 50;
-        int wallMaxLength = boardX;
+        int wallMaxLength = boardX - doorsX;
 
         for (int wall = 0; wall < amountWalls; wall++) {
             while (startX < wallMaxLength) {

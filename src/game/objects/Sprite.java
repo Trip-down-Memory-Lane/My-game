@@ -1,4 +1,4 @@
-package game.graphics;
+package game.objects;
 
 import javafx.scene.shape.Rectangle;
 
@@ -7,10 +7,10 @@ import java.awt.image.BufferedImage;
 
 public class Sprite {
 
-    int x;
-    int y;
-    int offsetX;
-    int offsetY;
+    public int x;
+    public int y;
+    public int offsetX;
+    public int offsetY;
     private int imageWidth;
     private int imageHeight;
     BufferedImage image;
@@ -21,17 +21,21 @@ public class Sprite {
     }
 
     public void render(Graphics g) {
-        g.drawImage(image, x, y, null);
+        g.drawImage(image, x - offsetX, y - offsetY, null);
+        g.setColor(Color.red);
+        g.fillRect(x, y, 10, 10);
         Toolkit.getDefaultToolkit().sync();
     }
 
     void getImageDimensions() {
         imageWidth = image.getWidth(null);
         imageHeight = image.getHeight(null);
+        offsetX = imageWidth / 2;
+        offsetY = imageHeight / 2;
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, imageWidth, imageHeight);
+        return new Rectangle(x - 18, y - 22, imageWidth, imageHeight);
     }
 
     public Image getImage() {
