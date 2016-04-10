@@ -98,5 +98,7 @@ public class Drawer {
         int width = (int) Game.badGuy.getBounds().getWidth();
         int height = (int) Game.badGuy.getBounds().getHeight();
         g.drawRect(a, b, width, height);
+
+        Toolkit.getDefaultToolkit().sync();
     }
 }

@@ -1,3 +1,6 @@
+//######################################################################################################################
+// Sprite.java - parent class for 'Hero' and 'BadGuy'.
+//######################################################################################################################
 package game.objects;
 
 import javafx.scene.shape.Rectangle;
@@ -9,31 +12,24 @@ public class Sprite {
 
     int x;
     int y;
-    int offsetX;
-    int offsetY;
+    private int offsetX;
+    private int offsetY;
     private int imageWidth;
     private int imageHeight;
     BufferedImage image;
 
-    public Sprite(int x, int y) {
+    Sprite(int x, int y) {    // Constructor
         this.x = x;
         this.y = y;
     }
 
-    public void render(Graphics g) {
-        g.drawImage(image, x - offsetX, y - offsetY, null);
-        g.setColor(Color.red);
-        g.fillRect(x, y, 10, 10);
-        Toolkit.getDefaultToolkit().sync();
-    }
-
-    void getImageDimensions() {
+    void getImageDimensions() {    // Image dimensions, or Bounds, are used to detect collision.
         imageWidth = image.getWidth(null);
         imageHeight = image.getHeight(null);
-        offsetX = imageWidth / 2;
-        offsetY = imageHeight / 2;
+        offsetX = imageWidth / 2;   // Offsets are used to center the image. By default java will put the image's left top corner on the given coordinates.
+        offsetY = imageHeight / 2;  // Using offsets we put the center of the image on X and Y.
     }
-
+    // Bounds, or image dimensions are used for collisions.
     public Rectangle getBounds() {
         return new Rectangle(x - 18, y - 22, imageWidth, imageHeight);
     }

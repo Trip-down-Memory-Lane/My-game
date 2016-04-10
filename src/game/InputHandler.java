@@ -1,6 +1,6 @@
 package game;
 
-import display.Board;
+import frame.Board;
 import game.objects.Hero;
 
 import java.awt.event.KeyEvent;

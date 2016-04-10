@@ -4,7 +4,7 @@ import game.objects.Maze;
 import textures.Assets;
 import textures.Drawer;
 
-import display.Board;
+import frame.Board;
 import game.objects.BadGuy;
 import game.objects.Hero;
 
