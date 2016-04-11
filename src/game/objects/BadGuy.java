@@ -52,8 +52,10 @@ public class BadGuy extends Sprite {
                 }
                 if (goingLeft) {    //
                     x -= 2;
+                    image = Assets.badGuyLeft;
                 } else if (goingRight) {   //
                     x += 2;
+                    image = Assets.badGuyRight;
                 } else {
                     x += velocityX;
                 }
@@ -61,6 +63,7 @@ public class BadGuy extends Sprite {
         } else if (!Game.collision.badGuyWallCollide(x, y + velocityY) && !deadEnd) {    // Same as previous. This time we increment or decrement Y values.
             if (Game.collision.badGuyWallCollide(x + velocityX, y + velocityY)) {    // Keep doing, until clear of future collisions.
 // TODO IMPLEMENT Around if y == HeroY
+                y += velocityY;
                 goingLeft = false;    //
                 goingRight = false;    //
             }
@@ -74,15 +77,19 @@ public class BadGuy extends Sprite {
     private void calculateVelocity(int heroX, int heroY) {    // Increments or decrements BadGuy(x, y), depending on Hero(x, y)
         if (heroX > x) {
             velocityX = 2;
+            image = Assets.badGuyRight;
         } else if (heroX < x) {
             velocityX = -2;
+            image = Assets.badGuyLeft;
         } else {
             velocityX = 0;  // Assures no movement on X axis if BadGuy is above or below Hero.
         }
         if (heroY > y) {
             velocityY = 2;
+            image = Assets.badGuyDown;
         } else if (heroY < y) {
             velocityY = -2;
+            image = Assets.badGuyUp;
         } else {
             velocityY = 0;  // Same as before only for Y axis.
         }
