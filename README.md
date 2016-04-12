@@ -26,12 +26,13 @@
 
  4) Objects that make the game more interesting:
 
-    a) obstacles, like traps
+   - obstacles, like traps
  
-    b) buffs that help the hero
+   - buffs that help the hero
 
  5) Better textures - pictures for floor, walls, hero, badguy etc.
  
- If there is enough time:-----------
+ If there is enough time:
+ --------------------------------------------
  
  6) Give hero some abilities - move speed bonus, stun for Bad guy :)
