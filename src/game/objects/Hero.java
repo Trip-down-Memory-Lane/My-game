@@ -1,20 +1,21 @@
-package game.sprites;
+//######################################################################################################################
+// Hero.java extends Sprite to implement user-input-driven moving function - 'move()'. Check /src/game/InputHandler for
+// more info on input.
+//######################################################################################################################
+package game.objects;
 
-import graphics.Assets;
-
-import java.awt.*;
+import textures.Assets;
 
 public class Hero extends Sprite {
-
+    // Boolean variables to determine weather the 'Hero" is moving in the specified direction or not. They are influenced by input (set to true/false) and collisions (set to false)
     public static boolean goingUp;
     public static boolean goingLeft;
     public static boolean goingDown;
     public static boolean goingRight;
 
-    private final int velocity = 6;
+    private final int velocity = 4;
 
     public Hero(int x, int y) {
-
         super(x, y);
         initHero();
     }
@@ -22,8 +23,12 @@ public class Hero extends Sprite {
     private void initHero() {
         image = Assets.playerDown;
         getImageDimensions();
-        x = 20;
-        y = 20;
+//        offsetX = getOffsetX();
+//        offsetY = getOffsetY();
+//        x -= offsetX;
+//        y -= offsetX;
+        x = 30;
+        y = 30;
     }
 
     public void move() {
@@ -44,6 +49,10 @@ public class Hero extends Sprite {
             image = Assets.playerDown;
         }
     }
+
+//    void render(Graphics g) {
+//
+//    }
 
 //    public void render(Graphics g) {
 ////        if (goingLeft) {

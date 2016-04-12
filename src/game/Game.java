@@ -1,14 +1,13 @@
 package game;
 
-import game.sprites.Sprite;
-import graphics.Assets;
-import graphics.Drawer;
+import game.objects.Maze;
+import textures.Assets;
+import textures.Drawer;
 
-import display.Board;
-import game.sprites.BadGuy;
-import game.sprites.Hero;
+import frame.Board;
+import game.objects.BadGuy;
+import game.objects.Hero;
 
-import javafx.scene.shape.Rectangle;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
@@ -17,6 +16,8 @@ public class Game implements Runnable {
     public static Hero hero;
     public static BadGuy badGuy;
     public static Board board;
+    public static Maze maze;
+    public static Collision collision;
 
     private BufferStrategy buffer;
     private InputHandler inputHandler;
@@ -40,17 +41,27 @@ public class Game implements Runnable {
         board = new Board(name, BOARD_X, BOARD_Y);
         inputHandler = new InputHandler(board);
         assets = new Assets();
+        maze = new Maze(BOARD_X, BOARD_Y);
         hero = new Hero(20, 20);
         badGuy = new BadGuy(850, 550);
+        collision = new Collision();
         drawer = new Drawer();
     }
 
     private void tick() {
+        collision.checkCollisions();
         hero.move();
         badGuy.followHero(hero.getX(), hero.getY());
 
-        checkCollision();
+//        checkBadGuyCollison();
     }
+//    private void checkBadGuyCollison() {
+//        Rectangle heroHitBox = hero.getBounds();
+//        Rectangle badGuyHitBox = badGuy.getBounds();
+//        if (badGuyHitBox.intersects(heroHitBox.getBoundsInLocal())) {
+//            badGuyCollision = true;
+//        }
+//    }
 
     private void render() {
         this.buffer = board.getCanvas().getBufferStrategy();
@@ -61,9 +72,11 @@ public class Game implements Runnable {
         g = buffer.getDrawGraphics();
 
         drawer.clearCanvas(g);
+        drawer.drawOutline(g);
+        drawer.drawMaze(g);
         drawer.drawSprites(g);
 
-        if (badGuyCollision) {
+        if (collision.badGuyCollision) {
             drawer.drawGameOver(g);
             buffer.show();
             stop();
@@ -74,14 +87,14 @@ public class Game implements Runnable {
         Toolkit.getDefaultToolkit().sync();
 
     }
-
-    private void checkCollision() {
-        Rectangle heroHitBox = hero.getBounds();
-        Rectangle badGuyHitBox = badGuy.getBounds();
-        if (badGuyHitBox.intersects(heroHitBox.getBoundsInLocal())) {
-            badGuyCollision = true;
-        }
-    }
+//
+//    private void checkCollision() {
+//        Rectangle heroHitBox = hero.getBounds();
+//        Rectangle badGuyHitBox = badGuy.getBounds();
+//        if (badGuyHitBox.intersects(heroHitBox.getBoundsInLocal())) {
+//            badGuyCollision = true;
+//        }
+//    }
 
     @Override
     public void run() {

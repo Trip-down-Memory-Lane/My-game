@@ -1,8 +1,7 @@
 package game;
 
-import display.Board;
-import game.Game;
-import game.sprites.Hero;
+import frame.Board;
+import game.objects.Hero;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
