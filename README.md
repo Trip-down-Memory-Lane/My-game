@@ -32,6 +32,4 @@
 
  5) Better textures - pictures for floor, walls, hero, badguy etc.
  
-   If there is enough time:
- 
- 6) Give hero some abilities - move speed bonus, stun for Bad guy :)
+ If there is enough time: Give hero some abilities - move speed bonus, stun for Bad guy :)
