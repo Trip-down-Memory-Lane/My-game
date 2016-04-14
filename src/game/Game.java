@@ -30,7 +30,6 @@ public class Game implements Runnable {
     private Drawer drawer;
     private Thread thread;
     private boolean gameRunning = false;
-//    private boolean badGuyCollision = false;
     private String name;
     private int BOARD_X;
     private int BOARD_Y;
