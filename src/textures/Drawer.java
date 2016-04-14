@@ -93,6 +93,7 @@ public class Drawer {
         }
 
         g.drawImage(image, x - offsetX, y - offsetY, null);
+
         int a = (int) Game.badGuy.getBounds().getX();
         int b = (int) Game.badGuy.getBounds().getY();
         int width = (int) Game.badGuy.getBounds().getWidth();

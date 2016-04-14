@@ -46,7 +46,7 @@ public class Game implements Runnable {
         assets = new Assets();
         maze = new Maze(BOARD_X, BOARD_Y);
         hero = new Hero(20, 20);
-        badGuy = new BadGuy(850, 550);
+        badGuy = new BadGuy(850, 530);
         collision = new Collision();
         drawer = new Drawer();
     }

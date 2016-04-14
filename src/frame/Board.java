@@ -29,9 +29,9 @@ public class Board extends Canvas {
         frame.setMaximumSize(new Dimension(width, height));
         frame.setFocusable(true);
         frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-	    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
 
         canvas = new Canvas();    // Initializes Canvas, the space we will draw our game.
         canvas.setPreferredSize(new Dimension(width, height));
