@@ -68,8 +68,8 @@ public class Maze {
 
     private void createOutline() {  // Create outline walls.
         outline.add(new Rectangle(0, 0, boardX, wallThickness));
-        outline.add(new Rectangle(888, 0, wallThickness, boardY));
-        outline.add(new Rectangle(0, 569, boardX, wallThickness));
+        outline.add(new Rectangle(890, 0, wallThickness, boardY));
+        outline.add(new Rectangle(0, 590, boardX, wallThickness));
         outline.add(new Rectangle(0, 0, wallThickness, boardY));
     }
 
