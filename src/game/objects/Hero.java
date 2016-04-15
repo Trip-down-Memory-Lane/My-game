@@ -13,6 +13,8 @@ public class Hero extends Sprite {
     public static boolean goingDown;
     public static boolean goingRight;
 
+    private final int velocity = 4;
+
     public Hero(int x, int y) {
         super(x, y);
         initHero();
@@ -21,11 +23,15 @@ public class Hero extends Sprite {
     private void initHero() {
         image = Assets.playerDown;
         getImageDimensions();
+//        offsetX = getOffsetX();
+//        offsetY = getOffsetY();
+//        x -= offsetX;
+//        y -= offsetX;
+        x = 30;
+        y = 30;
     }
 
     public void move() {
-
-        int velocity = 4;
         if (goingLeft) {
             x -= velocity;
             image = Assets.playerLeft;
@@ -43,4 +49,26 @@ public class Hero extends Sprite {
             image = Assets.playerDown;
         }
     }
+
+//    void render(Graphics g) {
+//
+//    }
+
+//    public void render(Graphics g) {
+////        if (goingLeft) {
+////            image = Assets.playerLeft;
+////        } else if (goingRight) {
+////            image = Assets.playerRight;
+////        }
+////        if (goingUp) {
+////            image = Assets.playerUp;
+////        }
+////        if (goingDown) {
+////            image = Assets.playerDown;
+////        }
+//        g.drawImage(image, x, y, null);
+//
+//        Toolkit.getDefaultToolkit().sync();
+//
+//    }
 }
