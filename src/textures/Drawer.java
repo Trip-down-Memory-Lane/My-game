@@ -2,6 +2,7 @@ package textures;
 
 import game.Game;
 
+import game.objects.BadGuy;
 import javafx.scene.shape.Rectangle;
 import java.util.List;
 
@@ -89,6 +90,9 @@ public class Drawer {
                 offsetX = Game.hero.getOffsetX();
                 offsetY = Game.hero.getOffsetY();
                 image = Game.hero.getImage();
+                if (BadGuy.shouting) {
+                    badGuyShout(g);
+                }
                 break;
         }
 
@@ -101,5 +105,9 @@ public class Drawer {
         g.drawRect(a, b, width, height);
 
         Toolkit.getDefaultToolkit().sync();
+    }
+
+    private void badGuyShout(Graphics g) {
+        g.drawString(BadGuy.shout, Game.badGuy.getX(), Game.badGuy.getY());
     }
 }
