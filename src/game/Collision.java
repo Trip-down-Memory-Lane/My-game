@@ -3,14 +3,11 @@
 //######################################################################################################################
 package game;
 
-import static game.objects.Hero.goingUp;
-import static game.objects.Hero.goingLeft;
-import static game.objects.Hero.goingDown;
-import static game.objects.Hero.goingRight;
-
 import javafx.scene.shape.Rectangle;
 
 import java.util.List;
+
+import static game.objects.Hero.*;
 
 public class Collision {
 
@@ -112,4 +109,6 @@ public class Collision {
         }
         return false;
     }
+
+
 }

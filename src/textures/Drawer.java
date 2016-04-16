@@ -27,6 +27,10 @@ public class Drawer {
 //        Game.badGuy.render(g);
         drawSprite(g, "hero");
         drawSprite(g, "badGuy");
+        drawSprite(g, "item");
+        drawSprite(g, "itemb");
+        drawSprite(g, "itemc");
+
     }
 
     public void drawGameOver(Graphics g) {
@@ -83,6 +87,27 @@ public class Drawer {
                 offsetY = Game.badGuy.getOffsetY();
                 image = Game.badGuy.getImage();
                 break;
+            case "item":
+                x = Game.starItem.getX();
+                y = Game.starItem.getY();
+                offsetX = Game.starItem.getOffsetX();
+                offsetY = Game.starItem.getOffsetY();
+                image = Game.starItem.getImage();
+                break;
+            case "itemb":
+                x = Game.starItemB.getX();
+                y = Game.starItemB.getY();
+                offsetX = Game.starItemB.getOffsetX();
+                offsetY = Game.starItemB.getOffsetY();
+                image = Game.starItemB.getImage();
+                break;
+            case "itemc":
+                x = Game.starItemC.getX();
+                y = Game.starItemC.getY();
+                offsetX = Game.starItemC.getOffsetX();
+                offsetY = Game.starItemC.getOffsetY();
+                image = Game.starItemC.getImage();
+                break;
             default:
                 x = Game.hero.getX();
                 y = Game.hero.getY();
@@ -93,6 +118,7 @@ public class Drawer {
         }
 
         g.drawImage(image, x - offsetX, y - offsetY, null);
+
         int a = (int) Game.badGuy.getBounds().getX();
         int b = (int) Game.badGuy.getBounds().getY();
         int width = (int) Game.badGuy.getBounds().getWidth();

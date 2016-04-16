@@ -16,6 +16,7 @@ public class Assets {
 
     public static BufferedImage playerUp, playerLeft, playerDown, playerRight;
     public static BufferedImage badGuyUp, badGuyLeft, badGuyDown, badGuyRight;
+    public static BufferedImage starItem;
 
     private static void initAssets() {
         SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/heroSheet.png"));
@@ -29,6 +30,9 @@ public class Assets {
         badGuyLeft = badGuySheet.crop(76, 79, 42, 48);
         badGuyDown = badGuySheet.crop(76, 16, 42, 48);
         badGuyRight = badGuySheet.crop(76, 143, 42, 48);
+
+        SpriteSheet starItemSheet = new SpriteSheet(ImageLoader.loadImage("/itemStar.png"));
+        starItem = starItemSheet.crop(0, 0, 50, 50);
     }
 //    SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/heroSheet.png"));
 //        playerUp = heroSheet.crop(6, 113, 36, 42);

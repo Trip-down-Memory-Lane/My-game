@@ -4,6 +4,7 @@
 //######################################################################################################################
 package game;
 
+import game.objects.Item;
 import game.objects.Maze;
 import textures.Assets;
 import textures.Drawer;
@@ -22,6 +23,7 @@ public class Game implements Runnable {
     public static Board board;
     public static Maze maze;
     public static Collision collision;
+    public static Item starItem, starItemB, starItemC;
 
     private BufferStrategy buffer;
     private InputHandler inputHandler;
@@ -45,8 +47,44 @@ public class Game implements Runnable {
         inputHandler = new InputHandler(board);
         assets = new Assets();
         maze = new Maze(BOARD_X, BOARD_Y);
-        hero = new Hero(20, 20);
-        badGuy = new BadGuy(850, 550);
+        hero = new Hero(40, 40);
+        badGuy = new BadGuy(1250, 700);
+
+
+        /*TODO:
+        /1. 1 random number (1 - 5) for y.
+        /2. 1 random number (5 - 895) for itemX.
+        /3. Switch y random number (line 1).
+        /4  ^ calculate itemY
+        /5 Set first item using itemX and itemY.
+        /6 Steps 1 to 5, put into a function
+        /7 Repeat this function for the other 2 items.
+
+        */
+
+        int itemX, itemY;
+        int randomNumber = 1; /// add random() functions. 1 + (int)(Math.random() * 5);
+        itemX = 645 + (int)(Math.random() * 655); /// RandomNumber;
+        itemY = 45 + (int)(Math.random() * 350);
+//        switch (randomNumber) {
+//            case 1: itemY = 45 + (int)(Math.random() * 700); break;
+//            case 2: itemY = 127; break;
+//            case 3: itemY = 205; break;
+//            case 4: itemY = 295; break;
+//            case 5: itemY = 382; break;
+//            default: itemY = 0;itemX=0; break;
+//        }
+
+        starItem = new Item(itemX, itemY);// where to spawn
+        // call function for new itemX and itemY;
+        itemX = 645 + (int)(Math.random() * 655);
+        itemY = 350 + (int)(Math.random() * 350);
+        starItemB = new Item(itemX , itemY); // where to spawn
+        // call function for new itemX and itemY;
+        itemX = 45 + (int)(Math.random() * 600);
+        itemY = 350 + (int)(Math.random() * 350);
+        starItemC = new Item(itemX , itemY); // where to spawn
+
         collision = new Collision();
         drawer = new Drawer();
     }
