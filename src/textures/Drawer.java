@@ -23,14 +23,39 @@ public class Drawer {
     }
 
     public void drawSprites(Graphics g) {
-//        Game.hero.render(g);
-//        Game.badGuy.render(g);
         drawSprite(g, "hero");
         drawSprite(g, "badGuy");
-        drawSprite(g, "item");
-        drawSprite(g, "itemb");
-        drawSprite(g, "itemc");
+    }
 
+    private void drawSprite(Graphics g, String character) {
+        int x, y, offsetX, offsetY;
+        Image image;
+        switch (character) {
+            case "badGuy":
+                x = Game.badGuy.getX();
+                y = Game.badGuy.getY();
+                offsetX = Game.badGuy.getOffsetX();
+                offsetY = Game.badGuy.getOffsetY();
+                image = Game.badGuy.getImage();
+                break;
+            default:
+                x = Game.hero.getX();
+                y = Game.hero.getY();
+                offsetX = Game.hero.getOffsetX();
+                offsetY = Game.hero.getOffsetY();
+                image = Game.hero.getImage();
+                break;
+        }
+
+        g.drawImage(image, x - offsetX, y - offsetY, null);
+
+        int a = (int) Game.badGuy.getBounds().getX();
+        int b = (int) Game.badGuy.getBounds().getY();
+        int width = (int) Game.badGuy.getBounds().getWidth();
+        int height = (int) Game.badGuy.getBounds().getHeight();
+        g.drawRect(a, b, width, height);
+
+        Toolkit.getDefaultToolkit().sync();
     }
 
     public void drawGameOver(Graphics g) {
@@ -76,55 +101,17 @@ public class Drawer {
         }
     }
 
-    private void drawSprite(Graphics g, String character) {
-        int x, y, offsetX, offsetY;
-        Image image;
-        switch (character) {
-            case "badGuy":
-                x = Game.badGuy.getX();
-                y = Game.badGuy.getY();
-                offsetX = Game.badGuy.getOffsetX();
-                offsetY = Game.badGuy.getOffsetY();
-                image = Game.badGuy.getImage();
-                break;
-            case "item":
-                x = Game.starItem.getX();
-                y = Game.starItem.getY();
-                offsetX = Game.starItem.getOffsetX();
-                offsetY = Game.starItem.getOffsetY();
-                image = Game.starItem.getImage();
-                break;
-            case "itemb":
-                x = Game.starItemB.getX();
-                y = Game.starItemB.getY();
-                offsetX = Game.starItemB.getOffsetX();
-                offsetY = Game.starItemB.getOffsetY();
-                image = Game.starItemB.getImage();
-                break;
-            case "itemc":
-                x = Game.starItemC.getX();
-                y = Game.starItemC.getY();
-                offsetX = Game.starItemC.getOffsetX();
-                offsetY = Game.starItemC.getOffsetY();
-                image = Game.starItemC.getImage();
-                break;
-            default:
-                x = Game.hero.getX();
-                y = Game.hero.getY();
-                offsetX = Game.hero.getOffsetX();
-                offsetY = Game.hero.getOffsetY();
-                image = Game.hero.getImage();
-                break;
+    public void drawArtefact(Graphics g) {
+        List<Rectangle> artefacts = Game.artefact.getArtefacts();
+        for (Rectangle artefact: artefacts) {
+            int x = (int) artefact.getX();
+            int y = (int) artefact.getY();
+            int width = (int) artefact.getWidth();
+            int height = (int) artefact.getHeight();
+            int offsetX = width / 2;
+            int offsetY = height / 2;
+
+            g.drawImage(Assets.artefact, x - offsetX, y - offsetY, null);
         }
-
-        g.drawImage(image, x - offsetX, y - offsetY, null);
-
-        int a = (int) Game.badGuy.getBounds().getX();
-        int b = (int) Game.badGuy.getBounds().getY();
-        int width = (int) Game.badGuy.getBounds().getWidth();
-        int height = (int) Game.badGuy.getBounds().getHeight();
-        g.drawRect(a, b, width, height);
-
-        Toolkit.getDefaultToolkit().sync();
     }
 }
