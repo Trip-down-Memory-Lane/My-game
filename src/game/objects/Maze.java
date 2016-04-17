@@ -38,7 +38,7 @@ public class Maze {
         margin = 80;
         wallThickness = 10;
         doorsX = 100;
-        amountRollsWithWalls = 5;
+        amountRollsWithWalls = 8;
 //        amountRollsWithWalls = Library.randomInt(5, 7);
 
         int wallLengthStopper = 0;
@@ -68,8 +68,8 @@ public class Maze {
 
     private void createOutline() {  // Create outline walls.
         outline.add(new Rectangle(0, 0, boardX, wallThickness));
-        outline.add(new Rectangle(888, 0, wallThickness, boardY));
-        outline.add(new Rectangle(0, 569, boardX, wallThickness));
+        outline.add(new Rectangle(1354, 0, wallThickness, boardY));
+        outline.add(new Rectangle(0, 733, boardX, wallThickness));
         outline.add(new Rectangle(0, 0, wallThickness, boardY));
     }
 

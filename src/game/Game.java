@@ -4,6 +4,7 @@
 //######################################################################################################################
 package game;
 
+import game.objects.Artefact;
 import game.objects.Maze;
 import textures.Assets;
 import textures.Drawer;
@@ -22,6 +23,7 @@ public class Game implements Runnable {
     public static Board board;
     public static Maze maze;
     public static Collision collision;
+    public static Artefact artefact;
 
     private BufferStrategy buffer;
     private InputHandler inputHandler;
@@ -42,13 +44,14 @@ public class Game implements Runnable {
 
     private void init() {
         board = new Board(name, BOARD_X, BOARD_Y);
-        inputHandler = new InputHandler(board);
         assets = new Assets();
         maze = new Maze(BOARD_X, BOARD_Y);
-        hero = new Hero(20, 20);
-        badGuy = new BadGuy(850, 530);
+        artefact = new Artefact();
         collision = new Collision();
+        hero = new Hero(40, 40);
+        badGuy = new BadGuy(1250, 700);
         drawer = new Drawer();
+        inputHandler = new InputHandler(board);
     }
 
     private void tick() {    // Represents the actions happening inside the game. In this case :
@@ -71,6 +74,7 @@ public class Game implements Runnable {
         drawer.clearCanvas(g);   // Clears the canvas from the objects drawn on the previous render()
         drawer.drawOutline(g);
         drawer.drawMaze(g);
+        drawer.drawArtefact(g);
         drawer.drawSprites(g);
 
         if (collision.badGuyCollision) {    // End-game condition.

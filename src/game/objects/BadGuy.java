@@ -15,7 +15,7 @@ public class BadGuy extends Sprite {
 
     private static int stepX;   // Stores the speed at which BadGuy is moving and occasionaly gives control over direction (positive and negative values).
     private static int stepY;   // Same but for Y axis.
-    private static final int speed = 4;
+    private static final int speed = 2;
     // These variables are here for the special case, when Hero and BadGuy both have equal X coordinates, but are separated by wall. This way BadGuy can choose a direction to go around the wall. If not present, BadGuy would just stand bellow Hero.
     private final String[] directions = {"left", "right"};
     private boolean goingRight;

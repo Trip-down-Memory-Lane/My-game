@@ -4,20 +4,23 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-//    public int heroWidth;
+    //    public int heroWidth;
 //    public int heroHeight;
 //    public int badGuyWidth;
 //    public int badGuyHeight;
 //    public int badGuySideWidth;
 //    public int badGuySideWidth;
     public Assets() {
+
         initAssets();
     }
 
     public static BufferedImage playerUp, playerLeft, playerDown, playerRight;
     public static BufferedImage badGuyUp, badGuyLeft, badGuyDown, badGuyRight;
+    public static BufferedImage artefact;
 
     private static void initAssets() {
+
         SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/heroSheet.png"));
         playerUp = heroSheet.crop(6, 113, 36, 44);
         playerLeft = heroSheet.crop(8, 60, 36, 44);
@@ -29,7 +32,10 @@ public class Assets {
         badGuyLeft = badGuySheet.crop(76, 79, 42, 48);
         badGuyDown = badGuySheet.crop(76, 16, 42, 48);
         badGuyRight = badGuySheet.crop(76, 143, 42, 48);
+
+        artefact = ImageLoader.loadImage("/artefact.png");
     }
+}
 //    SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/heroSheet.png"));
 //        playerUp = heroSheet.crop(6, 113, 36, 42);
 //        playerLeft = heroSheet.crop(8, 60, 34, 44);
@@ -42,4 +48,4 @@ public class Assets {
 //        badGuyDown = badGuySheet.crop(76, 16, 42, 48);
 //        badGuyRight = badGuySheet.crop(207, 145, 26, 46);
 //    }
-}
+
