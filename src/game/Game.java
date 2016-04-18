@@ -24,7 +24,8 @@ public class Game implements Runnable {
     public static Maze maze;
     public static Collision collision;
     public static Artefact artefact;
-    public static boolean notPaused = true;
+
+    static boolean notPaused = false;
 
     private BufferStrategy buffer;
     private InputHandler inputHandler;
@@ -77,6 +78,9 @@ public class Game implements Runnable {
             drawer.drawMaze(g);
             drawer.drawArtefact(g);
             drawer.drawSprites(g);
+            if (Hero.sprintCoolDown >= 0) {
+                drawer.drawCoolDown(g);
+            }
         } else {
             drawer.drawPause(g);
         }

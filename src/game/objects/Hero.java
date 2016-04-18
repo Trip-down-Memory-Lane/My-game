@@ -7,12 +7,17 @@ package game.objects;
 import textures.Assets;
 
 public class Hero extends Sprite {
+
     // Boolean variables to determine weather the 'Hero" is moving in the specified direction or not. They are influenced by input (set to true/false) and collisions (set to false)
     public static boolean goingUp;
     public static boolean goingLeft;
     public static boolean goingDown;
     public static boolean goingRight;
-    private static int step;
+    public static boolean sprinting;
+    public static int sprintCoolDown = 0;
+
+    private static int speed = 4;
+    private static int sprintDuration = 3 * 30;
 
     public Hero(int x, int y) {
         super(x, y);
@@ -25,9 +30,10 @@ public class Hero extends Sprite {
     }
 
     public void move() {
-        step = 4;
-        if (goingUp && (goingRight || goingLeft) || goingDown  && (goingRight || goingLeft)) {
-            step = step - 1;
+        checkSprint();
+        int step = speed;
+        if (goingUp && (goingRight || goingLeft) || goingDown && (goingRight || goingLeft)) {
+            step = speed - 1;
         }
         if (goingLeft) {
             x -= step;
@@ -47,7 +53,24 @@ public class Hero extends Sprite {
         }
     }
 
-    private void sprint() {
-        
+    private void checkSprint() {
+        if (sprintReady() && sprinting) {
+            speed = 6;
+            sprintDuration--;
+            if (sprintDuration == 0) {
+                speed = 4;
+                sprinting = false;
+                sprintCoolDown = 10 * 30;
+                sprintDuration = 3 * 30;
+            }
+        }
+    }
+
+    private boolean sprintReady() {
+        if (sprintCoolDown == 0) {
+            return true;
+        }
+        sprintCoolDown--;
+        return false;
     }
 }

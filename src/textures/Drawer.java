@@ -2,6 +2,7 @@ package textures;
 
 import game.Game;
 
+import game.objects.Hero;
 import javafx.scene.shape.Rectangle;
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class Drawer {
 
     private final int boardX = Game.board.getBoardWidth();
     private final int boardY = Game.board.getBoardHeight();
+    private static int secondsToSprint;
 
     public Drawer(){
 
@@ -125,5 +127,14 @@ public class Drawer {
             g.setColor(Color.red);
             g.fillRect(x - 5, y - 5, 10, 10);
         }
+    }
+
+    public void drawCoolDown(Graphics g) {
+        String timer = Integer.toString(Hero.sprintCoolDown / 30);
+        Font large = new Font("Helvetica", Font.BOLD, 20);
+
+        g.setColor(Color.red);
+        g.setFont(large);
+        g.drawString(timer, 1200, 720);
     }
 }

@@ -25,6 +25,11 @@ class InputHandler implements KeyListener {
             case KeyEvent.VK_DOWN: Hero.goingDown = true; break;
             case KeyEvent.VK_RIGHT: Hero.goingRight = true; break;
             case KeyEvent.VK_ESCAPE: Game.notPaused = !Game.notPaused; break;
+            case KeyEvent.VK_S:
+                if (Hero.sprintCoolDown == 0) {
+                    Hero.sprinting = true;
+                }
+                break;
         }
     }
 
