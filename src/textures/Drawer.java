@@ -14,7 +14,6 @@ public class Drawer {
 
     private final int boardX = Game.board.getBoardWidth();
     private final int boardY = Game.board.getBoardHeight();
-    private static int secondsToSprint;
 
     public Drawer(){
 

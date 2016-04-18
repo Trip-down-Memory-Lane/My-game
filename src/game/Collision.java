@@ -38,11 +38,13 @@ public class Collision {
         badGuyHitBox = Game.badGuy.getBounds();
     }
 
+
     private void checkBadGuyCollision() {    // Game over
         if (badGuyHitBox.intersects(heroHitBox.getBoundsInLocal())) {
             badGuyCollision = true;
         }
     }
+
 
     private void checkHeroWallCollision() {   // Prevents 'Hero' from moving through walls.
         walls.forEach(this::heroWallCollide);
@@ -92,26 +94,47 @@ public class Collision {
         }
     }
 
-    public boolean badGuyWallCollide(int currentX, int currentY) { // checks if 'BadGuy' Collides and returns result
-        int width = (int) badGuyHitBox.getWidth();
-        int height = (int) badGuyHitBox.getHeight();
-        int offsetX = Game.badGuy.getOffsetX();
-        int offsetY = Game.badGuy.getOffsetY();
-        Rectangle currentHitBox = new Rectangle(currentX - offsetX, currentY - offsetY, width, height);
+    public boolean badGuyWallCollide(int x, int y) { // checks if 'BadGuy' Collides and returns result
+        Rectangle currentHitBox = getAbstractBounds(x, y);
         for (Rectangle wall : walls) {
             if (wall.intersects(currentHitBox.getBoundsInLocal())) {
-                BadGuy.lengthLeft = (int) Math.abs( wall.getX() - currentX);
-                BadGuy.lengthRight = (int) Math.abs(wall.getX() + wall.getWidth() - currentX);
+                BadGuy.lengthLeft = (int) Math.abs( wall.getX() - x);
+                BadGuy.lengthRight = (int) Math.abs(wall.getX() + wall.getWidth() - y);
                 return true;
             }
         }
         for (Rectangle outline : outlines) {
             if (outline.intersects(currentHitBox.getBoundsInLocal())) {
+                BadGuy.lengthLeft = (int) Math.abs( outline.getX() - x);
+                BadGuy.lengthRight = (int) Math.abs(outline.getX() + outline.getWidth() - y);
                 return true;
             }
         }
         return false;
     }
+
+    private Rectangle getAbstractBounds(int x, int y) {
+        int width = (int) badGuyHitBox.getWidth();
+        int height = (int) badGuyHitBox.getHeight();
+        int offsetX = Game.badGuy.getOffsetX();
+        int offsetY = Game.badGuy.getOffsetY();
+        return new Rectangle(x - offsetX, y - offsetY, width, height);
+    }
+
+
+
+    //    public boolean badGuyOutlineCollision(int x, int y) {
+//        Rectangle currentHitBox = getAbstractBounds(x, y);
+//        for (Rectangle outline : outlines) {
+//            if (outline.intersects(currentHitBox.getBoundsInLocal())) {
+//                BadGuy.lengthLeft = (int) Math.abs( outline.getX() - x);
+//                BadGuy.lengthRight = (int) Math.abs(outline.getX() + outline.getWidth() - y);
+//                return true;
+//            }
+//        }
+//
+//        return false;
+
 
 
 }

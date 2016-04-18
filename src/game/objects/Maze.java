@@ -14,12 +14,15 @@ public class Maze {
 
     List<Rectangle> walls;    // Store maze walls
     List<Rectangle> outline;    //Store outline walls.
-    private int boardX;
     private int boardY;
     private int amountRollsWithWalls;    // !!NOT ACTUAL WALL AMOUNT!! Stores amount of rolls with walls. It is like that, because of the nature of 'createMaze()' algorithm.
     private int wallThickness;
-    private int doorsX;    // Length of the passages between walls
     private int margin;    // None-maze space at the top of the frame.
+
+    static int boardX;
+    static final int doorsX = 100;    // Length of the passages between walls
+    static final int wallMaxLength = 300;
+    static final int wallMinLength = 150;
 
     public Maze(int x, int y) {
         this.boardX = x;
@@ -36,8 +39,7 @@ public class Maze {
 
     private void createMaze() {    // Create maze. Pretty basic, it need some work, but will do for now.
         margin = 80;
-        wallThickness = 10;
-        doorsX = 100;
+        wallThickness = 20;
         amountRollsWithWalls = 6;
 //        amountRollsWithWalls = Library.randomInt(5, 7);
 
@@ -46,8 +48,7 @@ public class Maze {
         int startY = margin;
         int mazeHeight = boardY - 2 * margin;
         int wallXLength = 0;
-        int wallMinLength = 100;
-        int wallMaxLength = 300;
+        int wallMinLength = 250; // 100
         int interval = mazeHeight / amountRollsWithWalls;
 
         for (int rowWalls = 0; rowWalls < amountRollsWithWalls; rowWalls++) {
@@ -67,10 +68,10 @@ public class Maze {
     }
 
     private void createOutline() {  // Create outline walls.
-        outline.add(new Rectangle(0, 0, boardX, wallThickness));
-        outline.add(new Rectangle(1354, 0, wallThickness, boardY));
-        outline.add(new Rectangle(0, 733, boardX, wallThickness));
-        outline.add(new Rectangle(0, 0, wallThickness, boardY));
+        outline.add(new Rectangle(0, 0, boardX, 10));
+        outline.add(new Rectangle(1356, 0, 10, boardY));
+        outline.add(new Rectangle(0, 733, boardX, 10));
+        outline.add(new Rectangle(0, 0, 10, boardY));
     }
 
     public List<Rectangle> getWallsCoordinates() {
