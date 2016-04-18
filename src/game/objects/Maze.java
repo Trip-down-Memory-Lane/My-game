@@ -38,10 +38,10 @@ public class Maze {
         margin = 80;
         wallThickness = 10;
         doorsX = 100;
-        amountRollsWithWalls = 8;
+        amountRollsWithWalls = 6;
 //        amountRollsWithWalls = Library.randomInt(5, 7);
 
-        int wallLengthStopper = 0;
+//        int wallLengthStopper = 0;
         int startX = 0;
         int startY = margin;
         int mazeHeight = boardY - 2 * margin;

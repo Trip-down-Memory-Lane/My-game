@@ -3,6 +3,7 @@
 //######################################################################################################################
 package game;
 
+import game.objects.BadGuy;
 import javafx.scene.shape.Rectangle;
 
 import java.util.List;
@@ -99,6 +100,8 @@ public class Collision {
         Rectangle currentHitBox = new Rectangle(currentX - offsetX, currentY - offsetY, width, height);
         for (Rectangle wall : walls) {
             if (wall.intersects(currentHitBox.getBoundsInLocal())) {
+                BadGuy.lengthLeft = (int) Math.abs( wall.getX() - currentX);
+                BadGuy.lengthRight = (int) Math.abs(wall.getX() + wall.getWidth() - currentX);
                 return true;
             }
         }

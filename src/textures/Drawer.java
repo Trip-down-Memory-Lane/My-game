@@ -69,6 +69,16 @@ public class Drawer {
         g.drawString(message, (boardX - fm.stringWidth(message)) / 2, boardY / 2 - 50);
     }
 
+    public void drawPause(Graphics g) {
+        String message = "Paused";
+        Font large = new Font("Helvetica", Font.BOLD, 22);
+        FontMetrics fm = g.getFontMetrics(large);
+
+        g.setColor(Color.red);
+        g.setFont(large);
+        g.drawString(message, 1250, 720);
+    }
+
     public void drawOutline(Graphics g) {
         List<Rectangle> outlines = Game.maze.getOutlineCoordinates();
         for (Rectangle outline : outlines) {
@@ -112,6 +122,8 @@ public class Drawer {
             int offsetY = height / 2;
 
             g.drawImage(Assets.artefact, x - offsetX, y - offsetY, null);
+            g.setColor(Color.red);
+            g.fillRect(x - 5, y - 5, 10, 10);
         }
     }
 }

@@ -12,6 +12,7 @@ public class Hero extends Sprite {
     public static boolean goingLeft;
     public static boolean goingDown;
     public static boolean goingRight;
+    private static int step;
 
     public Hero(int x, int y) {
         super(x, y);
@@ -24,23 +25,29 @@ public class Hero extends Sprite {
     }
 
     public void move() {
-
-        int velocity = 4;
+        step = 4;
+        if (goingUp && (goingRight || goingLeft) || goingDown  && (goingRight || goingLeft)) {
+            step = step - 1;
+        }
         if (goingLeft) {
-            x -= velocity;
+            x -= step;
             image = Assets.playerLeft;
         }
         if (goingRight) {
-            x += velocity;
+            x += step;
             image = Assets.playerRight;
         }
         if (goingUp) {
-            y -= velocity;
+            y -= step;
             image = Assets.playerUp;
         }
         if (goingDown) {
-            y += velocity;
+            y += step;
             image = Assets.playerDown;
         }
+    }
+
+    private void sprint() {
+        
     }
 }

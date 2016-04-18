@@ -24,6 +24,7 @@ public class Game implements Runnable {
     public static Maze maze;
     public static Collision collision;
     public static Artefact artefact;
+    public static boolean notPaused = true;
 
     private BufferStrategy buffer;
     private InputHandler inputHandler;
@@ -58,7 +59,6 @@ public class Game implements Runnable {
         collision.checkCollisions();    // Checks sprites and walls for collisions.
         hero.move();    // Gets the next coordinates for Hero.
         badGuy.followHero(hero.getX(), hero.getY());    // Same for BadGuy
-
     }
 
     private void render() {    // Here we render the graphics
@@ -70,12 +70,16 @@ public class Game implements Runnable {
         }
         g = buffer.getDrawGraphics();    // Exactly as it says - get graphics from buffer.
 
-        // Re-drawing canvas each time.
-        drawer.clearCanvas(g);   // Clears the canvas from the objects drawn on the previous render()
-        drawer.drawOutline(g);
-        drawer.drawMaze(g);
-        drawer.drawArtefact(g);
-        drawer.drawSprites(g);
+        if (notPaused) {
+            // Re-drawing canvas each time.
+            drawer.clearCanvas(g);   // Clears the canvas from the objects drawn on the previous render()
+            drawer.drawOutline(g);
+            drawer.drawMaze(g);
+            drawer.drawArtefact(g);
+            drawer.drawSprites(g);
+        } else {
+            drawer.drawPause(g);
+        }
 
         if (collision.badGuyCollision) {    // End-game condition.
             drawer.drawGameOver(g);
@@ -108,8 +112,12 @@ public class Game implements Runnable {
             lastTime = now;
 
             if (delta >= 1) { // 'delta' makes sure we tick at the given FPS (frames per second)
-                tick();
-                render();
+                if (notPaused) {
+                    tick();
+                    render();
+                } else {
+                    render();
+                }
                 ticks++;
                 delta--; // Reset delta.
             }

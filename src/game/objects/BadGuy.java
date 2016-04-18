@@ -13,6 +13,9 @@ import textures.Assets;
 
 public class BadGuy extends Sprite {
 
+    public static int lengthLeft;
+    public static int lengthRight;
+
     private static int stepX;   // Stores the speed at which BadGuy is moving and occasionaly gives control over direction (positive and negative values).
     private static int stepY;   // Same but for Y axis.
     private static int speed = 4;
@@ -125,7 +128,14 @@ public class BadGuy extends Sprite {
     }
 
     private void chooseDirection(char axis) {    // chooses a direction randomly.
-        String direction = Library.randomString(directions);
+        String direction;
+        if (lengthLeft < lengthRight) {
+            direction = "left";
+        } else if (lengthLeft > lengthRight) {
+            direction = "right";
+        } else {
+            direction = Library.randomString(directions);
+        }
         if (axis == 'x') {
             switch (direction) {
                 case "left": goingLeft = true; break;

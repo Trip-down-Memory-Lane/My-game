@@ -40,28 +40,28 @@ public class Artefact{
         int endY;
         switch (square) {
             case "one":
-                startX = 0;
-                endX = 684;
-                startY = 0;
-                endY = 385;
+                startX = 30;
+                endX = 654;
+                startY = 30;
+                endY = 355;
                 break;
             case "two":
-                startX = 684;
-                endX = 1368;
-                startY = 0;
-                endY = 385;
+                startX = 704;
+                endX = 1338;
+                startY = 30;
+                endY = 355;
                 break;
             case "three":
-                startX = 0;
-                endX = 684;
-                startY = 385;
-                endY = 770;
+                startX = 30;
+                endX = 654;
+                startY = 405;
+                endY = 740;
                 break;
             default:
-                startX = 684;
-                endX = 1368;
-                startY = 385;
-                endY = 770;
+                startX = 704;
+                endX = 1338;
+                startY = 405;
+                endY = 740;
                 break;
         }
 
@@ -73,55 +73,4 @@ public class Artefact{
     public List<Rectangle> getArtefacts() {
         return artefacts;
     }
-//
-//    public int getWidth() {
-//        return artefactWidth;
-//    }
-//    public int artefactHeight() {
-//        return artefactHeight;
-//    }
-//    public int getOffsetX() {
-//        return offsetX;
-//    }
-//    public int getOffsetY() {
-//        return offsetY;
-//    }
-
 }
-
-///*TODO:
-//        /1. 1 random number (1 - 5) for y.
-//        /2. 1 random number (5 - 895) for itemX.
-//        /3. Switch y random number (line 1).
-//        /4  ^ calculate itemY
-//        /5 Set first item using itemX and itemY.
-//        /6 Steps 1 to 5, put into a function
-//        /7 Repeat this function for the other 2 items.
-//
-//        */
-//
-//    int itemX, itemY;
-//    int randomNumber = 1; /// add random() functions. 1 + (int)(Math.random() * 5);
-//itemX = 645 + (int)(Math.random() * 655); /// RandomNumber;
-//        itemY = 45 + (int)(Math.random() * 350);
-////        switch (randomNumber) {
-////            case 1: itemY = 45 + (int)(Math.random() * 700); break;
-////            case 2: itemY = 127; break;
-////            case 3: itemY = 205; break;
-////            case 4: itemY = 295; break;
-////            case 5: itemY = 382; break;
-////            default: itemY = 0;itemX=0; break;
-////        }
-//
-//        starItem = new Artefact(itemX, itemY);// where to spawn
-//        // call function for new itemX and itemY;
-//        itemX = 645 + (int)(Math.random() * 655);
-//        itemY = 350 + (int)(Math.random() * 350);
-//        starItemB = new Artefact(itemX , itemY); // where to spawn
-//        // call function for new itemX and itemY;
-//        itemX = 45 + (int)(Math.random() * 600);
-//        itemY = 350 + (int)(Math.random() * 350);
-//        starItemC = new Artefact(itemX , itemY); // where to spawn
-//
-//        collision = new Collision();
-//        drawer = new Drawer();
