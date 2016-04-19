@@ -50,7 +50,8 @@ public class Game implements Runnable {
         maze = new Maze(BOARD_X, BOARD_Y);
         artefact = new Artefact();
         collision = new Collision();
-        hero = new Hero(40, 40);
+        hero = new Hero(40
+                , 40);
         badGuy = new BadGuy(1250, 700);
         drawer = new Drawer();
         inputHandler = new InputHandler(board);
