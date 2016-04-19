@@ -47,8 +47,12 @@ public class Collision {
 
 
     private void checkHeroWallCollision() {   // Prevents 'Hero' from moving through walls.
-        walls.forEach(this::heroWallCollide);
-        outlines.forEach(this::heroWallCollide);
+        for (Rectangle wall: walls) {
+            heroWallCollide(wall);
+        }
+        for (Rectangle outline: outlines) {
+            heroWallCollide(outline);
+        }
     }
 
     private void heroWallCollide(Rectangle wall) {

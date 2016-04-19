@@ -4,6 +4,8 @@ import game.Game;
 
 import game.objects.Hero;
 import javafx.scene.shape.Rectangle;
+
+import java.util.Collections;
 import java.util.List;
 
 import java.awt.FontMetrics;
@@ -127,6 +129,13 @@ public class Drawer {
 //            g.fillRect(x - 5, y - 5, 10, 10);
 //        }
 //    }
+
+    public void drawHeroPanel(Graphics g) {
+        g.setColor(Color.white);
+        g.fillRect(750, 20, 610, 60);
+        g.drawImage(Assets.heroPortrait, 755, 25, null);
+        String speed = "Speed: " + Game.hero.get
+    }
 
     public void drawCoolDown(Graphics g) {
         String timer = Integer.toString(Hero.sprintCoolDown / 30);

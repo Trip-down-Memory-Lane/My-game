@@ -18,6 +18,7 @@ public class Assets {
     public static BufferedImage playerUp, playerLeft, playerDown, playerRight;
     public static BufferedImage badGuyUp, badGuyLeft, badGuyDown, badGuyRight;
     public static BufferedImage artefact;
+    public static BufferedImage heroPortrait;
 
     private static void initAssets() {
 
@@ -34,6 +35,9 @@ public class Assets {
         badGuyRight = badGuySheet.crop(76, 143, 42, 48);
 
         artefact = ImageLoader.loadImage("/artefact.png");
+
+        SpriteSheet bigHero = new SpriteSheet(ImageLoader.loadImage("/Hero_FULL_SCALE.png"));
+        heroPortrait = bigHero.crop(10, 10, 90, 90);
     }
 }
 //    SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/heroSheet.png"));
