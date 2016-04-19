@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Library {
 
-    public static int randomInt(int min, int max) {
+    public static int randomIntBetween(int min, int max) {
         return min + (int)(Math.random() * (max - min) + 1);
     }
 
@@ -13,14 +13,15 @@ public class Library {
         return nums.get(new Random().nextInt(nums.size()));
     }
 
-    public static int randomInts(int... args) {
+    public static int randomPick(int... args) {
         Random random = new Random();
-        return random.nextInt(args.length);
+        int index = random.nextInt(args.length);
+        return args[index];
     }
 
-    public static String randomString(String[] strings) {
+    public static String randomString(String... args) {
         Random random = new Random();
-        int index = random.nextInt(strings.length);
-        return strings[index];
+        int index = random.nextInt(args.length);
+        return args[index];
     }
 }

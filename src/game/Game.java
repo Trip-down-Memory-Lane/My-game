@@ -23,9 +23,9 @@ public class Game implements Runnable {
     public static Board board;
     public static Maze maze;
     public static Collision collision;
-    public static Artefact artefact;
+//    public static Artefact artefact;
 
-    static boolean notPaused = false;
+    static boolean notPaused = true;
 
     private BufferStrategy buffer;
     private InputHandler inputHandler;
@@ -40,19 +40,18 @@ public class Game implements Runnable {
 
     Game(String name, int width, int height) {
         this.name = name;
-        this.BOARD_X = width;
-        this.BOARD_Y = height;
+        this.BOARD_X = width - 2;
+        this.BOARD_Y = height - 28;
     }
 
     private void init() {
         board = new Board(name, BOARD_X, BOARD_Y);
         assets = new Assets();
         maze = new Maze(BOARD_X, BOARD_Y);
-        artefact = new Artefact();
+//        artefact = new Artefact();
         collision = new Collision();
-        hero = new Hero(40
-                , 40);
-        badGuy = new BadGuy(1250, 700);
+        hero = new Hero(40, 40);
+        badGuy = new BadGuy(680, 600);
         drawer = new Drawer();
         inputHandler = new InputHandler(board);
     }
@@ -60,7 +59,7 @@ public class Game implements Runnable {
     private void tick() {    // Represents the actions happening inside the game. In this case :
         collision.checkCollisions();    // Checks sprites and walls for collisions.
         hero.move();    // Gets the next coordinates for Hero.
-        badGuy.followHero(hero.getX(), hero.getY());    // Same for BadGuy
+//        badGuy.followHero(hero.getX(), hero.getY());    // Same for BadGuy
     }
 
     private void render() {    // Here we render the graphics
@@ -77,7 +76,7 @@ public class Game implements Runnable {
             drawer.clearCanvas(g);   // Clears the canvas from the objects drawn on the previous render()
             drawer.drawOutline(g);
             drawer.drawMaze(g);
-            drawer.drawArtefact(g);
+//            drawer.drawArtefact(g);
             drawer.drawSprites(g);
             if (Hero.sprintCoolDown >= 0) {
                 drawer.drawCoolDown(g);

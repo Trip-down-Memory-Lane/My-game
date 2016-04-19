@@ -112,21 +112,21 @@ public class Drawer {
         }
     }
 
-    public void drawArtefact(Graphics g) {
-        List<Rectangle> artefacts = Game.artefact.getArtefacts();
-        for (Rectangle artefact: artefacts) {
-            int x = (int) artefact.getX();
-            int y = (int) artefact.getY();
-            int width = (int) artefact.getWidth();
-            int height = (int) artefact.getHeight();
-            int offsetX = width / 2;
-            int offsetY = height / 2;
-
-            g.drawImage(Assets.artefact, x - offsetX, y - offsetY, null);
-            g.setColor(Color.red);
-            g.fillRect(x - 5, y - 5, 10, 10);
-        }
-    }
+//    public void drawArtefact(Graphics g) {
+//        List<Rectangle> artefacts = Game.artefact.getArtefacts();
+//        for (Rectangle artefact: artefacts) {
+//            int x = (int) artefact.getX();
+//            int y = (int) artefact.getY();
+//            int width = (int) artefact.getWidth();
+//            int height = (int) artefact.getHeight();
+//            int offsetX = width / 2;
+//            int offsetY = height / 2;
+//
+//            g.drawImage(Assets.artefact, x - offsetX, y - offsetY, null);
+//            g.setColor(Color.red);
+//            g.fillRect(x - 5, y - 5, 10, 10);
+//        }
+//    }
 
     public void drawCoolDown(Graphics g) {
         String timer = Integer.toString(Hero.sprintCoolDown / 30);

@@ -65,8 +65,8 @@ public class Artefact{
                 break;
         }
 
-        int x = Library.randomInt(startX, endX);
-        int y = Library.randomInt(startY, endY);
+        int x = Library.randomIntBetween(startX, endX);
+        int y = Library.randomIntBetween(startY, endY);
         artefacts.add(new Rectangle(x - offsetX, y - offsetY, artefactWidth, artefactHeight));
     }
 

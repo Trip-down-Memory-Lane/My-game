@@ -20,7 +20,6 @@ public class BadGuy extends Sprite {
     private static int stepY;   // Same but for Y axis.
     private static int speed = 4;   // Speed of the step
     // These variables are here for the special case, when Hero and BadGuy both have equal X coordinates, but are separated by wall. This way BadGuy can choose a direction to go around the wall. If not present, BadGuy would just stand bellow Hero.
-    private final String[] directions = {"left", "right"};
     private boolean goingRight;
     private boolean goingLeft;
     private boolean goingUp;
@@ -57,14 +56,14 @@ public class BadGuy extends Sprite {
                     x += speed;
                     image = Assets.badGuyRight;
                 } else {
-                    if (x < Maze.wallMinLength + Maze.doorsX + speed && wallCollision(x + stepX, y + stepY) && heroX < x) {
+                    if (x < Maze.wallMinLength + Maze.doorMaxLength + speed && wallCollision(x + stepX, y + stepY) && heroX < x) {
                         x -= stepX;
                         if (heroX < x) {
                             goingRight = true;
                         } else if (heroX > x) {
                             goingLeft = true;
                         }
-                    } else if (x > Maze.boardX - (Maze.wallMinLength + Maze.doorsX + speed) && wallCollision(x + stepX, y + stepY) && heroX > x) {
+                    } else if (x > Game.maze.getMazeWidth() - (Maze.wallMinLength + Maze.doorMaxLength + speed) && wallCollision(x + stepX, y + stepY) && heroX > x) {
                         x -= stepX;
                         if (heroX < x) {
                             goingRight = true;
@@ -160,7 +159,7 @@ public class BadGuy extends Sprite {
         } else if (lengthLeft > lengthRight) {
             direction = "right";
         } else {
-            direction = Library.randomString(directions);
+            direction = Library.randomString("left", "right");
         }
         if (axis == 'x') {
             switch (direction) {
