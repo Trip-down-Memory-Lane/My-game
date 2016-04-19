@@ -14,9 +14,10 @@ public class Hero extends Sprite {
     public static boolean goingDown;
     public static boolean goingRight;
     public static boolean sprinting;
+    public static boolean sprintAttempt;
     public static int sprintCoolDown = 0;
+    public static int speed = 4;
 
-    private static int speed = 4;
     private static int sprintDuration = 3 * 30;
 
     public Hero(int x, int y) {
@@ -54,12 +55,14 @@ public class Hero extends Sprite {
     }
 
     private void checkSprint() {
-        if (sprintReady() && sprinting) {
+        if (sprintReady() && sprintAttempt) {
+            sprinting = true;
             speed = 6;
             sprintDuration--;
             if (sprintDuration == 0) {
                 speed = 4;
                 sprinting = false;
+                sprintAttempt = false;
                 sprintCoolDown = 10 * 30;
                 sprintDuration = 3 * 30;
             }

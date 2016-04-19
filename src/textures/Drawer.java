@@ -103,7 +103,7 @@ public class Drawer {
             int width = (int) coordinates.getWidth();
             int height = (int) coordinates.getHeight();
             g.setColor(Color.black);
-            g.fillRect(x, y, width, height);
+            g.fillRoundRect(x, y, width, height, 2, 2);
             //
             counter++;
             String message = "" + counter;
@@ -132,9 +132,59 @@ public class Drawer {
 
     public void drawHeroPanel(Graphics g) {
         g.setColor(Color.white);
-        g.fillRect(750, 20, 610, 60);
-        g.drawImage(Assets.heroPortrait, 755, 25, null);
-        String speed = "Speed: " + Game.hero.get
+        g.fillRoundRect(740, 10, 606, 70, 10, 10);
+        g.setColor(Color.black);
+        g.fillRoundRect(730, 0, 95, 90, 10, 10);
+        g.setColor(Color.gray);
+        g.fillRoundRect(740, 10, 80, 70, 10, 10);
+        g.drawImage(Assets.heroPortrait, 749, 13, 60, 60, null);
+
+
+        g.setColor(Color.black);
+        g.fillRect(825, 10, 139, 35);
+        g.setColor(Color.white);
+        g.fillRoundRect(828, 12, 130, 29, 10, 10);
+
+        String speed = "Speed: " + Hero.speed;
+        Font medium = new Font("Helvetica", Font.BOLD, 21);
+        g.setColor(Color.red);
+        g.setFont(medium);
+        g.drawString(speed, 835, 35);
+
+
+        g.setColor(Color.black);
+        g.fillRect(825, 45, 139, 35);
+        g.setColor(Color.gray);
+        g.fillRoundRect(828, 49, 50, 28, 10, 10);
+        g.drawImage(Assets.heroSprint, 830, 55, null);
+
+        if (Hero.sprinting) {
+            int transparent = 127;
+            Color color = new Color(63, 224, 101, transparent);
+            g.setColor(color);
+            g.fillRoundRect(828, 49, 50, 28, 10, 10);
+        }
+
+        if (Hero.sprintCoolDown != 0) {
+            int transparent = 127;
+            Color color = new Color(255, 255, 255, transparent);
+            g.setColor(color);
+            g.fillRoundRect(828, 49, 50, 28, 10, 10);
+            String coolDown = Integer.toString(Hero.sprintCoolDown / 30);
+            Font large = new Font("Helvetica", Font.BOLD, 30);
+            g.setColor(Color.red);
+            g.setFont(large);
+            g.drawString(coolDown, 842, 75);
+        }
+//        g.setColor(Color.white);
+//        g.fillRoundRect(828, 49, 130, 29, 10, 10);
+//
+//        String artefacts = "Artefacts: ";
+//        g.setColor(Color.red);
+//        g.setFont(medium);
+//        g.drawString(artefacts, 830, 70);
+
+
     }
 
     public void drawCoolDown(Graphics g) {

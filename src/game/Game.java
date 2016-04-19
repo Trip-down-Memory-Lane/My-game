@@ -78,9 +78,7 @@ public class Game implements Runnable {
             drawer.drawMaze(g);
 //            drawer.drawArtefact(g);
             drawer.drawSprites(g);
-            if (Hero.sprintCoolDown >= 0) {
-                drawer.drawCoolDown(g);
-            }
+            drawer.drawHeroPanel(g);
         } else {
             drawer.drawPause(g);
         }
