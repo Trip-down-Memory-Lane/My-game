@@ -33,12 +33,12 @@ public class Hero extends Sprite {
         image = Assets.playerDown[1];
         hitBoxWidth = 22;
         hitBoxHeight = 26;
-        initImageDimensions();
-        initHitBox();
+        updateHero();
     }
 
-    private void updateHitBox() {
-        hitBox = new Rectangle(x, y, Assets.heroWidth, Assets.heroHeight);
+    private void updateHero() {
+        updateImage();
+        updateHitBox();
     }
 
     public void move() {
@@ -61,7 +61,7 @@ public class Hero extends Sprite {
             x -= step;
             image = Assets.playerLeft[indexImg];
         }
-        if (true) {
+        if (goingRight) {
             x += step;
             image = Assets.playerRight[indexImg];
         }
@@ -77,7 +77,7 @@ public class Hero extends Sprite {
         if (frames > fps) {
             frames = fps;
         }
-        updateHitBox();
+        updateHero();
     }
 
     private void checkSprint() {

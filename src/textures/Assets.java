@@ -16,11 +16,6 @@ public class Assets {
     public static BufferedImage artefact;
     static BufferedImage heroPortrait, heroSprint;
 
-    public static int heroWidth;
-    public static int heroHeight;
-    public static int badGuyWidth;
-    public static int badGuyHeight;
-
     private static void initAssets() {
 
         SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/animation.png"));

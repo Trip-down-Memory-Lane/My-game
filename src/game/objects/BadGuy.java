@@ -37,12 +37,12 @@ public class BadGuy extends Sprite {
         image = Assets.badGuyUp;    // store the starting image in 'image'. See src/graphics for more.
         hitBoxWidth = 20;
         hitBoxHeight = 46;
-        initImageDimensions();
-        initHitBox();   // load image dimensions to use for collision.
+        updateBadGuy();
     }
 
-    private void updateHitBox() {
-        hitBox = new Rectangle(x, y, Assets.badGuyWidth, Assets.badGuyHeight);
+    private void updateBadGuy() {
+        updateImage();
+        updateHitBox();
     }
 
     public void followHero(int heroX, int heroY) {    // moving
