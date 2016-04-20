@@ -20,7 +20,6 @@ class InputHandler implements KeyListener {
         int keyCode = e.getKeyCode();
 
         switch (keyCode) {
-
             case KeyEvent.VK_UP: Hero.goingUp = true; break;
             case KeyEvent.VK_LEFT: Hero.goingLeft = true; break;
             case KeyEvent.VK_DOWN: Hero.goingDown = true; break;

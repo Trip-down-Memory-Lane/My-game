@@ -4,6 +4,7 @@
 //######################################################################################################################
 package game.objects;
 
+import javafx.scene.shape.Rectangle;
 import textures.Assets;
 
 public class Hero extends Sprite {
@@ -19,6 +20,9 @@ public class Hero extends Sprite {
     public static int speed = 4;
 
     private static int sprintDuration = 3 * 30;
+    private static int frames = 0;
+    private static int indexImg = 0;
+    private static int counter = 0;
 
     public Hero(int x, int y) {
         super(x, y);
@@ -26,32 +30,54 @@ public class Hero extends Sprite {
     }
 
     private void initHero() {
-        image = Assets.playerDown;
-        getImageDimensions();
+        image = Assets.playerDown[1];
+        hitBoxWidth = 22;
+        hitBoxHeight = 26;
+        initImageDimensions();
+        initHitBox();
+    }
+
+    private void updateHitBox() {
+        hitBox = new Rectangle(x, y, Assets.heroWidth, Assets.heroHeight);
     }
 
     public void move() {
         checkSprint();
+        int fps = 7;
+        if (sprinting) {
+            fps = 3;
+        }
+        if (frames == fps) {
+            frames = 0;
+            counter++;
+        }
+        indexImg = counter % 3;
+
         int step = speed;
         if (goingUp && (goingRight || goingLeft) || goingDown && (goingRight || goingLeft)) {
             step = speed - 1;
         }
         if (goingLeft) {
             x -= step;
-            image = Assets.playerLeft;
+            image = Assets.playerLeft[indexImg];
         }
-        if (goingRight) {
+        if (true) {
             x += step;
-            image = Assets.playerRight;
+            image = Assets.playerRight[indexImg];
         }
         if (goingUp) {
             y -= step;
-            image = Assets.playerUp;
+            image = Assets.playerUp[indexImg];
         }
         if (goingDown) {
             y += step;
-            image = Assets.playerDown;
+            image = Assets.playerDown[indexImg];
         }
+        frames++;
+        if (frames > fps) {
+            frames = fps;
+        }
+        updateHitBox();
     }
 
     private void checkSprint() {

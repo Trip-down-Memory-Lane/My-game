@@ -8,6 +8,7 @@
 package game.objects;
 
 import game.Game;
+import javafx.scene.shape.Rectangle;
 import lib.Library;
 import textures.Assets;
 
@@ -34,7 +35,14 @@ public class BadGuy extends Sprite {
 
     private void initBadGuy() {    // initialize
         image = Assets.badGuyUp;    // store the starting image in 'image'. See src/graphics for more.
-        getImageDimensions();   // load image dimensions to use for collision.
+        hitBoxWidth = 20;
+        hitBoxHeight = 46;
+        initImageDimensions();
+        initHitBox();   // load image dimensions to use for collision.
+    }
+
+    private void updateHitBox() {
+        hitBox = new Rectangle(x, y, Assets.badGuyWidth, Assets.badGuyHeight);
     }
 
     public void followHero(int heroX, int heroY) {    // moving
@@ -95,6 +103,7 @@ public class BadGuy extends Sprite {
                 goingRight = false;    //
             }
         }
+        updateHitBox();
 //        } else if (!wallCollision(x - stepX, y)) {    // Initialize 'deadEnd' if we hit the frame border. Stop 'deadEnd' if next step is clear.
 //            x += -stepX;    // while 'deadEnd = true' BadGuy will only move here, because 'deadEnd' is true and all conditions above will be false, thus overruled. When BadGuy moves far enough that its next step is clear in both X and Y axis - 'deadEnd" gets 'false' value and normal movement is restored.
 //            deadEnd = wallCollision(x + stepX, y + stepY);   // evaluate 'deadEnd'
@@ -172,6 +181,5 @@ public class BadGuy extends Sprite {
                 default: goingDown = true; break;
             }
         }
-
     }
 }

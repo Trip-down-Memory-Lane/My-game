@@ -4,11 +4,11 @@
 package game;
 
 import game.objects.BadGuy;
-import javafx.scene.shape.Rectangle;
+import static game.objects.Hero.*;
 
+import javafx.scene.shape.Rectangle;
 import java.util.List;
 
-import static game.objects.Hero.*;
 
 public class Collision {
 
@@ -19,23 +19,23 @@ public class Collision {
     private List<Rectangle> outlines;
 
     Collision() {
-        initObjectBounds();
+        initWallHitBox();
     }
 
-    private void initObjectBounds() {   // Gets walls coordinates from maze object.
+    private void initWallHitBox() {   // Gets walls coordinates from maze object.
         outlines = Game.maze.getOutlineCoordinates();
         walls =  Game.maze.getWallsCoordinates();
     }
 
     void checkCollisions() {    // Checks for all collisions.
-        updateBounds();     // gets the proper Rectangle bounds of non-static objects for this 'tick()'
+        updateSpritesHitBox();     // gets the proper Rectangle bounds of non-static objects for this 'tick()'
         checkBadGuyCollision();
         checkHeroWallCollision();
     }
 
-    private void updateBounds() {
-        heroHitBox = Game.hero.getBounds();
-        badGuyHitBox = Game.badGuy.getBounds();
+    private void updateSpritesHitBox() {
+        heroHitBox = Game.hero.getHitBox();
+        badGuyHitBox = Game.badGuy.getHitBox();
     }
 
 
@@ -120,9 +120,9 @@ public class Collision {
     private Rectangle getAbstractBounds(int x, int y) {
         int width = (int) badGuyHitBox.getWidth();
         int height = (int) badGuyHitBox.getHeight();
-        int offsetX = Game.badGuy.getOffsetX();
-        int offsetY = Game.badGuy.getOffsetY();
-        return new Rectangle(x - offsetX, y - offsetY, width, height);
+        int offsetX = Game.badGuy.getHitBoxOffsetX();
+        int offsetY = Game.badGuy.getHitBoxOffsetY();
+        return new Rectangle(offsetX, offsetY, width, height);
     }
 
 

@@ -3,9 +3,9 @@ package textures;
 import game.Game;
 
 import game.objects.Hero;
+import game.objects.Maze;
 import javafx.scene.shape.Rectangle;
 
-import java.util.Collections;
 import java.util.List;
 
 import java.awt.FontMetrics;
@@ -21,6 +21,13 @@ public class Drawer {
 
     }
 
+    public void drawFrames(Graphics g) {
+        g.drawImage(Assets.playerDown[0], 700, 490, 60, 60, null);
+        g.drawImage(Assets.playerDown[1], 750, 490, 60, 60, null);
+        g.drawImage(Assets.playerDown[2], 800, 490, 60, 60, null);
+        g.drawImage(Assets.playerDown[3], 850, 490, 60, 60, null);
+    }
+
     public void clearCanvas(Graphics g) {
         g.clearRect(0, 0, boardX, boardY);
     }
@@ -31,31 +38,37 @@ public class Drawer {
     }
 
     private void drawSprite(Graphics g, String character) {
-        int x, y, offsetX, offsetY;
+        int x, y, offsetX, offsetY, hitBoxOffsetX, hitBoxOffsetY;
         Image image;
         switch (character) {
             case "badGuy":
-                x = Game.badGuy.getX();
-                y = Game.badGuy.getY();
-                offsetX = Game.badGuy.getOffsetX();
-                offsetY = Game.badGuy.getOffsetY();
+//                hitBoxOffsetX = Game.badGuy.getHitBoxOffsetX();
+//                hitBoxOffsetY = Game.badGuy.getHitBoxOffsetY();
+                offsetX = Game.badGuy.getImageOffsetX();
+                offsetY = Game.badGuy.getImageOffsetY();
                 image = Game.badGuy.getImage();
                 break;
             default:
-                x = Game.hero.getX();
-                y = Game.hero.getY();
-                offsetX = Game.hero.getOffsetX();
-                offsetY = Game.hero.getOffsetY();
+//                hitBoxOffsetX = Game.badGuy.getHitBoxOffsetX();
+//                hitBoxOffsetY = Game.badGuy.getHitBoxOffsetY();
+                offsetX = Game.hero.getImageOffsetX();
+                offsetY = Game.hero.getImageOffsetY();
                 image = Game.hero.getImage();
                 break;
         }
 
-        g.drawImage(image, x - offsetX, y - offsetY, null);
+        g.drawImage(image, offsetX, offsetY, null);
 
-        int a = (int) Game.badGuy.getBounds().getX();
-        int b = (int) Game.badGuy.getBounds().getY();
-        int width = (int) Game.badGuy.getBounds().getWidth();
-        int height = (int) Game.badGuy.getBounds().getHeight();
+        int c = (int) Game.hero.getHitBox().getX();
+        int d = (int) Game.hero.getHitBox().getY();
+        int Awidth = (int) Game.hero.getHitBox().getWidth();
+        int Bheight = (int) Game.hero.getHitBox().getHeight();
+        g.drawRect(c, d, Awidth, Bheight);
+
+        int a = (int) Game.badGuy.getHitBox().getX();
+        int b = (int) Game.badGuy.getHitBox().getY();
+        int width = (int) Game.badGuy.getHitBox().getWidth();
+        int height = (int) Game.badGuy.getHitBox().getHeight();
         g.drawRect(a, b, width, height);
 
         Toolkit.getDefaultToolkit().sync();
@@ -131,50 +144,53 @@ public class Drawer {
 //    }
 
     public void drawHeroPanel(Graphics g) {
-        g.setColor(Color.white);
-        g.fillRoundRect(740, 10, 606, 70, 10, 10);
+        int outline = Game.maze.getOutlineThickness();
+        int margin = Game.maze.getMazeMargin();
+
+        g.setColor(Color.green);
+        g.fillRect(730, 0, boardX - 730, outline + margin + 10);
         g.setColor(Color.black);
-        g.fillRoundRect(730, 0, 95, 90, 10, 10);
+        g.fillRoundRect(735, outline / 2, 155, 80, 10, 10);
         g.setColor(Color.gray);
-        g.fillRoundRect(740, 10, 80, 70, 10, 10);
-        g.drawImage(Assets.heroPortrait, 749, 13, 60, 60, null);
+        g.fillRoundRect(740, outline / 2 + outline / 4, 80, 70, 10, 10);
+        g.drawImage(Assets.heroPortrait, 749, outline / 2 + outline / 4 + 3, 60, 60, null);
 
 
         g.setColor(Color.black);
-        g.fillRect(825, 10, 139, 35);
+        g.fillRoundRect(825, outline / 2, 145, 45, 10, 10);
         g.setColor(Color.white);
-        g.fillRoundRect(828, 12, 130, 29, 10, 10);
+        g.fillRoundRect(828, outline + 3 - outline / 4, 130, 29, 10, 10);
 
         String speed = "Speed: " + Hero.speed;
         Font medium = new Font("Helvetica", Font.BOLD, 21);
         g.setColor(Color.red);
         g.setFont(medium);
-        g.drawString(speed, 835, 35);
+        g.drawString(speed, 835, 2 * outline);
 
 
-        g.setColor(Color.black);
-        g.fillRect(825, 45, 139, 35);
+//        g.setColor(Color.black);
+//        g.fillRect(825, 2 * outline - 2 + 12, 139, 35);
         g.setColor(Color.gray);
-        g.fillRoundRect(828, 49, 50, 28, 10, 10);
-        g.drawImage(Assets.heroSprint, 830, 55, null);
+        g.fillRoundRect(828, 2 * outline + 14, 50, 28, 10, 10);
+        g.drawImage(Assets.heroSprint, 830, 3 * outline, null);
 
         if (Hero.sprinting) {
             int transparent = 127;
             Color color = new Color(63, 224, 101, transparent);
             g.setColor(color);
-            g.fillRoundRect(828, 49, 50, 28, 10, 10);
+            g.fillRoundRect(828, 54, 50, 28, 10, 10);
         }
 
         if (Hero.sprintCoolDown != 0) {
             int transparent = 127;
             Color color = new Color(255, 255, 255, transparent);
             g.setColor(color);
-            g.fillRoundRect(828, 49, 50, 28, 10, 10);
+            g.fillRoundRect(828, 54, 50, 28, 10, 10);
             String coolDown = Integer.toString(Hero.sprintCoolDown / 30);
             Font large = new Font("Helvetica", Font.BOLD, 30);
             g.setColor(Color.red);
             g.setFont(large);
-            g.drawString(coolDown, 842, 75);
+            g.drawString(coolDown, 842, 80);
         }
 //        g.setColor(Color.white);
 //        g.fillRoundRect(828, 49, 130, 29, 10, 10);
@@ -187,12 +203,4 @@ public class Drawer {
 
     }
 
-    public void drawCoolDown(Graphics g) {
-        String timer = Integer.toString(Hero.sprintCoolDown / 30);
-        Font large = new Font("Helvetica", Font.BOLD, 20);
-
-        g.setColor(Color.red);
-        g.setFont(large);
-        g.drawString(timer, 1200, 720);
-    }
 }

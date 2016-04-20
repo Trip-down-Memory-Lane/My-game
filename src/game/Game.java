@@ -40,8 +40,8 @@ public class Game implements Runnable {
 
     Game(String name, int width, int height) {
         this.name = name;
-        this.BOARD_X = width - 2;
-        this.BOARD_Y = height - 28;
+        this.BOARD_X = width;
+        this.BOARD_Y = height;
     }
 
     private void init() {
@@ -50,8 +50,8 @@ public class Game implements Runnable {
         maze = new Maze(BOARD_X, BOARD_Y);
 //        artefact = new Artefact();
         collision = new Collision();
-        hero = new Hero(40, 40);
-        badGuy = new BadGuy(680, 600);
+        hero = new Hero(70, 70);
+        badGuy = new BadGuy(680, 615);
         drawer = new Drawer();
         inputHandler = new InputHandler(board);
     }
@@ -59,7 +59,8 @@ public class Game implements Runnable {
     private void tick() {    // Represents the actions happening inside the game. In this case :
         collision.checkCollisions();    // Checks sprites and walls for collisions.
         hero.move();    // Gets the next coordinates for Hero.
-//        badGuy.followHero(hero.getX(), hero.getY());    // Same for BadGuy
+
+        badGuy.followHero(hero.getX(), hero.getY());    // Same for BadGuy
     }
 
     private void render() {    // Here we render the graphics
@@ -78,6 +79,7 @@ public class Game implements Runnable {
             drawer.drawMaze(g);
 //            drawer.drawArtefact(g);
             drawer.drawSprites(g);
+//            drawer.drawFrames(g);
             drawer.drawHeroPanel(g);
         } else {
             drawer.drawPause(g);

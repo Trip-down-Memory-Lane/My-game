@@ -4,6 +4,8 @@
 //######################################################################################################################
 package game.objects;
 
+import frame.Board;
+
 import javafx.scene.shape.Rectangle;
 import lib.Library;
 
@@ -17,13 +19,15 @@ public class Maze {
     private int mazeX;
     private int mazeY;
     private static int wallMaxLength = 300;
+    private static int outlineThickness = 20;
 
+    public static int mazeMargin;
     static int wallMinLength = 150;
     static final int doorMaxLength = 100;    // Length of the passages between walls
 
     public Maze(int x, int y) {
-        this.mazeX = x - 20;
-        this.mazeY = y - 20;
+        mazeX = x - 2 * outlineThickness;
+        mazeY = y - 2 * outlineThickness;
         initMaze();
     }
 
@@ -35,26 +39,29 @@ public class Maze {
     }
 
     private void createMaze() {    // Creates maze
-        int margin = 70;
-        int wallThickness = 20;
-        int mazeHeight = mazeY - 50 - 2 * margin;
+        mazeMargin = 70;
+        int wallThickness = 33;
+        int mazeHeight = mazeY - mazeMargin;
         int interval = (mazeHeight - 80) / 6;
-        int rowMargin = 10;
+        int rowMargin = outlineThickness - 3;
 
         int rowStartX;
-        int rowStartY = interval + margin;
+        int rowStartY = interval + mazeMargin;
         int wallLength;
         int randomWallToIncrease = Library.randomPick(1, 2, 3);
+
         for (int rowWithWalls = 0; rowWithWalls < 5; rowWithWalls++) {
-            int mazeEntranceWall = (mazeX - 100) / 2;
+
+            int mazeEntranceWall = (mazeX - 100) / 2 + 3;
             int mazeEntranceWallX = mazeX / 2 + doorMaxLength / 2 + rowMargin;
             if (rowWithWalls == 0) {
-                walls.add(new Rectangle(rowMargin, margin, mazeEntranceWall, wallThickness));
-                walls.add(new Rectangle(mazeEntranceWallX, 0, mazeEntranceWall, wallThickness + margin));
+//                walls.add(new Rectangle(rowMargin, mazeMargin, mazeEntranceWall, wallThickness));
+                walls.add(new Rectangle(mazeEntranceWallX, 0, mazeEntranceWall, wallThickness + mazeMargin));
             } else if (rowWithWalls == 4) {
-                walls.add(new Rectangle(rowMargin, mazeHeight + margin, mazeEntranceWall, 2 * wallThickness));
-                walls.add(new Rectangle(mazeEntranceWallX, mazeHeight + margin, mazeEntranceWall, 2 * wallThickness));
+                walls.add(new Rectangle(rowMargin, mazeHeight + mazeMargin, mazeEntranceWall, wallThickness));
+                walls.add(new Rectangle(mazeEntranceWallX, mazeHeight + mazeMargin, mazeEntranceWall, wallThickness));
             } else {
+
                 rowStartX = Library.randomPick(0, 50, 100) + rowMargin;
                 int secondRowStartX, secondRowStartY, secondRowWallLength;
                 switch (rowStartX) {
@@ -65,6 +72,7 @@ public class Maze {
                 int rowLength = rowStartX;
                 int secondRowLength = secondRowStartX;
                 int previousWallLength = 0;
+
                 while (rowLength < mazeX) {   // ensures each roll has X length of Frame X length.
                     wallLength = Library.randomIntBetween(wallMinLength, wallMaxLength); // creates a wall with random length.
                     int rowEndDoor = Library.randomPick(50, 100);
@@ -75,6 +83,7 @@ public class Maze {
                     } else if (mazeX - (rowLength + wallLength) < wallMinLength + doorMaxLength) {
                         wallLength = mazeX - (rowLength) - rowEndDoor;
                     }
+                    wallLength += 3;
 
                     walls.add(new Rectangle(rowLength, rowStartY, wallLength, wallThickness));
 
@@ -83,6 +92,7 @@ public class Maze {
                     if (Math.abs(previousWallLength - secondRowWallLength) < doorMaxLength) {
                         secondRowWallLength = wallMaxLength;
                     }
+                    secondRowWallLength += 3;
 
                     walls.add(new Rectangle(secondRowLength, secondRowStartY, secondRowWallLength, wallThickness));
 
@@ -101,10 +111,11 @@ public class Maze {
     }
 
     private void createOutline() {  // Create outline walls.
-        outline.add(new Rectangle(0, 0, mazeX, 10));
-        outline.add(new Rectangle(1348, 0, 10, mazeY));
-        outline.add(new Rectangle(10, 705, mazeX, 10));
-        outline.add(new Rectangle(0, 0, 10, mazeY));
+        outline.add(new Rectangle(0, 0, 740, outlineThickness));
+        outline.add(new Rectangle(740, 0, Board.canvasX - 740, 90));
+        outline.add(new Rectangle(Board.canvasX - outlineThickness, 0, outlineThickness, Board.canvasY));
+        outline.add(new Rectangle(outlineThickness, Board.canvasY - outlineThickness, Board.canvasX, outlineThickness));
+        outline.add(new Rectangle(0, 0, outlineThickness, Board.canvasY));
     }
 
     public List<Rectangle> getWallsCoordinates() {
@@ -113,6 +124,14 @@ public class Maze {
 
     public List<Rectangle> getOutlineCoordinates() {
         return outline;
+    }
+
+    public int getOutlineThickness() {
+        return outlineThickness;
+    }
+
+    public int getMazeMargin() {
+        return mazeMargin;
     }
 
     int getMazeWidth() {
