@@ -45,6 +45,14 @@ public class Sprite {
         return image;
     }
 
+    public int getHitBoxWidth() {
+        return hitBoxWidth;
+    }
+
+    public int getHitBoxHeight() {
+        return hitBoxHeight;
+    }
+
     public int getHitBoxOffsetX() {
         return hitBoxOffsetX;
     }

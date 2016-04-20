@@ -64,19 +64,47 @@ public class BadGuy extends Sprite {
                     x += speed;
                     image = Assets.badGuyRight;
                 } else {
-                    if (x < Maze.wallMinLength + Maze.doorMaxLength + speed && wallCollision(x + stepX, y + stepY) && heroX < x) {
-                        x -= stepX;
-                        if (heroX < x) {
-                            goingRight = true;
-                        } else if (heroX > x) {
-                            goingLeft = true;
+//                    if (x < Maze.wallMinLength + Maze.doorMaxLength + speed && wallCollision(x + stepX, y + stepY) && heroX < x) {
+                    if (wallCollision(x + stepX, y + stepY) && heroX < x) {
+                        boolean passage = false;
+                        int distance = 1;
+                        for (int i = 0; i < x; i++) {
+                            if (!wallCollision(x - distance, y + stepY)) {
+                                passage = true;
+                                break;
+                            }
+                            distance += 1;
                         }
-                    } else if (x > Game.maze.getMazeWidth() - (Maze.wallMinLength + Maze.doorMaxLength + speed) && wallCollision(x + stepX, y + stepY) && heroX > x) {
-                        x -= stepX;
-                        if (heroX < x) {
-                            goingRight = true;
-                        } else if (heroX > x) {
-                            goingLeft = true;
+                        if (passage) {
+                            x += stepX;
+                        } else {
+                            x -= stepX;
+                            if (heroX < x) {
+                                goingRight = true;
+                            } else if (heroX > x) {
+                                goingLeft = true;
+                            }
+                        }
+//                    } else if (x > Game.maze.getMazeWidth() - (Maze.wallMinLength + Maze.doorMaxLength + speed) && wallCollision(x + stepX, y + stepY) && heroX > x) {
+                    } else if (wallCollision(x + stepX, y + stepY) && heroX > x) {
+                        boolean passage = false;
+                        int distance = 1;
+                        for (int i = 0; i < x; i++) {
+                            if (!wallCollision(x + distance, y + stepY)) {
+                                passage = true;
+                                break;
+                            }
+                            distance += 1;
+                        }
+                        if (passage) {
+                            x += stepX;
+                        } else {
+                            x -= stepX;
+                            if (heroX < x) {
+                                goingRight = true;
+                            } else if (heroX > x) {
+                                goingLeft = true;
+                            }
                         }
                     } else {
                         x += stepX;
@@ -103,7 +131,7 @@ public class BadGuy extends Sprite {
                 goingRight = false;    //
             }
         }
-        updateHitBox();
+        updateBadGuy();
 //        } else if (!wallCollision(x - stepX, y)) {    // Initialize 'deadEnd' if we hit the frame border. Stop 'deadEnd' if next step is clear.
 //            x += -stepX;    // while 'deadEnd = true' BadGuy will only move here, because 'deadEnd' is true and all conditions above will be false, thus overruled. When BadGuy moves far enough that its next step is clear in both X and Y axis - 'deadEnd" gets 'false' value and normal movement is restored.
 //            deadEnd = wallCollision(x + stepX, y + stepY);   // evaluate 'deadEnd'

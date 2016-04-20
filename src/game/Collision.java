@@ -6,6 +6,7 @@ package game;
 import game.objects.BadGuy;
 import static game.objects.Hero.*;
 
+import game.objects.Hero;
 import javafx.scene.shape.Rectangle;
 import java.util.List;
 
@@ -63,8 +64,8 @@ public class Collision {
         int heroX = Game.hero.getX();     // Getting some 'Hero' coordinates, needed for more specific wall interactions.
         int heroY = Game.hero.getY();
         // Hero pads accounts for the offsets. They equal image's width / 2 and height / 2. Center point for 'Hero' is 'heroX'If you decrement 'heroX' with 'heroPadWidth' you get the leftmost X point of Hero, while if you sum them up - you get the rightmost point X. Same applies for Y axis as well.
-        int heroPadWidth = 15;
-        int heroPadHeight = 19;
+        int heroPadWidth = Game.hero.getHitBoxWidth() / 2- Hero.speed;
+        int heroPadHeight = Game.hero.getHitBoxHeight() / 2 - Hero.speed;
         // These are a bit of headache, but they are necessary to make sure only one movement boolean ('Hero') is turned false per wall collision. This way if 'Hero' collides with a wall while going upward, it would only stop 'goingUp'
         if (wall.intersects(heroHitBox.getBoundsInLocal())) {
             if ( // Wall to the right of 'Hero'
@@ -120,8 +121,8 @@ public class Collision {
     private Rectangle getAbstractBounds(int x, int y) {
         int width = (int) badGuyHitBox.getWidth();
         int height = (int) badGuyHitBox.getHeight();
-        int offsetX = Game.badGuy.getHitBoxOffsetX();
-        int offsetY = Game.badGuy.getHitBoxOffsetY();
+        int offsetX = x - Game.badGuy.getHitBoxWidth() / 2;
+        int offsetY = y - Game.badGuy.getHitBoxHeight() / 2;
         return new Rectangle(offsetX, offsetY, width, height);
     }
 

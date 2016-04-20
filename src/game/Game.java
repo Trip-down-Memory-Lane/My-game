@@ -51,7 +51,7 @@ public class Game implements Runnable {
 //        artefact = new Artefact();
         collision = new Collision();
         hero = new Hero(70, 70);
-        badGuy = new BadGuy(680, 615);
+        badGuy = new BadGuy(650, 710);
         drawer = new Drawer();
         inputHandler = new InputHandler(board);
     }
