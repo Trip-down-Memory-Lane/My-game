@@ -3,6 +3,7 @@
 //######################################################################################################################
 package game;
 
+import textures.Assets;
 import game.objects.BadGuy;
 import static game.objects.Hero.*;
 
@@ -47,7 +48,7 @@ public class Collision {
     }
 
 
-    private void checkHeroWallCollision() {   // Prevents 'Hero' from moving through walls.
+    public void checkHeroWallCollision() {   // Prevents 'Hero' from moving through walls.
         for (Rectangle wall: walls) {
             heroWallCollide(wall);
         }

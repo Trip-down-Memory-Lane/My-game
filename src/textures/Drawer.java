@@ -22,10 +22,27 @@ public class Drawer {
     }
 
     public void drawFrames(Graphics g) {
-        g.drawImage(Assets.playerDown[0], 700, 490, 60, 60, null);
-        g.drawImage(Assets.playerDown[1], 750, 490, 60, 60, null);
-        g.drawImage(Assets.playerDown[2], 800, 490, 60, 60, null);
-        g.drawImage(Assets.playerDown[3], 850, 490, 60, 60, null);
+        g.drawImage(Assets.playerDown[0], 420, 50, 80, 80, null);
+        g.drawImage(Assets.playerDown[1], 420, 130, 80, 80, null);
+        g.drawImage(Assets.playerDown[2], 420, 210, 80, 80, null);
+        g.drawImage(Assets.playerDown[3], 420, 290, 80, 80, null);
+
+        g.drawImage(Assets.playerUp[0], 520, 50, 80, 80, null);
+        g.drawImage(Assets.playerUp[1], 520, 130, 80, 80, null);
+        g.drawImage(Assets.playerUp[2], 520, 210, 80, 80, null);
+        g.drawImage(Assets.playerUp[3], 520, 290, 80, 80, null);
+
+        g.drawImage(Assets.playerLeft[0], 70, 100, 80, 80, null);
+        g.drawImage(Assets.playerLeft[1], 150, 100, 80, 80, null);
+        g.drawImage(Assets.playerLeft[2], 230, 100, 80, 80, null);
+        g.drawImage(Assets.playerLeft[3], 310, 100, 80, 80, null);
+        g.fillRect(70, 167, 300, 5);
+
+        g.drawImage(Assets.playerRight[0], 70, 230, 80, 80, null);
+        g.drawImage(Assets.playerRight[1], 150, 230, 80, 80, null);
+        g.drawImage(Assets.playerRight[2], 230, 230, 80, 80, null);
+        g.drawImage(Assets.playerRight[3], 310, 230, 80, 80, null);
+        g.fillRect(70, 298, 300, 5);
     }
 
     public void clearCanvas(Graphics g) {
@@ -36,6 +53,7 @@ public class Drawer {
         drawSprite(g, "hero");
         drawSprite(g, "badGuy");
     }
+
 
     private void drawSprite(Graphics g, String character) {
         int x, y, offsetX, offsetY, hitBoxOffsetX, hitBoxOffsetY;
@@ -57,13 +75,13 @@ public class Drawer {
                 break;
         }
 
-        g.drawImage(image, offsetX, offsetY, null);
+        g.drawImage(image, offsetX, offsetY, 44, 52, null);
 
-        int c = (int) Game.hero.getHitBox().getX();
-        int d = (int) Game.hero.getHitBox().getY();
-        int Awidth = (int) Game.hero.getHitBox().getWidth();
-        int Bheight = (int) Game.hero.getHitBox().getHeight();
-        g.drawRect(c, d, Awidth, Bheight);
+//        int c = (int) Game.hero.getHitBox().getX();
+//        int d = (int) Game.hero.getHitBox().getY();
+//        int Awidth = (int) Game.hero.getHitBox().getWidth();
+//        int Bheight = (int) Game.hero.getHitBox().getHeight();
+//        g.drawRect(c, d, Awidth, Bheight);
 
         int a = (int) Game.badGuy.getHitBox().getX();
         int b = (int) Game.badGuy.getHitBox().getY();
@@ -110,20 +128,23 @@ public class Drawer {
     public void drawMaze(Graphics g) {
         List<Rectangle> walls = Game.maze.getWallsCoordinates();
         int counter = 0;
-        for (Rectangle coordinates: walls) {
-            int x = (int) coordinates.getX();
-            int y = (int) coordinates.getY();
-            int width = (int) coordinates.getWidth();
-            int height = (int) coordinates.getHeight();
-            g.setColor(Color.black);
-            g.fillRoundRect(x, y, width, height, 2, 2);
+        for (Rectangle wall: walls) {
+            int x = (int) wall.getX();
+            int y = (int) wall.getY();
+            int width = (int) wall.getWidth();
+            int height = (int) wall.getHeight();
+//            g.setColor(Color.black);
+//            g.fillRoundRect(x, y, width, height, 2, 2);
+            g.drawImage(Assets.wall.crop(28, 11, 22, 49), x - 22, y, null);
+            g.drawImage(Assets.wall.crop(50, 11, width, 60), x, y, null);
+            g.drawImage(Assets.wall.crop(1273, 12, 50, 60), x + width - 29, y + 2, null);
             //
-            counter++;
-            String message = "" + counter;
-            Font large = new Font("Helvetica", Font.BOLD, 20);
-            g.setColor(Color.red);
-            g.setFont(large);
-            g.drawString(message, x, y);
+//            counter++;
+//            String message = "" + counter;
+//            Font large = new Font("Helvetica", Font.BOLD, 20);
+//            g.setColor(Color.red);
+//            g.setFont(large);
+//            g.drawString(message, x, y);
         }
     }
 

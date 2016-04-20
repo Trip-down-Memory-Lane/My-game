@@ -14,6 +14,11 @@ public class Hero extends Sprite {
     public static boolean goingLeft;
     public static boolean goingDown;
     public static boolean goingRight;
+    public static boolean blockedUp;
+    public static boolean blockedLeft;
+    public static boolean blockedDown;
+    public static boolean blockedRight;
+
     public static boolean sprinting;
     public static boolean sprintAttempt;
     public static int sprintCoolDown = 0;
@@ -31,8 +36,11 @@ public class Hero extends Sprite {
 
     private void initHero() {
         image = Assets.playerDown[1];
+//        hitBoxWidth = 80;
+//        hitBoxHeight = 80;
         hitBoxWidth = 22;
         hitBoxHeight = 26;
+//
         updateHero();
     }
 
@@ -51,7 +59,7 @@ public class Hero extends Sprite {
             frames = 0;
             counter++;
         }
-        indexImg = counter % 3;
+        indexImg = counter % 4;
 
         int step = speed;
         if (goingUp && (goingRight || goingLeft) || goingDown && (goingRight || goingLeft)) {
@@ -103,3 +111,32 @@ public class Hero extends Sprite {
         return false;
     }
 }
+//Game.collision.checkHeroWallCollision();
+//        int step = speed;
+//        if (goingUp && (goingRight || goingLeft) || goingDown && (goingRight || goingLeft)) {
+//        step = speed - 1;
+//        }
+//        if (goingLeft) {
+//        image = Assets.playerLeft[indexImg];
+//        if (!blockedLeft) {
+//        x -= step;
+//        }
+//        }
+//        if (goingRight) {
+//        image = Assets.playerRight[indexImg];
+//        if (!blockedRight) {
+//        x += step;
+//        }
+//        }
+//        if (goingUp) {
+//        image = Assets.playerUp[indexImg];
+//        if (!blockedUp) {
+//        y -= step;
+//        }
+//        }
+//        if (goingDown) {
+//        image = Assets.playerDown[indexImg];
+//        if (!blockedDown) {
+//        y += step;
+//        }
+//        }

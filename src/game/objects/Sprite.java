@@ -18,7 +18,7 @@ public class Sprite {
     private int imageOffsetY;
     private int hitBoxOffsetX;
     private int hitBoxOffsetY;
-    BufferedImage image;
+    public BufferedImage image;
 
     Sprite(int x, int y) {    // Constructor
         this.x = x;

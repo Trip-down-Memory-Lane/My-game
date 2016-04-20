@@ -16,11 +16,13 @@ public class Assets {
     public static BufferedImage artefact;
     static BufferedImage heroPortrait, heroSprint;
 
+    static SpriteSheet wall, floor;
+
     private static void initAssets() {
 
-        SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/animation.png"));
-        int width = 32;
-        int height = 32;
+        SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/animation4.png"));
+        int width = 146 / 3;
+        int height = 216 / 4;
         playerUp = new BufferedImage[4];
         playerLeft = new BufferedImage[4];
         playerDown = new BufferedImage[4];
@@ -30,7 +32,7 @@ public class Assets {
         for (int i = 1, leftI = 2; i <= 3; i++, leftI--) {
             index = i - 1;
             playerDown[index] = heroSheet.crop(index * width, 0, width, height);
-            playerLeft[index] = heroSheet.crop(leftI * width, height, width, height);
+            playerLeft[index] = heroSheet.crop(index * width, height, width, height);
             playerRight[index] = heroSheet.crop(index * width, 2 * height, width, height);
             playerUp[index] = heroSheet.crop(index * width, 3 * height, width, height);
         }
@@ -39,12 +41,7 @@ public class Assets {
         playerRight[3] = heroSheet.crop(width, 2 * height, width, height);
         playerUp[3] = heroSheet.crop(width, 3 * height, width, height);
 
-        SpriteSheet sprintSheet = new SpriteSheet(ImageLoader.loadImage("/heroSheet.png"));
-        heroSprint = sprintSheet.crop(100, 393, 40, 20);
-//        playerUp = heroSheet.crop(6, 113, 36, 44);
-//        playerLeft = heroSheet.crop(8, 60, 36, 44);
-//        playerDown = heroSheet.crop(4, 6, 36, 44);
-//        playerRight = heroSheet.crop(6, 164, 36, 44);
+        heroSprint = heroSheet.crop(149, 221, 40, 20);
 
         SpriteSheet badGuySheet = new SpriteSheet((ImageLoader.loadImage("/badGuySheet.png")));
         badGuyUp = badGuySheet.crop(4, 204, 42, 48);
@@ -56,18 +53,11 @@ public class Assets {
 
         SpriteSheet bigHero = new SpriteSheet(ImageLoader.loadImage("/Hero_FULL_SCALE.png"));
         heroPortrait = bigHero.crop(10, 10, 90, 80);
+
+        wall = new SpriteSheet(ImageLoader.loadImage("/wall1.png"));
+
+        floor = new SpriteSheet(ImageLoader.loadImage("/floor.png"));
     }
 }
-//    SpriteSheet heroSheet = new SpriteSheet(ImageLoader.loadImage("/heroSheet.png"));
-//        playerUp = heroSheet.crop(6, 113, 36, 42);
-//        playerLeft = heroSheet.crop(8, 60, 34, 44);
-//        playerDown = heroSheet.crop(4, 6, 36, 45);
-//        playerRight = heroSheet.crop(6, 164, 34, 44);
-//
-//        SpriteSheet badGuySheet = new SpriteSheet((ImageLoader.loadImage("/badGuySheet.png")));
-//        badGuyUp = badGuySheet.crop(4, 204, 43, 48);
-//        badGuyLeft = badGuySheet.crop(216, 80, 26, 46);
-//        badGuyDown = badGuySheet.crop(76, 16, 42, 48);
-//        badGuyRight = badGuySheet.crop(207, 145, 26, 46);
-//    }
+
 

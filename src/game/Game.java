@@ -60,7 +60,7 @@ public class Game implements Runnable {
         collision.checkCollisions();    // Checks sprites and walls for collisions.
         hero.move();    // Gets the next coordinates for Hero.
 
-        badGuy.followHero(hero.getX(), hero.getY());    // Same for BadGuy
+//        badGuy.followHero(hero.getX(), hero.getY());    // Same for BadGuy
     }
 
     private void render() {    // Here we render the graphics
@@ -76,11 +76,12 @@ public class Game implements Runnable {
             // Re-drawing canvas each time.
             drawer.clearCanvas(g);   // Clears the canvas from the objects drawn on the previous render()
             drawer.drawOutline(g);
-            drawer.drawMaze(g);
 //            drawer.drawArtefact(g);
             drawer.drawSprites(g);
+            drawer.drawMaze(g);
 //            drawer.drawFrames(g);
-            drawer.drawHeroPanel(g);
+            drawer.drawHeroPanel(
+                    g);
         } else {
             drawer.drawPause(g);
         }
