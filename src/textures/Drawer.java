@@ -57,12 +57,12 @@ public class Drawer {
         int height = 72;
 
         g.drawImage(image, offsetX, offsetY + 2, width, height, null);
-
-        int c = (int) Game.hero.getHitBox().getX();
-        int d = (int) Game.hero.getHitBox().getY();
-        int Awidth = (int) Game.hero.getHitBox().getWidth();
-        int Bheight = (int) Game.hero.getHitBox().getHeight();
-        g.drawRect(c, d, Awidth, Bheight);
+//
+//        int c = (int) Game.hero.getHitBox().getX();
+//        int d = (int) Game.hero.getHitBox().getY();
+//        int Awidth = (int) Game.hero.getHitBox().getWidth();
+//        int Bheight = (int) Game.hero.getHitBox().getHeight();
+//        g.drawRect(c, d, Awidth, Bheight);
 
         Toolkit.getDefaultToolkit().sync();
     }
@@ -76,12 +76,12 @@ public class Drawer {
 
         g.drawImage(image, offsetX, offsetY + 5, width, height, null);
 
-        int a = (int) Game.badGuy.getHitBox().getX();
-        int b = (int) Game.badGuy.getHitBox().getY();
-        int widthA = (int) Game.badGuy.getHitBox().getWidth();
-        int heightA = (int) Game.badGuy.getHitBox().getHeight();
-        g.setColor(Color.red);
-        g.drawRect(a, b, widthA, heightA);
+//        int a = (int) Game.badGuy.getHitBox().getX();
+//        int b = (int) Game.badGuy.getHitBox().getY();
+//        int widthA = (int) Game.badGuy.getHitBox().getWidth();
+//        int heightA = (int) Game.badGuy.getHitBox().getHeight();
+//        g.setColor(Color.red);
+//        g.drawRect(a, b, widthA, heightA);
         Toolkit.getDefaultToolkit().sync();
     }
 
