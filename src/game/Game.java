@@ -35,6 +35,7 @@ public class Game implements Runnable {
     private String name;
     private int BOARD_X;
     private int BOARD_Y;
+    private boolean catchThemAll = false;
 
     Game(String name, int width, int height) {
         this.name = name;
@@ -85,7 +86,8 @@ public class Game implements Runnable {
     private void tick() {    // Represents the actions happening inside the game. In this case :
         collision.checkCollisions();    // Checks sprites and walls for collisions.
         hero.move();    // Gets the next coordinates for Hero.
-
+        if(collision.itemAIsCatched && collision.itemBIsCatched && collision.itemCIsCatched && collision.itemDIsCatched)
+            catchThemAll = true;
         badGuy.followHero(hero.getX(), hero.getY());    // Same for BadGuy
     }
 

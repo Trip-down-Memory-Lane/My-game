@@ -19,5 +19,6 @@ public class Item extends Sprite {
         imageWidth = 20;
         imageHeight = 20;
         updateImage();
+        updateHitBox();
     }
 }

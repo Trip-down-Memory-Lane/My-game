@@ -38,8 +38,24 @@ public class Collision {
             Hero.foreground = true;
             Hero.speed = 6;
         }
+        checkItemCollision();
         heroForeground();
         badGuyForeground();
+    }
+
+    private void checkItemCollision(){
+        if(itemHitBox.intersects(heroHitBox.getBoundsInLocal())) {
+            itemAIsCatched = true;
+        }
+        if(itemHitBoxB.intersects(heroHitBox.getBoundsInLocal())) {
+            itemBIsCatched = true;
+        }
+        if(itemHitBoxC.intersects(heroHitBox.getBoundsInLocal())) {
+            itemCIsCatched = true;
+        }
+        if(itemHitBoxD.intersects(heroHitBox.getBoundsInLocal())) {
+            itemDIsCatched = true;
+        }
     }
 
     private void updateSpritesHitBox() {
