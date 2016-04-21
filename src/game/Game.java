@@ -25,7 +25,7 @@ public class Game implements Runnable {
     public static Collision collision;
 //    public static Artefact artefact;
 
-    static boolean notPaused = true;
+    static boolean notPaused = false;
 
     private BufferStrategy buffer;
     private InputHandler inputHandler;
