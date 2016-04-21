@@ -16,15 +16,21 @@ public class BadGuy extends Sprite {
 
     public static int lengthLeft;
     public static int lengthRight;
+    public static int speed = 4; // Speed of the step
+    public static boolean foreground;
 
     private static int stepX;   // Stores the step pixels  at which BadGuy is moving and occasionaly gives control over direction (positive and negative values).
     private static int stepY;   // Same but for Y axis.
-    private static int speed = 4;   // Speed of the step
+
     // These variables are here for the special case, when Hero and BadGuy both have equal X coordinates, but are separated by wall. This way BadGuy can choose a direction to go around the wall. If not present, BadGuy would just stand bellow Hero.
     private boolean goingRight;
     private boolean goingLeft;
     private boolean goingUp;
     private boolean goingDown;
+
+    private static int frames = 0;
+    private static int indexImg = 0;
+    private static int counter = 0;
 
     private boolean deadEnd = false;    // This helps BadGuy return from dead ends at the borders of the frame.
 
@@ -34,9 +40,11 @@ public class BadGuy extends Sprite {
     }
 
     private void initBadGuy() {    // initialize
-        image = Assets.badGuyUp;    // store the starting image in 'image'. See src/graphics for more.
-        hitBoxWidth = 20;
-        hitBoxHeight = 46;
+        image = Assets.badGuyUp[0];    // store the starting image in 'image'. See src/graphics for more.
+        hitBoxWidth = 45;
+        hitBoxHeight = 55;
+        imageWidth = 50;
+        imageHeight = 62;
         updateBadGuy();
     }
 
@@ -46,6 +54,14 @@ public class BadGuy extends Sprite {
     }
 
     public void followHero(int heroX, int heroY) {    // moving
+        if (heroY < 90) {
+            return;
+        }
+        if (frames == 7) {
+            frames = 0;
+            counter++;
+        }
+        indexImg = counter % 4;
         calculateHeading(heroX, heroY);    // get values for 'stepX/stepY'
         if (!wallCollision(x + stepX, y + stepY)) {    // if does not collide with wall. 'x + stepX' represents the next coordinates. Basically it checks if the next step (coordinates + step) collides with 'wall'. If not - move, else - skip.
             x += stepX;
@@ -59,10 +75,10 @@ public class BadGuy extends Sprite {
                 }
                 if (goingLeft) {    //
                     x -= speed;
-                    image = Assets.badGuyLeft;
+                    image = Assets.badGuyLeft[indexImg];
                 } else if (goingRight) {   //
                     x += speed;
-                    image = Assets.badGuyRight;
+                    image = Assets.badGuyRight[indexImg];
                 } else {
 //                    if (x < Maze.wallMinLength + Maze.doorMaxLength + speed && wallCollision(x + stepX, y + stepY) && heroX < x) {
                     if (wallCollision(x + stepX, y + stepY) && heroX < x) {
@@ -120,16 +136,20 @@ public class BadGuy extends Sprite {
                 }
                 if (goingUp) {    //
                     y -= speed;
-                    image = Assets.badGuyUp;
+                    image = Assets.badGuyUp[indexImg];
                 } else if (goingDown) {   //
                     y += speed;
-                    image = Assets.badGuyDown;
+                    image = Assets.badGuyDown[indexImg];
                 } else {
                     y += stepY;
                 }
                 goingLeft = false;    //
                 goingRight = false;    //
             }
+        }
+        frames++;
+        if (frames > 7) {
+            frames = 7;
         }
         updateBadGuy();
 //        } else if (!wallCollision(x - stepX, y)) {    // Initialize 'deadEnd' if we hit the frame border. Stop 'deadEnd' if next step is clear.
@@ -157,14 +177,14 @@ public class BadGuy extends Sprite {
             } else {
                 stepX = -speed;
             }
-            image = Assets.badGuyLeft;
+            image = Assets.badGuyLeft[indexImg];
         } else {
             if (!(Math.abs(heroY - y) <= speed) && !wallCollision(x, y)) {
                 stepX = speed - 1;
             } else {
                 stepX = speed;
             }
-            image = Assets.badGuyRight;
+            image = Assets.badGuyRight[indexImg];
         }
         if (Math.abs(heroY - y) < speed) {
             stepY = 0;  // Same as before only for Y axis.
@@ -174,14 +194,14 @@ public class BadGuy extends Sprite {
             } else {
                 stepY = -speed;
             }
-            image = Assets.badGuyUp;
+            image = Assets.badGuyUp[indexImg];
         } else {
             if (!(Math.abs(heroX - x) <= speed) && !wallCollision(x, y)) {
                 stepY = speed - 1;
             } else {
                 stepY = speed;
             }
-            image = Assets.badGuyDown;
+            image = Assets.badGuyDown[indexImg];
         }
     }
 

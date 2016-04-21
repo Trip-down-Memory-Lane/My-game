@@ -49,58 +49,66 @@ public class Drawer {
         g.clearRect(0, 0, boardX, boardY);
     }
 
-    public void drawSprites(Graphics g) {
-        drawSprite(g, "hero");
-        drawSprite(g, "badGuy");
+    public void drawHero(Graphics g) {
+        Image image = Game.hero.getImage();
+        int offsetX = Game.hero.getImageOffsetX();
+        int offsetY = Game.hero.getImageOffsetY();
+        int width = 60;
+        int height = 72;
+
+        g.drawImage(image, offsetX, offsetY + 2, width, height, null);
+
+        int c = (int) Game.hero.getHitBox().getX();
+        int d = (int) Game.hero.getHitBox().getY();
+        int Awidth = (int) Game.hero.getHitBox().getWidth();
+        int Bheight = (int) Game.hero.getHitBox().getHeight();
+        g.drawRect(c, d, Awidth, Bheight);
+
+        Toolkit.getDefaultToolkit().sync();
     }
 
+    public void drawBadGuy(Graphics g) {
+        Image image = Game.badGuy.getImage();
+        int offsetX = Game.badGuy.getImageOffsetX();
+        int offsetY = Game.badGuy.getImageOffsetY();
+        int width = 50;
+        int height = 62;
 
-    private void drawSprite(Graphics g, String character) {
-        int x, y, offsetX, offsetY, hitBoxOffsetX, hitBoxOffsetY;
-        Image image;
-        switch (character) {
-            case "badGuy":
-//                hitBoxOffsetX = Game.badGuy.getHitBoxOffsetX();
-//                hitBoxOffsetY = Game.badGuy.getHitBoxOffsetY();
-                offsetX = Game.badGuy.getImageOffsetX();
-                offsetY = Game.badGuy.getImageOffsetY();
-                image = Game.badGuy.getImage();
-                break;
-            default:
-//                hitBoxOffsetX = Game.badGuy.getHitBoxOffsetX();
-//                hitBoxOffsetY = Game.badGuy.getHitBoxOffsetY();
-                offsetX = Game.hero.getImageOffsetX();
-                offsetY = Game.hero.getImageOffsetY();
-                image = Game.hero.getImage();
-                break;
-        }
+        g.drawImage(image, offsetX, offsetY + 5, width, height, null);
 
-        g.drawImage(image, offsetX, offsetY, 44, 52, null);
+        int a = (int) Game.badGuy.getHitBox().getX();
+        int b = (int) Game.badGuy.getHitBox().getY();
+        int widthA = (int) Game.badGuy.getHitBox().getWidth();
+        int heightA = (int) Game.badGuy.getHitBox().getHeight();
+        g.setColor(Color.red);
+        g.drawRect(a, b, widthA, heightA);
+        Toolkit.getDefaultToolkit().sync();
+    }
 
+// Hero hitBox
 //        int c = (int) Game.hero.getHitBox().getX();
 //        int d = (int) Game.hero.getHitBox().getY();
 //        int Awidth = (int) Game.hero.getHitBox().getWidth();
 //        int Bheight = (int) Game.hero.getHitBox().getHeight();
 //        g.drawRect(c, d, Awidth, Bheight);
+// BadGuy hitbox
+//        int a = (int) Game.badGuy.getHitBox().getX();
+//        int b = (int) Game.badGuy.getHitBox().getY();
+//        int width = (int) Game.badGuy.getHitBox().getWidth();
+//        int height = (int) Game.badGuy.getHitBox().getHeight();
+//        g.drawRect(a, b, width, height);
 
-        int a = (int) Game.badGuy.getHitBox().getX();
-        int b = (int) Game.badGuy.getHitBox().getY();
-        int width = (int) Game.badGuy.getHitBox().getWidth();
-        int height = (int) Game.badGuy.getHitBox().getHeight();
-        g.drawRect(a, b, width, height);
-
-        Toolkit.getDefaultToolkit().sync();
-    }
 
     public void drawGameOver(Graphics g) {
-        String message = "Game Over";
-        Font large = new Font("Helvetica", Font.BOLD, 18);
-        FontMetrics fm = g.getFontMetrics(large);
-
-        clearCanvas(g);
-        g.setColor(Color.black);
-        g.setFont(large);
-        g.drawString(message, (boardX - fm.stringWidth(message)) / 2, boardY / 2 - 50);
+//        String message = "Game Over";
+//        Font large = new Font("Helvetica", Font.BOLD, 18);
+//        FontMetrics fm = g.getFontMetrics(large);
+//
+//        clearCanvas(g);
+//        g.setColor(Color.black);
+//        g.setFont(large);
+//        g.drawString(message, (boardX - fm.stringWidth(message)) / 2, boardY / 2 - 50);
+        g.drawImage(Assets.gameOver, 0, 0, null);
     }
 
     public void drawPause(Graphics g) {
@@ -114,30 +122,48 @@ public class Drawer {
     }
 
     public void drawOutline(Graphics g) {
-        List<Rectangle> outlines = Game.maze.getOutlineCoordinates();
-        for (Rectangle outline : outlines) {
-            int x = (int) outline.getX();
-            int y = (int) outline.getY();
-            int width = (int) outline.getWidth();
-            int height = (int) outline.getHeight();
-            g.setColor(Color.black);
-            g.fillRect(x, y, width, height);
-        }
+//        List<Rectangle> outlines = Game.maze.getOutlineCoordinates();
+//        for (Rectangle outline : outlines) {
+//            int x = (int) outline.getX();
+//            int y = (int) outline.getY();
+//            int width = (int) outline.getWidth();
+//            int height = (int) outline.getHeight();
+//            g.setColor(Color.black);
+//            g.fillRect(x, y, width, height);
+        // }
+        g.drawImage(Assets.outline, 0, 0, null);
+    }
+
+    public void drawFloor(Graphics g) {
+        g.drawImage(Assets.floor, 0, 0, null);
     }
 
     public void drawMaze(Graphics g) {
-        List<Rectangle> walls = Game.maze.getWallsCoordinates();
-        int counter = 0;
-        for (Rectangle wall: walls) {
-            int x = (int) wall.getX();
-            int y = (int) wall.getY();
-            int width = (int) wall.getWidth();
-            int height = (int) wall.getHeight();
-//            g.setColor(Color.black);
-//            g.fillRoundRect(x, y, width, height, 2, 2);
-            g.drawImage(Assets.wall.crop(28, 11, 22, 49), x - 22, y, null);
-            g.drawImage(Assets.wall.crop(50, 11, width, 60), x, y, null);
-            g.drawImage(Assets.wall.crop(1273, 12, 50, 60), x + width - 29, y + 2, null);
+        List<Rectangle[]> walls = Game.maze.getWallsCoordinates();
+//        int counter = 0;
+        for (Rectangle[] wall: walls) {
+            int x = (int) wall[0].getX();
+            int y = (int) wall[0].getY();
+            int width = (int) wall[0].getWidth();
+//            int height = (int) wall[0].getHeight();
+//            g.drawImage(Assets.floor, 0, 0, null);
+            g.drawImage(Assets.wall.crop(28, 11, 22, 49), x - 10, y - 5, null);
+            g.drawImage(Assets.wall.crop(50, 11, width - 21, 60), x + 12, y - 5, null);
+            g.drawImage(Assets.wall.crop(1278, 11, 45, 60), x + width - 15, y - 4
+                    , null);
+//            g.setColor(Color.red);
+//            g.drawRect(x, y, width, height);
+
+//            int xX = (int) wall[1].getX();
+//            int yY = (int) wall[1].getY();
+//            int widthH = (int) wall[1].getWidth();
+//            int heightT = (int) wall[1].getHeight();
+//            g.setColor(Color.blue);
+//            g.drawRect(xX, yY, widthH, heightT);
+
+
+
+
             //
 //            counter++;
 //            String message = "" + counter;
@@ -168,31 +194,35 @@ public class Drawer {
         int outline = Game.maze.getOutlineThickness();
         int margin = Game.maze.getMazeMargin();
 
-        g.setColor(Color.green);
-        g.fillRect(730, 0, boardX - 730, outline + margin + 10);
-        g.setColor(Color.black);
-        g.fillRoundRect(735, outline / 2, 155, 80, 10, 10);
-        g.setColor(Color.gray);
-        g.fillRoundRect(740, outline / 2 + outline / 4, 80, 70, 10, 10);
+//        g.drawImage(Assets.heroPanel, 680, 10, null);
+
+//        g.setColor(Color.green);
+//        g.fillRect(730, 0, boardX - 730, outline + margin + 10);
+//        g.setColor(Color.black);
+//        g.fillRoundRect(735, outline / 2, 155, 80, 10, 10);
+//        g.setColor(Color.gray);
+//        g.fillRoundRect(740, outline / 2 + outline / 4, 80, 70, 10, 10);
+        g.drawImage(Assets.outline.getSubimage(800, 0, 80, 70), 740, outline / 2 + outline / 4, null);
         g.drawImage(Assets.heroPortrait, 749, outline / 2 + outline / 4 + 3, 60, 60, null);
 
 
-        g.setColor(Color.black);
-        g.fillRoundRect(825, outline / 2, 145, 45, 10, 10);
-        g.setColor(Color.white);
-        g.fillRoundRect(828, outline + 3 - outline / 4, 130, 29, 10, 10);
+//        g.setColor(Color.black);
+//        g.fillRoundRect(825, outline / 2, 145, 45, 10, 10);
+//        g.setColor(Color.white);
+//        g.fillRoundRect(828, outline + 3 - outline / 4, 130, 29, 10, 10);
 
         String speed = "Speed: " + Hero.speed;
-        Font medium = new Font("Helvetica", Font.BOLD, 21);
-        g.setColor(Color.red);
+        Font medium = new Font("Calibry", Font.BOLD, 21);
+        g.setColor(Color.gray);
         g.setFont(medium);
-        g.drawString(speed, 835, 2 * outline);
+        g.drawString(speed, 826, 2 * outline);
 
 
 //        g.setColor(Color.black);
 //        g.fillRect(825, 2 * outline - 2 + 12, 139, 35);
         g.setColor(Color.gray);
-        g.fillRoundRect(828, 2 * outline + 14, 50, 28, 10, 10);
+        g.drawRoundRect(828, 2 * outline + 14, 50, 28, 10, 10);
+//        g.drawImage(Assets.outline.getSubimage(800, 0, 50, 28), 828, 2 * outline + 14, null);
         g.drawImage(Assets.heroSprint, 830, 3 * outline, null);
 
         if (Hero.sprinting) {

@@ -14,10 +14,8 @@ public class Hero extends Sprite {
     public static boolean goingLeft;
     public static boolean goingDown;
     public static boolean goingRight;
-    public static boolean blockedUp;
-    public static boolean blockedLeft;
-    public static boolean blockedDown;
-    public static boolean blockedRight;
+    public static boolean foreground;
+    public static boolean cheating = false;
 
     public static boolean sprinting;
     public static boolean sprintAttempt;
@@ -36,11 +34,11 @@ public class Hero extends Sprite {
 
     private void initHero() {
         image = Assets.playerDown[1];
-//        hitBoxWidth = 80;
-//        hitBoxHeight = 80;
-        hitBoxWidth = 22;
-        hitBoxHeight = 26;
-//
+        hitBoxWidth = 35;
+        hitBoxHeight = 40;
+        imageWidth = 60;
+        imageHeight = 65;
+
         updateHero();
     }
 
@@ -82,8 +80,8 @@ public class Hero extends Sprite {
             image = Assets.playerDown[indexImg];
         }
         frames++;
-        if (frames > fps) {
-            frames = fps;
+        if (frames > 7) {
+            frames = 7;
         }
         updateHero();
     }
@@ -91,7 +89,11 @@ public class Hero extends Sprite {
     private void checkSprint() {
         if (sprintReady() && sprintAttempt) {
             sprinting = true;
-            speed = 6;
+            if (cheating) {
+                speed = 10;
+            } else {
+                speed = 6;
+            }
             sprintDuration--;
             if (sprintDuration == 0) {
                 speed = 4;

@@ -14,6 +14,8 @@ public class Sprite {
     int y;
     int hitBoxWidth;
     int hitBoxHeight;
+    int imageWidth;
+    int imageHeight;
     private int imageOffsetX;
     private int imageOffsetY;
     private int hitBoxOffsetX;
@@ -31,8 +33,8 @@ public class Sprite {
     }
 
     void updateImage() {    // Image dimensions, or Bounds, are used to detect collision.
-        int imageWidth = image.getWidth();
-        int imageHeight = image.getHeight();
+//        int imageWidth = image.getWidth();
+//        int imageHeight = image.getHeight();
         imageOffsetX = x - imageWidth / 2;   // Offsets are used to center the image. By default java will put the image's left top corner on the given coordinates.
         imageOffsetY = y - imageHeight / 2;  // Using offsets we put the center of the image on X and Y.
     }

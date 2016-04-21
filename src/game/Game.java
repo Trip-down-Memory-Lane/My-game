@@ -50,8 +50,8 @@ public class Game implements Runnable {
         maze = new Maze(BOARD_X, BOARD_Y);
 //        artefact = new Artefact();
         collision = new Collision();
-        hero = new Hero(70, 70);
-        badGuy = new BadGuy(650, 710);
+        hero = new Hero(60, 40);
+        badGuy = new BadGuy(680, 720);
         drawer = new Drawer();
         inputHandler = new InputHandler(board);
     }
@@ -60,7 +60,7 @@ public class Game implements Runnable {
         collision.checkCollisions();    // Checks sprites and walls for collisions.
         hero.move();    // Gets the next coordinates for Hero.
 
-//        badGuy.followHero(hero.getX(), hero.getY());    // Same for BadGuy
+        badGuy.followHero(hero.getX(), hero.getY());    // Same for BadGuy
     }
 
     private void render() {    // Here we render the graphics
@@ -75,13 +75,27 @@ public class Game implements Runnable {
         if (notPaused) {
             // Re-drawing canvas each time.
             drawer.clearCanvas(g);   // Clears the canvas from the objects drawn on the previous render()
+            drawer.drawFloor(g);
+
+            if (Hero.foreground && BadGuy.foreground) {
+                drawer.drawMaze(g);
+                drawer.drawBadGuy(g);
+                drawer.drawHero(g);
+            } else if (!Hero.foreground && !BadGuy.foreground){
+                drawer.drawBadGuy(g);
+                drawer.drawHero(g);
+                drawer.drawMaze(g);
+            } else if (Hero.foreground && !BadGuy.foreground) {
+                drawer.drawBadGuy(g);
+                drawer.drawMaze(g);
+                drawer.drawHero(g);
+            } else {
+                drawer.drawHero(g);
+                drawer.drawMaze(g);
+                drawer.drawBadGuy(g);
+            }
             drawer.drawOutline(g);
-//            drawer.drawArtefact(g);
-            drawer.drawSprites(g);
-            drawer.drawMaze(g);
-//            drawer.drawFrames(g);
-            drawer.drawHeroPanel(
-                    g);
+            drawer.drawHeroPanel(g);
         } else {
             drawer.drawPause(g);
         }
