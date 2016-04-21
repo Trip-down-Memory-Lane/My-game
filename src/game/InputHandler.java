@@ -4,6 +4,7 @@
 package game;
 
 import frame.Board;
+import game.objects.BadGuy;
 import game.objects.Hero;
 
 import java.awt.event.KeyEvent;
@@ -30,6 +31,19 @@ class InputHandler implements KeyListener {
                 if (Hero.sprintCoolDown == 0) {
                     Hero.sprintAttempt = true;
                 }
+                break;
+            case KeyEvent.VK_E:
+                Game.notPaused = true;
+                BadGuy.speed = 3;
+                break;
+            case KeyEvent.VK_N:
+                Game.notPaused = true;
+                BadGuy.speed = 4;
+                break;
+
+            case KeyEvent.VK_H:
+                Game.notPaused = true;
+                BadGuy.speed = 5;
                 break;
         }
     }
