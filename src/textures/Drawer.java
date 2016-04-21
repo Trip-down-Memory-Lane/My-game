@@ -21,32 +21,12 @@ public class Drawer {
 
     }
 
-    public void drawFrames(Graphics g) {
-        g.drawImage(Assets.playerDown[0], 420, 50, 80, 80, null);
-        g.drawImage(Assets.playerDown[1], 420, 130, 80, 80, null);
-        g.drawImage(Assets.playerDown[2], 420, 210, 80, 80, null);
-        g.drawImage(Assets.playerDown[3], 420, 290, 80, 80, null);
-
-        g.drawImage(Assets.playerUp[0], 520, 50, 80, 80, null);
-        g.drawImage(Assets.playerUp[1], 520, 130, 80, 80, null);
-        g.drawImage(Assets.playerUp[2], 520, 210, 80, 80, null);
-        g.drawImage(Assets.playerUp[3], 520, 290, 80, 80, null);
-
-        g.drawImage(Assets.playerLeft[0], 70, 100, 80, 80, null);
-        g.drawImage(Assets.playerLeft[1], 150, 100, 80, 80, null);
-        g.drawImage(Assets.playerLeft[2], 230, 100, 80, 80, null);
-        g.drawImage(Assets.playerLeft[3], 310, 100, 80, 80, null);
-        g.fillRect(70, 167, 300, 5);
-
-        g.drawImage(Assets.playerRight[0], 70, 230, 80, 80, null);
-        g.drawImage(Assets.playerRight[1], 150, 230, 80, 80, null);
-        g.drawImage(Assets.playerRight[2], 230, 230, 80, 80, null);
-        g.drawImage(Assets.playerRight[3], 310, 230, 80, 80, null);
-        g.fillRect(70, 298, 300, 5);
-    }
-
     public void clearCanvas(Graphics g) {
         g.clearRect(0, 0, boardX, boardY);
+    }
+
+    public void drawMenu(Graphics g) {
+        g.drawImage(Assets.menu, 0, 0, null);
     }
 
     public void drawHero(Graphics g) {

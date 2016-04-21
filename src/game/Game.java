@@ -97,7 +97,8 @@ public class Game implements Runnable {
             drawer.drawOutline(g);
             drawer.drawHeroPanel(g);
         } else {
-            drawer.drawPause(g);
+            drawer.drawMenu(g);
+
         }
 
         if (collision.badGuyCollision) {    // End-game condition.
