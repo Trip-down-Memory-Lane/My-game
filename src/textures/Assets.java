@@ -77,6 +77,8 @@ public class Assets {
 
         gameOver = ImageLoader.loadImage("/gameOver.png");
 
+        artefact = ImageLoader.loadImage("/item.png").getSubimage(60, 150, 60, 210);
+
 
     }
 }
