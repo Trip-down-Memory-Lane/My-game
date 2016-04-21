@@ -3,6 +3,7 @@ package textures;
 import game.Game;
 
 import game.objects.Hero;
+import game.objects.Item;
 import game.objects.Maze;
 import javafx.scene.shape.Rectangle;
 
@@ -185,36 +186,36 @@ public class Drawer {
         int x, y, offsetX, offsetY;
         switch (item) {
             case "item":
-                x = Game.starItem.getX();
-                y = Game.starItem.getY();
-                offsetX = Game.starItem.getImageOffsetX();
-                offsetY = Game.starItem.getImageOffsetY();
-                image = Game.starItem.getImage();
+                x = Item.starItem.getX();
+                y = Item.starItem.getY();
+                offsetX = Item.starItem.getImageOffsetX();
+                offsetY = Item.starItem.getImageOffsetY();
+                image = Item.starItem.getImage();
                 break;
             case "itemb":
-                x = Game.starItemB.getX();
-                y = Game.starItemB.getY();
-                offsetX = Game.starItemB.getImageOffsetX();
-                offsetY = Game.starItemB.getImageOffsetY();
-                image = Game.starItemB.getImage();
+                x = Item.starItemB.getX();
+                y = Item.starItemB.getY();
+                offsetX = Item.starItemB.getImageOffsetX();
+                offsetY = Item.starItemB.getImageOffsetY();
+                image = Item.starItemB.getImage();
                 break;
             case "itemc":
-                x = Game.starItemC.getX();
-                y = Game.starItemC.getY();
-                offsetX = Game.starItemC.getImageOffsetX();
-                offsetY = Game.starItemC.getImageOffsetY();
-                image = Game.starItemC.getImage();
+                x = Item.starItemC.getX();
+                y = Item.starItemC.getY();
+                offsetX = Item.starItemC.getImageOffsetX();
+                offsetY = Item.starItemC.getImageOffsetY();
+                image = Item.starItemC.getImage();
                 break;
             default:
-                x = Game.starItemD.getX();
-                y = Game.starItemD.getY();
-                offsetX = Game.starItemD.getImageOffsetX();
-                offsetY = Game.starItemD.getImageOffsetY();
-                image = Game.starItemD.getImage();
+                x = Item.starItemD.getX();
+                y = Item.starItemD.getY();
+                offsetX = Item.starItemD.getImageOffsetX();
+                offsetY = Item.starItemD.getImageOffsetY();
+                image = Item.starItemD.getImage();
                 break;
         }
 
-        g.drawImage(image, offsetX, offsetY, null);
+        g.drawImage(image, offsetX, offsetY, 30, 30, null);
     }
 
     public void drawWin(Graphics g) {

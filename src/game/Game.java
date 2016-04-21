@@ -20,11 +20,11 @@ public class Game implements Runnable {
     public static Board board;
     public static Maze maze;
     public static Collision collision;
-    public static Item starItem, starItemB, starItemC, starItemD;
 //    public static Artefact artefact;
 
     static boolean notPaused = false;
 
+    private Item item;
     private BufferStrategy buffer;
     private InputHandler inputHandler;
     private Assets assets;
@@ -47,41 +47,13 @@ public class Game implements Runnable {
         board = new Board(name, BOARD_X, BOARD_Y);
         assets = new Assets();
         maze = new Maze(BOARD_X, BOARD_Y);
-//        artefact = new Artefact();
+        item = new Item(5, 5);
         collision = new Collision();
         hero = new Hero(60, 40);
         badGuy = new BadGuy(680, 720);
         drawer = new Drawer();
         inputHandler = new InputHandler(board);
-
-        int itemX, itemY;
-        itemX = 645 + (int)(Math.random() * 655);
-        itemY = seedRandomPostion();
-        starItem = new Item(itemX, itemY);
-
-        itemX = 645 + (int)(Math.random() * 655);
-        itemY = seedRandomPostion();
-        starItemB = new Item(itemX , itemY);
-
-        itemX = 45 + (int)(Math.random() * 655);
-        itemY = seedRandomPostion();
-        starItemC = new Item(itemX , itemY);
-
-        itemX = 45 + (int)(Math.random() * 655);
-        itemY = seedRandomPostion();
-        starItemD = new Item(itemX , itemY);
     }
-
-    private int seedRandomPostion() {
-        int positionY = 40;
-        int ROW_OFFSET = 77;
-        int row ;
-        row = 3 + (int)(Math.random() * 6);
-
-        positionY += (ROW_OFFSET * row);
-        return positionY;
-    }
-
 
     private void tick() {    // Represents the actions happening inside the game. In this case :
         collision.checkCollisions();    // Checks sprites and walls for collisions.
@@ -132,6 +104,11 @@ public class Game implements Runnable {
 
         if (collision.badGuyCollision) {    // End-game condition.
             drawer.drawGameOver(g);
+            buffer.show();
+            stop();    // Calls for stopping of the game process.
+        }
+        if(catchThemAll) {
+            drawer.drawWin(g); // draw WIN
             buffer.show();
             stop();    // Calls for stopping of the game process.
         }

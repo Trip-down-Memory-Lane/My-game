@@ -3,6 +3,7 @@
 //######################################################################################################################
 package game;
 
+import game.objects.Item;
 import textures.Assets;
 import game.objects.BadGuy;
 import static game.objects.Hero.*;
@@ -65,10 +66,10 @@ public class Collision {
     private void updateSpritesHitBox() {
         heroHitBox = Game.hero.getHitBox();
         badGuyHitBox = Game.badGuy.getHitBox();
-        itemHitBox = Game.starItem.getHitBox();
-        itemHitBoxB = Game.starItemB.getHitBox();
-        itemHitBoxC = Game.starItemC.getHitBox();
-        itemHitBoxD = Game.starItemD.getHitBox();
+        itemHitBox = Item.starItem.getHitBox();
+        itemHitBoxB = Item.starItemB.getHitBox();
+        itemHitBoxC = Item.starItemC.getHitBox();
+        itemHitBoxD = Item.starItemD.getHitBox();
     }
 
 
