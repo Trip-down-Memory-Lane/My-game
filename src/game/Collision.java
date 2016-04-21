@@ -14,6 +14,10 @@ import java.util.List;
 
 public class Collision {
 
+    public boolean itemAIsCatched = false, itemBIsCatched = false, itemCIsCatched = false,  itemDIsCatched = false;
+
+    private Rectangle itemHitBox, itemHitBoxB, itemHitBoxC, itemHitBoxD;
+
     boolean badGuyCollision = false;
     private Rectangle heroHitBox;
     private Rectangle badGuyHitBox;
@@ -61,6 +65,10 @@ public class Collision {
     private void updateSpritesHitBox() {
         heroHitBox = Game.hero.getHitBox();
         badGuyHitBox = Game.badGuy.getHitBox();
+        itemHitBox = Game.starItem.getHitBox();
+        itemHitBoxB = Game.starItemB.getHitBox();
+        itemHitBoxC = Game.starItemC.getHitBox();
+        itemHitBoxD = Game.starItemD.getHitBox();
     }
 
 

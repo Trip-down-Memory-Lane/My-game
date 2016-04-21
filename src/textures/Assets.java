@@ -72,12 +72,12 @@ public class Assets {
         outline = ImageLoader.loadImage("/outline.png");
 
         heroPanel = ImageLoader.loadImage("/heroPanel.png");
-
+        
         menu = ImageLoader.loadImage("/menu.png");
 
         gameOver = ImageLoader.loadImage("/gameOver.png");
 
-        artefact = ImageLoader.loadImage("/item.png").getSubimage(60, 150, 60, 210);
+        artefact = ImageLoader.loadImage("/item.png").getSubimage(60, 150, 60, 60);
 
 
     }
