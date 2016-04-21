@@ -181,12 +181,36 @@ public class Drawer {
     }
 
     private void drawArtefact(Graphics g, String item) {
-        x = Game.hero.getX();
-        y = Game.hero.getY();
-        offsetX = Game.hero.getOffsetX();
-        offsetY = Game.hero.getOffsetY();
-        image = Game.hero.getImage();
-        break;
+        switch (item) {
+            case "item":
+                x = Game.starItem.getX();
+                y = Game.starItem.getY();
+                offsetX = Game.starItem.getOffsetX();
+                offsetY = Game.starItem.getOffsetY();
+                image = Game.starItem.getImage();
+                break;
+            case "itemb":
+                x = Game.starItemB.getX();
+                y = Game.starItemB.getY();
+                offsetX = Game.starItemB.getOffsetX();
+                offsetY = Game.starItemB.getOffsetY();
+                image = Game.starItemB.getImage();
+                break;
+            case "itemc":
+                x = Game.starItemC.getX();
+                y = Game.starItemC.getY();
+                offsetX = Game.starItemC.getOffsetX();
+                offsetY = Game.starItemC.getOffsetY();
+                image = Game.starItemC.getImage();
+                break;
+            case "itemd":
+                x = Game.starItemD.getX();
+                y = Game.starItemD.getY();
+                offsetX = Game.starItemD.getOffsetX();
+                offsetY = Game.starItemD.getOffsetY();
+                image = Game.starItemD.getImage();
+                break;
+        }
         if(!aIsCatched)
             drawSprite(g, "item");
         if(!bIsCatched)

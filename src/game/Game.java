@@ -4,14 +4,11 @@
 //######################################################################################################################
 package game;
 
-import game.objects.Artefact;
-import game.objects.Maze;
+import game.objects.*;
 import textures.Assets;
 import textures.Drawer;
 
 import frame.Board;
-import game.objects.BadGuy;
-import game.objects.Hero;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -23,6 +20,7 @@ public class Game implements Runnable {
     public static Board board;
     public static Maze maze;
     public static Collision collision;
+    public static Item starItem, starItemB, starItemC, starItemD;
 //    public static Artefact artefact;
 
     static boolean notPaused = false;
