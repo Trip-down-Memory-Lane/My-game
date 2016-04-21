@@ -54,7 +54,25 @@ public class Game implements Runnable {
         badGuy = new BadGuy(680, 720);
         drawer = new Drawer();
         inputHandler = new InputHandler(board);
+
+        int itemX, itemY;
+        itemX = 645 + (int)(Math.random() * 655);
+        itemY = seedRandomPostion();
+        starItem = new Item(itemX, itemY);
+
+        itemX = 645 + (int)(Math.random() * 655);
+        itemY = seedRandomPostion();
+        starItemB = new Item(itemX , itemY);
+
+        itemX = 45 + (int)(Math.random() * 655);
+        itemY = seedRandomPostion();
+        starItemC = new Item(itemX , itemY);
+
+        itemX = 45 + (int)(Math.random() * 655);
+        itemY = seedRandomPostion();
+        starItemD = new Item(itemX , itemY);
     }
+
 
     private void tick() {    // Represents the actions happening inside the game. In this case :
         collision.checkCollisions();    // Checks sprites and walls for collisions.
