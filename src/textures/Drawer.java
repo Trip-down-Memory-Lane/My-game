@@ -169,6 +169,36 @@ public class Drawer {
 //            g.fillRect(x - 5, y - 5, 10, 10);
 //        }
 //    }
+    public void drawArtefacts(Graphics g) {
+        if (!aIsCatched)
+            drawArtefact(g, "item");
+        if (!bIsCatched)
+            drawArtefact(g, "itemb");
+        if (!cIsCatched)
+            drawArtefact(g, "itemc");
+        if (!dIsCatched)
+            drawArtefact(g, "itemd");
+    }
+
+    private void drawArtefact(Graphics g, String item) {
+        x = Game.hero.getX();
+        y = Game.hero.getY();
+        offsetX = Game.hero.getOffsetX();
+        offsetY = Game.hero.getOffsetY();
+        image = Game.hero.getImage();
+        break;
+        if(!aIsCatched)
+            drawSprite(g, "item");
+        if(!bIsCatched)
+            drawSprite(g, "itemb");
+        if(!cIsCatched)
+            drawSprite(g, "itemc");
+        if(!dIsCatched)
+            drawSprite(g, "itemd");
+        g.drawImage(image, x - offsetX, y - offsetY, null);
+    }
+
+
 
     public void drawHeroPanel(Graphics g) {
         int outline = Game.maze.getOutlineThickness();
@@ -230,8 +260,6 @@ public class Drawer {
 //        g.setColor(Color.red);
 //        g.setFont(medium);
 //        g.drawString(artefacts, 830, 70);
-
-
     }
 
 }
