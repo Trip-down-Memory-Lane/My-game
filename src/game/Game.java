@@ -73,6 +73,16 @@ public class Game implements Runnable {
         starItemD = new Item(itemX , itemY);
     }
 
+    private int seedRandomPostion() {
+        int positionY = 40;
+        int ROW_OFFSET = 77;
+        int row ;
+        row = 3 + (int)(Math.random() * 6);
+
+        positionY += (ROW_OFFSET * row);
+        return positionY;
+    }
+
 
     private void tick() {    // Represents the actions happening inside the game. In this case :
         collision.checkCollisions();    // Checks sprites and walls for collisions.
