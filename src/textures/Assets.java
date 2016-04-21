@@ -14,7 +14,7 @@ public class Assets {
     public static BufferedImage[] playerUp, playerLeft, playerDown, playerRight;
     public static BufferedImage[] badGuyUp, badGuyLeft, badGuyDown, badGuyRight;
     public static BufferedImage artefact;
-    static BufferedImage heroPortrait, heroSprint;
+    static BufferedImage heroPortrait[], heroSprint;
 
     static SpriteSheet wall;
     static BufferedImage floor, outline, menu, heroPanel, gameOver;
@@ -63,7 +63,63 @@ public class Assets {
         badGuyRight[3] = badGuySheet.crop(badGuyWidth, 2 * badGuyHeight, badGuyWidth, badGuyHeight);
         badGuyUp[3] = badGuySheet.crop(badGuyWidth, 3 * badGuyHeight, badGuyWidth, badGuyHeight);
 
+        SpriteSheet portrait = new SpriteSheet(ImageLoader.loadImage("/heroPortrait.png"));
+        heroPortrait = new BufferedImage[43];
 
+        heroPortrait[0] = portrait.crop(0, 0, 100, 100);
+        heroPortrait[1] = portrait.crop(100, 0, 100, 100);
+        heroPortrait[2] = portrait.crop(200, 0, 100, 100);
+        heroPortrait[3] = portrait.crop(300, 0, 100, 100);
+        heroPortrait[4] = portrait.crop(400, 0, 100, 100);
+        heroPortrait[5] = portrait.crop(500, 0, 100, 100);
+        heroPortrait[6] = portrait.crop(600, 0, 100, 100);
+        heroPortrait[7] = portrait.crop(0,100, 100, 100);
+        heroPortrait[8] = portrait.crop(100,100, 100, 100);
+        heroPortrait[9] = portrait.crop(200,100, 100, 100);
+        heroPortrait[10] = portrait.crop(300,100, 100, 100);
+        heroPortrait[11] = portrait.crop(300,100, 100, 100);
+        heroPortrait[12] = portrait.crop(400,100, 100, 100);
+        heroPortrait[13] = portrait.crop(500,100, 100, 100);
+        heroPortrait[14] = portrait.crop(600,100, 100, 100);
+        heroPortrait[15] = portrait.crop(600,100, 100, 100);
+
+        heroPortrait[16] = portrait.crop(801, 0, 100, 100);
+        heroPortrait[17] = portrait.crop(901, 0, 100, 100);
+        heroPortrait[18] = portrait.crop(1001, 0, 100, 100);
+        heroPortrait[19] = portrait.crop(801, 100, 100, 100);
+        heroPortrait[20] = portrait.crop(901,100, 100, 100);
+        heroPortrait[21] = portrait.crop(1001,100, 100, 100);
+        heroPortrait[22] = portrait.crop(801, 200, 100, 100);
+
+        heroPortrait[23] = portrait.crop(801, 0, 100, 100);
+        heroPortrait[24] = portrait.crop(901, 0, 100, 100);
+        heroPortrait[25] = portrait.crop(1001, 0, 100, 100);
+        heroPortrait[26] = portrait.crop(801, 100, 100, 100);
+        heroPortrait[27] = portrait.crop(901,100, 100, 100);
+        heroPortrait[28] = portrait.crop(1001,100, 100, 100);
+        heroPortrait[29] = portrait.crop(801, 200, 100, 100);
+
+        heroPortrait[30] = portrait.crop(801, 0, 100, 100);
+        heroPortrait[31] = portrait.crop(901, 0, 100, 100);
+        heroPortrait[32] = portrait.crop(1001, 0, 100, 100);
+        heroPortrait[33] = portrait.crop(801, 100, 100, 100);
+        heroPortrait[34] = portrait.crop(901,100, 100, 100);
+        heroPortrait[35] = portrait.crop(1001,100, 100, 100);
+        heroPortrait[36] = portrait.crop(801, 200, 100, 100);
+//        int portW = 100;
+//        int portH = 100;
+//        int indexX = 0;
+//        int indexY = 0;
+//        for (int i = 0; i < 16; i++) {
+//            indexX = i % 7;
+//            if (i > 7) {
+//                indexY = 1;
+//            }
+//            if (i == 10) {
+//                i = 11;
+//            }
+//            heroPortrait[i] = portrait.crop(indexX * portH,indexY * portW, portH, portW);
+//        }
 
         wall = new SpriteSheet(ImageLoader.loadImage("/wall.png"));
 

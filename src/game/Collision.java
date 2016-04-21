@@ -3,7 +3,6 @@
 //######################################################################################################################
 package game;
 
-import game.objects.Item;
 import textures.Assets;
 import game.objects.BadGuy;
 import static game.objects.Hero.*;
@@ -43,33 +42,33 @@ public class Collision {
             Hero.foreground = true;
             Hero.speed = 6;
         }
-        checkItemCollision();
+//        checkItemCollision();
         heroForeground();
         badGuyForeground();
     }
 
-    private void checkItemCollision(){
-        if(itemHitBox.intersects(heroHitBox.getBoundsInLocal())) {
-            itemAIsCatched = true;
-        }
-        if(itemHitBoxB.intersects(heroHitBox.getBoundsInLocal())) {
-            itemBIsCatched = true;
-        }
-        if(itemHitBoxC.intersects(heroHitBox.getBoundsInLocal())) {
-            itemCIsCatched = true;
-        }
-        if(itemHitBoxD.intersects(heroHitBox.getBoundsInLocal())) {
-            itemDIsCatched = true;
-        }
-    }
+//    private void checkItemCollision(){
+//        if(itemHitBox.intersects(heroHitBox.getBoundsInLocal())) {
+//            itemAIsCatched = true;
+//        }
+//        if(itemHitBoxB.intersects(heroHitBox.getBoundsInLocal())) {
+//            itemBIsCatched = true;
+//        }
+//        if(itemHitBoxC.intersects(heroHitBox.getBoundsInLocal())) {
+//            itemCIsCatched = true;
+//        }
+//        if(itemHitBoxD.intersects(heroHitBox.getBoundsInLocal())) {
+//            itemDIsCatched = true;
+//        }
+//    }
 
     private void updateSpritesHitBox() {
         heroHitBox = Game.hero.getHitBox();
         badGuyHitBox = Game.badGuy.getHitBox();
-        itemHitBox = Item.starItem.getHitBox();
-        itemHitBoxB = Item.starItemB.getHitBox();
-        itemHitBoxC = Item.starItemC.getHitBox();
-        itemHitBoxD = Item.starItemD.getHitBox();
+//        itemHitBox = Item.starItem.getHitBox();
+//        itemHitBoxB = Item.starItemB.getHitBox();
+//        itemHitBoxC = Item.starItemC.getHitBox();
+//        itemHitBoxD = Item.starItemD.getHitBox();
     }
 
 

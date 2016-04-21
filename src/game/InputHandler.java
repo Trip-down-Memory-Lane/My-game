@@ -34,16 +34,16 @@ class InputHandler implements KeyListener {
                 break;
             case KeyEvent.VK_E:
                 Game.notPaused = true;
-                BadGuy.speed = 3;
-                break;
-            case KeyEvent.VK_N:
-                Game.notPaused = true;
                 BadGuy.speed = 4;
+                break;
+            case KeyEvent.VK_M:
+                Game.notPaused = true;
+                BadGuy.speed = 5;
                 break;
 
             case KeyEvent.VK_H:
                 Game.notPaused = true;
-                BadGuy.speed = 5;
+                BadGuy.speed = 6;
                 break;
         }
     }

@@ -3,7 +3,6 @@ package textures;
 import game.Game;
 
 import game.objects.Hero;
-import game.objects.Item;
 import game.objects.Maze;
 import javafx.scene.shape.Rectangle;
 
@@ -17,6 +16,9 @@ public class Drawer {
 
     private final int boardX = Game.board.getBoardWidth();
     private final int boardY = Game.board.getBoardHeight();
+    private int frame = 9;
+    private int counter = 9;
+    private int imgIndex = 9;
 
     public Drawer(){
 
@@ -170,53 +172,53 @@ public class Drawer {
 //            g.fillRect(x - 5, y - 5, 10, 10);
 //        }
 //    }
-    public void drawArtefacts(Graphics g, boolean aIsCatched, boolean bIsCatched, boolean cIsCatched, boolean dIsCatched) {
-        if (!aIsCatched)
-            drawArtefact(g, "item");
-        if (!bIsCatched)
-            drawArtefact(g, "itemb");
-        if (!cIsCatched)
-            drawArtefact(g, "itemc");
-        if (!dIsCatched)
-            drawArtefact(g, "itemd");
-    }
-
-    private void drawArtefact(Graphics g, String item) {
-        Image image;
-        int x, y, offsetX, offsetY;
-        switch (item) {
-            case "item":
-                x = Item.starItem.getX();
-                y = Item.starItem.getY();
-                offsetX = Item.starItem.getImageOffsetX();
-                offsetY = Item.starItem.getImageOffsetY();
-                image = Item.starItem.getImage();
-                break;
-            case "itemb":
-                x = Item.starItemB.getX();
-                y = Item.starItemB.getY();
-                offsetX = Item.starItemB.getImageOffsetX();
-                offsetY = Item.starItemB.getImageOffsetY();
-                image = Item.starItemB.getImage();
-                break;
-            case "itemc":
-                x = Item.starItemC.getX();
-                y = Item.starItemC.getY();
-                offsetX = Item.starItemC.getImageOffsetX();
-                offsetY = Item.starItemC.getImageOffsetY();
-                image = Item.starItemC.getImage();
-                break;
-            default:
-                x = Item.starItemD.getX();
-                y = Item.starItemD.getY();
-                offsetX = Item.starItemD.getImageOffsetX();
-                offsetY = Item.starItemD.getImageOffsetY();
-                image = Item.starItemD.getImage();
-                break;
-        }
-
-        g.drawImage(image, offsetX, offsetY, 30, 30, null);
-    }
+//    public void drawArtefacts(Graphics g, boolean aIsCatched, boolean bIsCatched, boolean cIsCatched, boolean dIsCatched) {
+//        if (!aIsCatched)
+//            drawArtefact(g, "item");
+//        if (!bIsCatched)
+//            drawArtefact(g, "itemb");
+//        if (!cIsCatched)
+//            drawArtefact(g, "itemc");
+//        if (!dIsCatched)
+//            drawArtefact(g, "itemd");
+//    }
+//
+//    private void drawArtefact(Graphics g, String item) {
+//        Image image;
+//        int x, y, offsetX, offsetY;
+//        switch (item) {
+//            case "item":
+//                x = Item.starItem.getX();
+//                y = Item.starItem.getY();
+//                offsetX = Item.starItem.getImageOffsetX();
+//                offsetY = Item.starItem.getImageOffsetY();
+//                image = Item.starItem.getImage();
+//                break;
+//            case "itemb":
+//                x = Item.starItemB.getX();
+//                y = Item.starItemB.getY();
+//                offsetX = Item.starItemB.getImageOffsetX();
+//                offsetY = Item.starItemB.getImageOffsetY();
+//                image = Item.starItemB.getImage();
+//                break;
+//            case "itemc":
+//                x = Item.starItemC.getX();
+//                y = Item.starItemC.getY();
+//                offsetX = Item.starItemC.getImageOffsetX();
+//                offsetY = Item.starItemC.getImageOffsetY();
+//                image = Item.starItemC.getImage();
+//                break;
+//            default:
+//                x = Item.starItemD.getX();
+//                y = Item.starItemD.getY();
+//                offsetX = Item.starItemD.getImageOffsetX();
+//                offsetY = Item.starItemD.getImageOffsetY();
+//                image = Item.starItemD.getImage();
+//                break;
+//        }
+//
+//        g.drawImage(image, offsetX, offsetY, 30, 30, null);
+//    }
 
     public void drawWin(Graphics g) {
         String message = "You win!";
@@ -243,9 +245,17 @@ public class Drawer {
 //        g.fillRoundRect(735, outline / 2, 155, 80, 10, 10);
 //        g.setColor(Color.gray);
 //        g.fillRoundRect(740, outline / 2 + outline / 4, 80, 70, 10, 10);
+        if (frame == 7) {
+            counter++;
+            frame = 0;
+        }
+        imgIndex = counter % 36;
         g.drawImage(Assets.outline.getSubimage(800, 0, 80, 70), 740, outline / 2 + outline / 4, null);
-        g.drawImage(Assets.heroPortrait, 749, outline / 2 + outline / 4 + 3, 60, 60, null);
-
+        g.drawImage(Assets.heroPortrait[imgIndex], 730, -5, 100, 100, null);
+        frame++;
+        if (frame > 7) {
+            frame = 7;
+        }
 
 //        g.setColor(Color.black);
 //        g.fillRoundRect(825, outline / 2, 145, 45, 10, 10);

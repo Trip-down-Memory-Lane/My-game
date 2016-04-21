@@ -24,7 +24,6 @@ public class Game implements Runnable {
 
     static boolean notPaused = false;
 
-    private Item item;
     private BufferStrategy buffer;
     private InputHandler inputHandler;
     private Assets assets;
@@ -35,7 +34,7 @@ public class Game implements Runnable {
     private String name;
     private int BOARD_X;
     private int BOARD_Y;
-    private boolean catchThemAll = false;
+    private boolean escaped = false;
 
     Game(String name, int width, int height) {
         this.name = name;
@@ -47,7 +46,6 @@ public class Game implements Runnable {
         board = new Board(name, BOARD_X, BOARD_Y);
         assets = new Assets();
         maze = new Maze(BOARD_X, BOARD_Y);
-        item = new Item(5, 5);
         collision = new Collision();
         hero = new Hero(60, 40);
         badGuy = new BadGuy(680, 720);
@@ -58,8 +56,11 @@ public class Game implements Runnable {
     private void tick() {    // Represents the actions happening inside the game. In this case :
         collision.checkCollisions();    // Checks sprites and walls for collisions.
         hero.move();    // Gets the next coordinates for Hero.
-        if(collision.itemAIsCatched && collision.itemBIsCatched && collision.itemCIsCatched && collision.itemDIsCatched)
-            catchThemAll = true;
+//        if(collision.itemAIsCatched && collision.itemBIsCatched && collision.itemCIsCatched && collision.itemDIsCatched)
+//            catchThemAll = true;
+        if (hero.getX() > 650 && hero.getY() > 730) {
+            escaped = true;
+        }
         badGuy.followHero(hero.getX(), hero.getY());    // Same for BadGuy
     }
 
@@ -94,7 +95,7 @@ public class Game implements Runnable {
                 drawer.drawMaze(g);
                 drawer.drawBadGuy(g);
             }
-            drawer.drawArtefacts(g, collision.itemAIsCatched, collision.itemBIsCatched, collision.itemCIsCatched, collision.itemDIsCatched);
+//            drawer.drawArtefacts(g, collision.itemAIsCatched, collision.itemBIsCatched, collision.itemCIsCatched, collision.itemDIsCatched);
             drawer.drawOutline(g);
             drawer.drawHeroPanel(g);
         } else {
@@ -107,7 +108,7 @@ public class Game implements Runnable {
             buffer.show();
             stop();    // Calls for stopping of the game process.
         }
-        if(catchThemAll) {
+        if(escaped) {
             drawer.drawWin(g); // draw WIN
             buffer.show();
             stop();    // Calls for stopping of the game process.
