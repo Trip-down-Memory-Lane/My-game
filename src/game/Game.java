@@ -122,7 +122,7 @@ public class Game implements Runnable {
                 drawer.drawMaze(g);
                 drawer.drawBadGuy(g);
             }
-            drawer.drawArtefacts(g, );
+            drawer.drawArtefacts(g, collision.itemAIsCatched, collision.itemBIsCatched, collision.itemCIsCatched, collision.itemDIsCatched);
             drawer.drawOutline(g);
             drawer.drawHeroPanel(g);
         } else {
