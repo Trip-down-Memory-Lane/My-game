@@ -4,13 +4,11 @@
 //######################################################################################################################
 package game;
 
-import game.objects.Maze;
+import game.objects.*;
 import textures.Assets;
 import textures.Drawer;
 
 import frame.Board;
-import game.objects.BadGuy;
-import game.objects.Hero;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -22,6 +20,9 @@ public class Game implements Runnable {
     public static Board board;
     public static Maze maze;
     public static Collision collision;
+//    public static Artefact artefact;
+
+    static boolean notPaused = false;
 
     private BufferStrategy buffer;
     private InputHandler inputHandler;
@@ -33,6 +34,7 @@ public class Game implements Runnable {
     private String name;
     private int BOARD_X;
     private int BOARD_Y;
+    private boolean escaped = false;
 
     Game(String name, int width, int height) {
         this.name = name;
@@ -42,20 +44,24 @@ public class Game implements Runnable {
 
     private void init() {
         board = new Board(name, BOARD_X, BOARD_Y);
-        inputHandler = new InputHandler(board);
         assets = new Assets();
         maze = new Maze(BOARD_X, BOARD_Y);
-        hero = new Hero(20, 20);
-        badGuy = new BadGuy(850, 550);
         collision = new Collision();
+        hero = new Hero(60, 40);
+        badGuy = new BadGuy(680, 720);
         drawer = new Drawer();
+        inputHandler = new InputHandler(board);
     }
 
     private void tick() {    // Represents the actions happening inside the game. In this case :
         collision.checkCollisions();    // Checks sprites and walls for collisions.
         hero.move();    // Gets the next coordinates for Hero.
+//        if(collision.itemAIsCatched && collision.itemBIsCatched && collision.itemCIsCatched && collision.itemDIsCatched)
+//            catchThemAll = true;
+        if (hero.getX() > 650 && hero.getY() > 730) {
+            escaped = true;
+        }
         badGuy.followHero(hero.getX(), hero.getY());    // Same for BadGuy
-
     }
 
     private void render() {    // Here we render the graphics
@@ -67,14 +73,43 @@ public class Game implements Runnable {
         }
         g = buffer.getDrawGraphics();    // Exactly as it says - get graphics from buffer.
 
-        // Re-drawing canvas each time.
-        drawer.clearCanvas(g);   // Clears the canvas from the objects drawn on the previous render()
-        drawer.drawOutline(g);
-        drawer.drawMaze(g);
-        drawer.drawSprites(g);
+        if (notPaused) {
+            // Re-drawing canvas each time.
+            drawer.clearCanvas(g);   // Clears the canvas from the objects drawn on the previous render()
+            drawer.drawFloor(g);
+
+            if (Hero.foreground && BadGuy.foreground) {
+                drawer.drawMaze(g);
+                drawer.drawBadGuy(g);
+                drawer.drawHero(g);
+            } else if (!Hero.foreground && !BadGuy.foreground){
+                drawer.drawBadGuy(g);
+                drawer.drawHero(g);
+                drawer.drawMaze(g);
+            } else if (Hero.foreground && !BadGuy.foreground) {
+                drawer.drawBadGuy(g);
+                drawer.drawMaze(g);
+                drawer.drawHero(g);
+            } else {
+                drawer.drawHero(g);
+                drawer.drawMaze(g);
+                drawer.drawBadGuy(g);
+            }
+//            drawer.drawArtefacts(g, collision.itemAIsCatched, collision.itemBIsCatched, collision.itemCIsCatched, collision.itemDIsCatched);
+            drawer.drawOutline(g);
+            drawer.drawHeroPanel(g);
+        } else {
+            drawer.drawMenu(g);
+
+        }
 
         if (collision.badGuyCollision) {    // End-game condition.
             drawer.drawGameOver(g);
+            buffer.show();
+            stop();    // Calls for stopping of the game process.
+        }
+        if(escaped) {
+            drawer.drawWin(g); // draw WIN
             buffer.show();
             stop();    // Calls for stopping of the game process.
         }
@@ -104,8 +139,12 @@ public class Game implements Runnable {
             lastTime = now;
 
             if (delta >= 1) { // 'delta' makes sure we tick at the given FPS (frames per second)
-                tick();
-                render();
+                if (notPaused) {
+                    tick();
+                    render();
+                } else {
+                    render();
+                }
                 ticks++;
                 delta--; // Reset delta.
             }

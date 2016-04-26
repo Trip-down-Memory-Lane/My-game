@@ -6,10 +6,11 @@ package frame;
 import java.awt.*;
 import javax.swing.*;
 
-
 public class Board extends Canvas {
 
-    private JFrame frame;
+    public static int canvasX;
+    public static int canvasY;
+
     private Canvas canvas;
     private String name;
     private int width, height;
@@ -18,20 +19,23 @@ public class Board extends Canvas {
         this.name = name;
         this.width = width;
         this.height = height;
-
+        canvasX = width;
+        canvasY = height;
         createBoard();
     }
 
     private void createBoard() {
-        frame = new JFrame(this.name);    // initializes frame and its settings - window
-        frame.setPreferredSize(new Dimension(width, height));
-        frame.setMinimumSize(new Dimension(width, height));
-        frame.setMaximumSize(new Dimension(width, height));
+
+        JFrame frame = new JFrame(this.name);
+//        frame.setPreferredSize(new Dimension(width, height));
+//        frame.setMinimumSize(new Dimension(width, height));
+//        frame.setMaximumSize(new Dimension(width, height));
+        frame.setSize(width, height);
         frame.setFocusable(true);
         frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-	    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
 
         canvas = new Canvas();    // Initializes Canvas, the space we will draw our game.
         canvas.setPreferredSize(new Dimension(width, height));

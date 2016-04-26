@@ -4,6 +4,7 @@
 package game;
 
 import frame.Board;
+import game.objects.BadGuy;
 import game.objects.Hero;
 
 import java.awt.event.KeyEvent;
@@ -24,7 +25,26 @@ class InputHandler implements KeyListener {
             case KeyEvent.VK_LEFT: Hero.goingLeft = true; break;
             case KeyEvent.VK_DOWN: Hero.goingDown = true; break;
             case KeyEvent.VK_RIGHT: Hero.goingRight = true; break;
-            case KeyEvent.VK_ESCAPE: System.exit(0);
+            case KeyEvent.VK_ESCAPE: Game.notPaused = !Game.notPaused; break;
+            case KeyEvent.VK_C: Hero.cheating = !Hero.cheating; break;
+            case KeyEvent.VK_S:
+                if (Hero.sprintCoolDown == 0) {
+                    Hero.sprintAttempt = true;
+                }
+                break;
+            case KeyEvent.VK_E:
+                Game.notPaused = true;
+                BadGuy.speed = 4;
+                break;
+            case KeyEvent.VK_M:
+                Game.notPaused = true;
+                BadGuy.speed = 5;
+                break;
+
+            case KeyEvent.VK_H:
+                Game.notPaused = true;
+                BadGuy.speed = 6;
+                break;
         }
     }
 

@@ -4,6 +4,8 @@
 //######################################################################################################################
 package game.objects;
 
+import frame.Board;
+
 import javafx.scene.shape.Rectangle;
 import lib.Library;
 
@@ -12,72 +14,205 @@ import java.util.List;
 
 public class Maze {
 
-    List<Rectangle> walls;    // Store maze walls
-    List<Rectangle> outline;    //Store outline walls.
-    private int boardX;
-    private int boardY;
-    private int amountRollsWithWalls;    // !!NOT ACTUAL WALL AMOUNT!! Stores amount of rolls with walls. It is like that, because of the nature of 'createMaze()' algorithm.
-    private int wallThickness;
-    private int doorsX;    // Length of the passages between walls
-    private int margin;    // None-maze space at the top of the frame.
+    private List<Rectangle[]> walls;    // Store maze walls
+    private List<Rectangle> outline;    //Store outline walls.
+    private int mazeX;
+    private int mazeY;
+    private static int wallMaxLength = 300;
+    private static int outlineThickness = 20;
+
+    public static int mazeMargin;
+    static int wallMinLength = 150;
+    static final int doorMaxLength = 100;    // Length of the passages between walls
 
     public Maze(int x, int y) {
-        this.boardX = x;
-        this.boardY = y;
+
+        mazeX = x - 2 * outlineThickness;
+        mazeY = y - 2 * outlineThickness;
         initMaze();
     }
 
     private void initMaze() {
+
         walls = new ArrayList<>();
         outline = new ArrayList<>();
         createMaze();
         createOutline();
     }
 
-    private void createMaze() {    // Create maze. Pretty basic, it need some work, but will do for now.
-        margin = 80;
-        wallThickness = 10;
-        doorsX = 100;
-        amountRollsWithWalls = 5;
-//        amountRollsWithWalls = Library.randomInt(5, 7);
+    private void createMaze() {    // Creates maze
+        mazeMargin = 70;
+        int wallThickness = 20;
+        int mazeHeight = mazeY - mazeMargin;
+        int interval = (mazeHeight - 80) / 6;
+        int rowMargin = outlineThickness - 3;
 
-        int wallLengthStopper = 0;
-        int startX = 0;
-        int startY = margin;
-        int mazeHeight = boardY - 2 * margin;
-        int wallXLength = 0;
-        int wallMinLength = 100;
-        int wallMaxLength = 300;
-        int interval = mazeHeight / amountRollsWithWalls;
+        int rowStartX;
+        int rowStartY = interval + mazeMargin;
+        int wallLength;
+        int randomWallToIncrease = Library.randomPick(1, 2, 3);
 
-        for (int rowWalls = 0; rowWalls < amountRollsWithWalls; rowWalls++) {
-            while (startX < boardX) {   // ensures each roll has X length of Frame X length.
-                if (wallMaxLength - startX == wallMinLength) {   // Minimizes appearance of too small passages at the right frame outline.
-                    walls.add(new Rectangle(startX, startY, wallMinLength, wallThickness));
-                } else {
-                    wallXLength = Library.randomInt(wallMinLength, wallMaxLength); // creates a wall with random length.
-                    walls.add(new Rectangle(startX, startY, wallXLength, wallThickness));
+        for (int rowWithWalls = 0; rowWithWalls < 5; rowWithWalls++) {
+
+            int mazeEntranceWall = (mazeX - 100) / 2 + 3;
+            int mazeEntranceWallX = mazeX / 2 + doorMaxLength / 2 + rowMargin;
+            if (rowWithWalls == 0) {
+                addWallHitBoxes(rowMargin, mazeMargin, mazeEntranceWall, wallThickness);
+                addWallHitBoxes(mazeEntranceWallX, 0, mazeEntranceWall, wallThickness + mazeMargin);
+            } else if (rowWithWalls == 4) {
+                addWallHitBoxes(rowMargin, mazeHeight + mazeMargin, mazeEntranceWall, wallThickness);
+                addWallHitBoxes(mazeEntranceWallX, mazeHeight + mazeMargin, mazeEntranceWall, wallThickness);
+            } else {
+
+                rowStartX = Library.randomPick(0, 50, 100) + rowMargin;
+                int secondRowStartX, secondRowStartY, secondRowWallLength;
+                switch (rowStartX) {
+                    case 10:
+                        secondRowStartX = Library.randomPick(50, 100) + rowMargin;
+                        break;
+                    case 60:
+                        secondRowStartX = Library.randomPick(0, 100) + rowMargin;
+                        break;
+                    default:
+                        secondRowStartX = Library.randomPick(0, 50) + rowMargin;
+                        break;
                 }
-                startX += wallXLength + doorsX;    // staring point for next wall = wall + passage;
-//                wallLengthStopper = startX / 100;
+                int rowLength = rowStartX;
+                int secondRowLength = secondRowStartX;
+                int previousWallLength = 0;
+
+                while (rowLength < mazeX) {   // ensures each roll has X length of Frame X length.
+                    wallLength = Library.randomIntBetween(wallMinLength, wallMaxLength); // creates a wall with random length.
+                    int rowEndDoor = Library.randomPick(50, 100);
+                    if (randomWallToIncrease == rowWithWalls) {
+                        wallLength = 400;
+                    } else if (rowLength + wallLength > mazeX - rowEndDoor) {
+                        wallLength = mazeX - rowLength - rowEndDoor;
+                    } else if (mazeX - (rowLength + wallLength) < wallMinLength + doorMaxLength) {
+                        wallLength = mazeX - (rowLength) - rowEndDoor;
+                    }
+                    wallLength += 3;
+
+                    addWallHitBoxes(rowLength, rowStartY, wallLength, wallThickness);
+
+                    secondRowStartY = rowStartY + interval;
+                    secondRowWallLength = rowStartX + wallLength + doorMaxLength;
+                    if (Math.abs(previousWallLength - secondRowWallLength) < doorMaxLength) {
+                        secondRowWallLength = wallMaxLength;
+                    }
+                    secondRowWallLength += 3;
+
+                    addWallHitBoxes(secondRowLength, secondRowStartY, secondRowWallLength, wallThickness);
+
+                    rowLength += wallLength + doorMaxLength;    // staring point for next wall = wall + passage;
+                    secondRowLength += secondRowWallLength + doorMaxLength;
+
+                    wallMinLength += Library.randomPick(50, 75);
+                    wallMaxLength += Library.randomPick(50, -50);
+                    previousWallLength = secondRowWallLength;
+                }
+                wallMinLength = 150;
+                wallMaxLength = 300;
+                rowStartY += interval * 2;  // Start point for next roll of walls at constant interval interval.
             }
-            startX = 0;
-            startY += interval;  // Start point for next roll of walls at constant interval interval.
         }
     }
 
-    private void createOutline() {  // Create outline walls.
-        outline.add(new Rectangle(0, 0, boardX, wallThickness));
-        outline.add(new Rectangle(890, 0, wallThickness, boardY));
-        outline.add(new Rectangle(0, 590, boardX, wallThickness));
-        outline.add(new Rectangle(0, 0, wallThickness, boardY));
+    private void addWallHitBoxes(int x, int y, int width, int height) {
+
+        Rectangle[] wall = new Rectangle[2];
+        wall[0] = new Rectangle(x, y, width, height);
+        wall[1] = new Rectangle(x - 20, y - 15, width + 30, height + 35);
+        walls.add(wall);
     }
 
-    public List<Rectangle> getWallsCoordinates() {
+    private void createOutline() {  // Create outline walls.
+        outline.add(new Rectangle(0, 0, 740, outlineThickness));
+        outline.add(new Rectangle(740, 0, Board.canvasX - 740, 90));
+        outline.add(new Rectangle(Board.canvasX - outlineThickness, 0, outlineThickness, Board.canvasY));
+        outline.add(new Rectangle(outlineThickness, Board.canvasY - outlineThickness, Board.canvasX, outlineThickness));
+        outline.add(new Rectangle(0, 0, outlineThickness, Board.canvasY));
+    }
+
+    public List<Rectangle[]> getWallsCoordinates() {
         return walls;
     }
 
     public List<Rectangle> getOutlineCoordinates() {
         return outline;
     }
+
+    public int getOutlineThickness() {
+        return outlineThickness;
+    }
+
+    public int getMazeMargin() {
+        return mazeMargin;
+    }
+
+    int getMazeWidth() {
+        return mazeX;
+    }
 }
+
+
+//        for (int rowWithWalls = 0; rowWithWalls < 5; rowWithWalls++) {
+//
+//            int mazeEntranceWall = (mazeX - 100) / 2 + 3;
+//            int mazeEntranceWallX = mazeX / 2 + doorMaxLength / 2 + rowMargin;
+//            if (rowWithWalls == 0) {
+////                walls.add(new Rectangle(rowMargin, mazeMargin, mazeEntranceWall, wallThickness));
+//                walls.add(new Rectangle(mazeEntranceWallX, 0, mazeEntranceWall, wallThickness + mazeMargin));
+//            } else if (rowWithWalls == 4) {
+//                walls.add(new Rectangle(rowMargin, mazeHeight + mazeMargin, mazeEntranceWall, wallThickness));
+//                walls.add(new Rectangle(mazeEntranceWallX, mazeHeight + mazeMargin, mazeEntranceWall, wallThickness));
+//            } else {
+//
+//                rowStartX = Library.randomPick(0, 50, 100) + rowMargin;
+//                int secondRowStartX, secondRowStartY, secondRowWallLength;
+//                switch (rowStartX) {
+//                    case 10: secondRowStartX = Library.randomPick(50, 100) + rowMargin; break;
+//                    case 60: secondRowStartX = Library.randomPick(0, 100) + rowMargin; break;
+//                    default: secondRowStartX = Library.randomPick(0, 50) + rowMargin; break;
+//                }
+//                int rowLength = rowStartX;
+//                int secondRowLength = secondRowStartX;
+//                int previousWallLength = 0;
+//
+//                while (rowLength < mazeX) {   // ensures each roll has X length of Frame X length.
+//                    wallLength = Library.randomIntBetween(wallMinLength, wallMaxLength); // creates a wall with random length.
+//                    int rowEndDoor = Library.randomPick(50, 100);
+//                    if (randomWallToIncrease == rowWithWalls) {
+//                        wallLength = 400;
+//                    } else if (rowLength + wallLength > mazeX - rowEndDoor) {
+//                        wallLength = mazeX - rowLength - rowEndDoor;
+//                    } else if (mazeX - (rowLength + wallLength) < wallMinLength + doorMaxLength) {
+//                        wallLength = mazeX - (rowLength) - rowEndDoor;
+//                    }
+//                    wallLength += 3;
+//
+//                    walls.add(new Rectangle(rowLength, rowStartY, wallLength, wallThickness));
+//
+//                    secondRowStartY = rowStartY + interval;
+//                    secondRowWallLength = rowStartX + wallLength + doorMaxLength;
+//                    if (Math.abs(previousWallLength - secondRowWallLength) < doorMaxLength) {
+//                        secondRowWallLength = wallMaxLength;
+//                    }
+//                    secondRowWallLength += 3;
+//
+//                    walls.add(new Rectangle(secondRowLength, secondRowStartY, secondRowWallLength, wallThickness));
+//
+//                    rowLength += wallLength + doorMaxLength;    // staring point for next wall = wall + passage;
+//                    secondRowLength += secondRowWallLength + doorMaxLength;
+//
+//                    wallMinLength += Library.randomPick(50, 75);
+//                    wallMaxLength += Library.randomPick(50, -50);
+//                    previousWallLength = secondRowWallLength;
+//                }
+//                wallMinLength = 150;
+//                wallMaxLength = 300;
+//                rowStartY += interval * 2;  // Start point for next roll of walls at constant interval interval.
+//            }
+//        }
+//    }
+//       20, 10, 10, 15
